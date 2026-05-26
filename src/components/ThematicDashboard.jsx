@@ -474,15 +474,12 @@ export function ThematicDashboard({ themes }) {
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 id="themes-title" className="text-xl font-extrabold text-brand-navy">
-            Painéis por temática
+            Painéis temáticos
           </h2>
           <p className="text-sm font-medium text-brand-gray">
-            Escolha uma área e compare quatro leituras gerenciais no mesmo padrão visual.
+            Escolha uma área para visualizar.
           </p>
         </div>
-        <span className="w-fit rounded border border-[#FCD418] bg-[#FCD418] px-3 py-1 text-xs font-extrabold text-[#000086]">
-          azul predominante, paleta institucional
-        </span>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
