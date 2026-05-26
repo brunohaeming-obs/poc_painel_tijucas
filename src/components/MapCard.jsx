@@ -1,5 +1,5 @@
 import { LocateFixed, Maximize2, Minus, Plus } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import brazilGeojsonRaw from "../data/ibgeBrasilEstados.geojson?raw";
 import scGeojsonRaw from "../data/ibgeSantaCatarinaMunicipios.geojson?raw";
 
@@ -123,6 +123,25 @@ function boundsToViewBox(boundsToUse, extraPadding) {
   return `${x.toFixed(2)} ${y.toFixed(2)} ${width.toFixed(2)} ${height.toFixed(2)}`;
 }
 
+function parseViewBox(viewBox) {
+  return viewBox.split(" ").map(Number);
+}
+
+function viewBoxToString([x, y, width, height]) {
+  return `${x.toFixed(2)} ${y.toFixed(2)} ${width.toFixed(2)} ${height.toFixed(2)}`;
+}
+
+function clampViewBox([x, y, width, height]) {
+  const minWidth = 18;
+  const maxWidth = mapWidth;
+  const nextWidth = Math.min(maxWidth, Math.max(minWidth, width));
+  const nextHeight = nextWidth * (mapHeight / mapWidth);
+  const nextX = Math.min(mapWidth - nextWidth, Math.max(0, x));
+  const nextY = Math.min(mapHeight - nextHeight, Math.max(0, y));
+
+  return [nextX, nextY, nextWidth, nextHeight];
+}
+
 function labelPosition(feature) {
   const ring = getRings(feature.geometry)[0] ?? [];
   const projected = ring.map(project);
@@ -179,6 +198,8 @@ function stateStyle(code) {
 
 export function MapCard() {
   const [mapMode, setMapMode] = useState("tijucas");
+  const [manualViewBox, setManualViewBox] = useState(null);
+  const svgRef = useRef(null);
   const tijucasFeature = scGeojson.features.find(
     (feature) => feature.properties.codarea === tijucasCode,
   );
@@ -197,11 +218,34 @@ export function MapCard() {
   const santaCatarinaViewBox = boundsToViewBox(scBounds, 26);
   const tijucasViewBox = boundsToViewBox(tijucasRegionBounds, 22);
   const currentViewBox =
-    mapMode === "brasil"
+    manualViewBox ??
+    (mapMode === "brasil"
       ? brazilViewBox
       : mapMode === "sc"
         ? santaCatarinaViewBox
-        : tijucasViewBox;
+        : tijucasViewBox);
+
+  function setMode(mode) {
+    setManualViewBox(null);
+    setMapMode(mode);
+  }
+
+  function handleWheel(event) {
+    event.preventDefault();
+    if (!svgRef.current) return;
+
+    const rect = svgRef.current.getBoundingClientRect();
+    const [x, y, width, height] = parseViewBox(currentViewBox);
+    const pointerX = x + ((event.clientX - rect.left) / rect.width) * width;
+    const pointerY = y + ((event.clientY - rect.top) / rect.height) * height;
+    const zoomFactor = event.deltaY > 0 ? 1.18 : 0.84;
+    const nextWidth = width * zoomFactor;
+    const nextHeight = height * zoomFactor;
+    const nextX = pointerX - ((pointerX - x) / width) * nextWidth;
+    const nextY = pointerY - ((pointerY - y) / height) * nextHeight;
+
+    setManualViewBox(viewBoxToString(clampViewBox([nextX, nextY, nextWidth, nextHeight])));
+  }
 
   return (
     <article className="card flex min-h-[520px] flex-col overflow-hidden">
@@ -227,7 +271,7 @@ export function MapCard() {
             className="grid h-9 w-9 place-items-center text-brand-navy transition hover:bg-brand-chip"
             type="button"
             aria-label="Aproximar Tijucas"
-            onClick={() => setMapMode("tijucas")}
+            onClick={() => setMode("tijucas")}
           >
             <Plus size={17} />
           </button>
@@ -235,7 +279,7 @@ export function MapCard() {
             className="grid h-9 w-9 place-items-center border-t border-brand-border text-brand-navy transition hover:bg-brand-chip"
             type="button"
             aria-label="Ver Santa Catarina"
-            onClick={() => setMapMode("sc")}
+            onClick={() => setMode("sc")}
           >
             <Minus size={17} />
           </button>
@@ -243,18 +287,23 @@ export function MapCard() {
             className="grid h-9 w-9 place-items-center border-t border-brand-border text-brand-navy transition hover:bg-brand-chip"
             type="button"
             aria-label="Ver Brasil"
-            onClick={() => setMapMode("brasil")}
+            onClick={() => setMode("brasil")}
           >
             <Maximize2 size={16} />
           </button>
         </div>
 
-        <svg
-          className="relative h-full max-h-[410px] min-h-[340px] w-full max-w-[820px] rounded-xl bg-white/85 shadow-soft"
-          viewBox={currentViewBox}
-          role="img"
-          aria-label="Mapa do Brasil com zoom inicial em Tijucas, Santa Catarina"
+        <div
+          className="relative h-full max-h-[410px] min-h-[340px] w-full max-w-[820px]"
+          onWheel={handleWheel}
         >
+          <svg
+            ref={svgRef}
+            className="h-full w-full rounded-xl bg-white/85 shadow-soft"
+            viewBox={currentViewBox}
+            role="img"
+            aria-label="Mapa do Brasil com zoom inicial em Tijucas, Santa Catarina"
+          >
           <g>
             {brazilGeojson.features.map((feature) => {
               const code = feature.properties.codarea;
@@ -297,6 +346,7 @@ export function MapCard() {
               cy={tijucasPosition.y}
               r={mapMode === "brasil" ? 4.8 : mapMode === "sc" ? 2.4 : 1.2}
               fill="#F2A116"
+              fillOpacity="0.15"
               stroke="#FFFFFF"
               strokeWidth="2"
               vectorEffect="non-scaling-stroke"
@@ -313,7 +363,8 @@ export function MapCard() {
               </text>
             ) : null}
           </g>
-        </svg>
+          </svg>
+        </div>
 
         <div className="absolute bottom-5 right-5 z-10 rounded-xl border border-brand-border bg-white/95 px-4 py-3 text-xs font-bold text-brand-gray shadow-soft">
           Fonte: IBGE - Malhas Geográficas
@@ -339,7 +390,7 @@ export function MapCard() {
           <button
             className="inline-flex items-center gap-2 rounded-lg border border-brand-border bg-white px-4 py-3 text-sm font-bold text-brand-navy transition hover:bg-brand-chip"
             type="button"
-            onClick={() => setMapMode("tijucas")}
+            onClick={() => setMode("tijucas")}
           >
             <LocateFixed size={16} />
             Tijucas
@@ -347,7 +398,7 @@ export function MapCard() {
           <button
             className="rounded-lg bg-brand-blue px-4 py-3 text-sm font-bold text-white transition hover:bg-brand-navy"
             type="button"
-            onClick={() => setMapMode(mapMode === "brasil" ? "tijucas" : "brasil")}
+            onClick={() => setMode(mapMode === "brasil" ? "tijucas" : "brasil")}
           >
             {mapMode === "brasil" ? "Voltar para Tijucas" : "Ver Brasil"}
           </button>

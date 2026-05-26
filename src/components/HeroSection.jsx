@@ -7,16 +7,19 @@ export function HeroSection() {
       className="relative overflow-hidden rounded-card bg-brand-navy px-6 py-10 text-white shadow-soft md:px-10 md:py-12"
     >
       <img
-        src="/assets/dinossauro.jfif"
+        src="/assets/foto-bairro-tijucas.jpg"
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover opacity-[0.70]"
+        className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(46,125,79,0.22),transparent_28%),linear-gradient(135deg,rgba(0,59,115,0.46)_0%,rgba(0,94,168,0.36)_58%,rgba(46,125,79,0.32)_100%)]" />
-      <div className="absolute right-6 top-7 hidden h-44 w-80 rounded-[38px] border border-white/15 bg-white/10 md:block" />
-      <div className="absolute bottom-0 right-12 hidden h-24 w-64 rounded-t-[32px] border border-white/15 bg-white/10 lg:block" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0.42)_52%,rgba(255,255,255,0.88)_100%)]" />
+      <img
+        src="/assets/logo-turismo-tijucas-2.png"
+        alt="Turismo Tijucas"
+        className="absolute right-8 top-1/2 hidden max-h-60 w-[min(36vw,440px)] -translate-y-1/2 object-contain drop-shadow-[0_18px_34px_rgba(0,0,0,0.30)] lg:block"
+      />
 
-      <div className="relative max-w-3xl">
+      <div className="relative max-w-3xl lg:max-w-[58%]">
         <span className="inline-flex rounded-full bg-white/15 px-4 py-2 text-sm font-semibold">
           Observatório municipal
         </span>
