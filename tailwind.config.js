@@ -5,10 +5,11 @@ export default {
     extend: {
       colors: {
         brand: {
-          navy: "#003B73",
-          blue: "#005EA8",
-          green: "#2E7D4F",
-          yellow: "#F2A900",
+          navy: "#000086",
+          blue: "#007FFE",
+          green: "#71B434",
+          yellow: "#FCD418",
+          orange: "#F2A116",
           gray: "#6B7280",
           page: "#F5F7FA",
           border: "#DDE3EA",
