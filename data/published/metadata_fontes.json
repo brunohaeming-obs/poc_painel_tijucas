@@ -1,0 +1,15 @@
+{
+  "atualizadoEm": "2026-05-28",
+  "metadata": {
+    "bolsaFamiliaData": "2026-05-01",
+    "datasusData": "2026-03-01",
+    "mteInicio": "2023-07-01",
+    "mteFim": "2026-03-01"
+  },
+  "fontes": {
+    "bolsaFamilia": "data/processed/bolsa_familia_sc_mensal_colunas_separadas.csv",
+    "datasus": "data/processed/datasus_procedimentos_tijucas_sc_mensal.csv",
+    "mteCaged": "data/processed/mte_saldo_tijucas_sc_mensal.csv",
+    "scatterMunicipios": "data/processed/painel_scatter_municipios_sc.csv"
+  }
+}

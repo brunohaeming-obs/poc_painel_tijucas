@@ -1,0 +1,56 @@
+fontes:
+  bolsa_familia:
+    nome: Bolsa Familia
+    orgao: Ministerio do Desenvolvimento e Assistencia Social
+    granularidade: municipio_mes
+    caminho_raw: data/raw/MIN.CIDADANIA - BOLSA FAMILIA SC (mensal).csv
+    caminho_processed: data/processed/bolsa_familia_sc_mensal_colunas_separadas.csv
+    ultima_competencia_local: 2026-05-01
+
+  datasus_ambulatorial:
+    nome: Producao Ambulatorial do SUS
+    orgao: DataSUS/TabNet
+    granularidade: municipio_gestor_mes
+    caminho_raw: data/raw/datasus - procedimento ambulatoriais sc long.csv
+    caminho_processed: data/processed/datasus_procedimentos_tijucas_sc_mensal.csv
+    ultima_competencia_local: 2026-03-01
+
+  mte_caged:
+    nome: Novo CAGED
+    orgao: Ministerio do Trabalho e Emprego
+    granularidade: municipio_mes_setor
+    caminho_raw: data/raw/mte - saldo sc.xlsx
+    caminho_processed: data/processed/mte_saldo_tijucas_sc_mensal.csv
+    ultima_competencia_local: 2026-03-01
+
+  tesouro_fpm:
+    nome: Transferencias constitucionais - FPM
+    orgao: Tesouro Nacional
+    granularidade: municipio_mes
+    caminho_raw: data/raw/
+    caminho_processed: data/processed/
+    status: previsto
+
+  comexstat:
+    nome: Comex Stat
+    orgao: Ministerio do Desenvolvimento, Industria, Comercio e Servicos
+    granularidade: municipio_mes
+    caminho_raw: data/raw/
+    caminho_processed: data/processed/
+    status: previsto
+
+  pncp:
+    nome: Portal Nacional de Contratacoes Publicas
+    orgao: Governo Federal
+    granularidade: contrato_compra
+    caminho_raw: data/raw/
+    caminho_processed: data/processed/
+    status: previsto
+
+  aneel_gd:
+    nome: Geracao distribuida
+    orgao: ANEEL
+    granularidade: municipio
+    caminho_raw: data/raw/
+    caminho_processed: data/processed/
+    status: previsto

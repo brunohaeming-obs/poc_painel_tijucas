@@ -1,0 +1,746 @@
+{
+  "employmentMonthly": [
+    {
+      "data": "2024-04-01",
+      "periodo": "abr/24",
+      "saldoSc": 13921,
+      "saldoTijucas": 251
+    },
+    {
+      "data": "2024-05-01",
+      "periodo": "mai/24",
+      "saldoSc": 4935,
+      "saldoTijucas": 223
+    },
+    {
+      "data": "2024-06-01",
+      "periodo": "jun/24",
+      "saldoSc": 10659,
+      "saldoTijucas": 135
+    },
+    {
+      "data": "2024-07-01",
+      "periodo": "jul/24",
+      "saldoSc": 12464,
+      "saldoTijucas": 183
+    },
+    {
+      "data": "2024-08-01",
+      "periodo": "ago/24",
+      "saldoSc": 8342,
+      "saldoTijucas": 77
+    },
+    {
+      "data": "2024-09-01",
+      "periodo": "set/24",
+      "saldoSc": 13473,
+      "saldoTijucas": 18
+    },
+    {
+      "data": "2024-10-01",
+      "periodo": "out/24",
+      "saldoSc": 10223,
+      "saldoTijucas": 77
+    },
+    {
+      "data": "2024-11-01",
+      "periodo": "nov/24",
+      "saldoSc": 8935,
+      "saldoTijucas": -52
+    },
+    {
+      "data": "2024-12-01",
+      "periodo": "dez/24",
+      "saldoSc": -43301,
+      "saldoTijucas": -369
+    },
+    {
+      "data": "2025-01-01",
+      "periodo": "jan/25",
+      "saldoSc": 23784,
+      "saldoTijucas": 201
+    },
+    {
+      "data": "2025-02-01",
+      "periodo": "fev/25",
+      "saldoSc": 30528,
+      "saldoTijucas": 469
+    },
+    {
+      "data": "2025-03-01",
+      "periodo": "mar/25",
+      "saldoSc": 10563,
+      "saldoTijucas": 138
+    },
+    {
+      "data": "2025-04-01",
+      "periodo": "abr/25",
+      "saldoSc": 9145,
+      "saldoTijucas": 275
+    },
+    {
+      "data": "2025-05-01",
+      "periodo": "mai/25",
+      "saldoSc": -223,
+      "saldoTijucas": 73
+    },
+    {
+      "data": "2025-06-01",
+      "periodo": "jun/25",
+      "saldoSc": 6311,
+      "saldoTijucas": 194
+    },
+    {
+      "data": "2025-07-01",
+      "periodo": "jul/25",
+      "saldoSc": 3190,
+      "saldoTijucas": -53
+    },
+    {
+      "data": "2025-08-01",
+      "periodo": "ago/25",
+      "saldoSc": 791,
+      "saldoTijucas": 37
+    },
+    {
+      "data": "2025-09-01",
+      "periodo": "set/25",
+      "saldoSc": 11371,
+      "saldoTijucas": 218
+    },
+    {
+      "data": "2025-10-01",
+      "periodo": "out/25",
+      "saldoSc": 6810,
+      "saldoTijucas": 156
+    },
+    {
+      "data": "2025-11-01",
+      "periodo": "nov/25",
+      "saldoSc": 5134,
+      "saldoTijucas": -4
+    },
+    {
+      "data": "2025-12-01",
+      "periodo": "dez/25",
+      "saldoSc": -48538,
+      "saldoTijucas": -392
+    },
+    {
+      "data": "2026-01-01",
+      "periodo": "jan/26",
+      "saldoSc": 19892,
+      "saldoTijucas": 116
+    },
+    {
+      "data": "2026-02-01",
+      "periodo": "fev/26",
+      "saldoSc": 22636,
+      "saldoTijucas": 266
+    },
+    {
+      "data": "2026-03-01",
+      "periodo": "mar/26",
+      "saldoSc": 16868,
+      "saldoTijucas": 71
+    }
+  ],
+  "healthMonthly": [
+    {
+      "data": "2023-04-01",
+      "periodo": "abr/23",
+      "procedimentosSc": 17283352,
+      "procedimentosTijucas": 38583
+    },
+    {
+      "data": "2023-05-01",
+      "periodo": "mai/23",
+      "procedimentosSc": 19380317,
+      "procedimentosTijucas": 38833
+    },
+    {
+      "data": "2023-06-01",
+      "periodo": "jun/23",
+      "procedimentosSc": 17677844,
+      "procedimentosTijucas": 30027
+    },
+    {
+      "data": "2023-07-01",
+      "periodo": "jul/23",
+      "procedimentosSc": 17771512,
+      "procedimentosTijucas": 47258
+    },
+    {
+      "data": "2023-08-01",
+      "periodo": "ago/23",
+      "procedimentosSc": 18892973,
+      "procedimentosTijucas": 37005
+    },
+    {
+      "data": "2023-09-01",
+      "periodo": "set/23",
+      "procedimentosSc": 18449096,
+      "procedimentosTijucas": 40315
+    },
+    {
+      "data": "2023-10-01",
+      "periodo": "out/23",
+      "procedimentosSc": 18354180,
+      "procedimentosTijucas": 43208
+    },
+    {
+      "data": "2023-11-01",
+      "periodo": "nov/23",
+      "procedimentosSc": 18026304,
+      "procedimentosTijucas": 40779
+    },
+    {
+      "data": "2023-12-01",
+      "periodo": "dez/23",
+      "procedimentosSc": 16463411,
+      "procedimentosTijucas": 31738
+    },
+    {
+      "data": "2024-01-01",
+      "periodo": "jan/24",
+      "procedimentosSc": 17680399,
+      "procedimentosTijucas": 36439
+    },
+    {
+      "data": "2024-02-01",
+      "periodo": "fev/24",
+      "procedimentosSc": 18488677,
+      "procedimentosTijucas": 42082
+    },
+    {
+      "data": "2024-03-01",
+      "periodo": "mar/24",
+      "procedimentosSc": 19981634,
+      "procedimentosTijucas": 49924
+    },
+    {
+      "data": "2024-04-01",
+      "periodo": "abr/24",
+      "procedimentosSc": 20443794,
+      "procedimentosTijucas": 64301
+    },
+    {
+      "data": "2024-05-01",
+      "periodo": "mai/24",
+      "procedimentosSc": 20118405,
+      "procedimentosTijucas": 63657
+    },
+    {
+      "data": "2024-06-01",
+      "periodo": "jun/24",
+      "procedimentosSc": 20177638,
+      "procedimentosTijucas": 45897
+    },
+    {
+      "data": "2024-07-01",
+      "periodo": "jul/24",
+      "procedimentosSc": 19322605,
+      "procedimentosTijucas": 48870
+    },
+    {
+      "data": "2024-08-01",
+      "periodo": "ago/24",
+      "procedimentosSc": 19991202,
+      "procedimentosTijucas": 52656
+    },
+    {
+      "data": "2024-09-01",
+      "periodo": "set/24",
+      "procedimentosSc": 20048612,
+      "procedimentosTijucas": 51542
+    },
+    {
+      "data": "2024-10-01",
+      "periodo": "out/24",
+      "procedimentosSc": 20680162,
+      "procedimentosTijucas": 54538
+    },
+    {
+      "data": "2024-11-01",
+      "periodo": "nov/24",
+      "procedimentosSc": 19676743,
+      "procedimentosTijucas": 46534
+    },
+    {
+      "data": "2024-12-01",
+      "periodo": "dez/24",
+      "procedimentosSc": 17288407,
+      "procedimentosTijucas": 37561
+    },
+    {
+      "data": "2025-01-01",
+      "periodo": "jan/25",
+      "procedimentosSc": 18629161,
+      "procedimentosTijucas": 45143
+    },
+    {
+      "data": "2025-02-01",
+      "periodo": "fev/25",
+      "procedimentosSc": 20198835,
+      "procedimentosTijucas": 48451
+    },
+    {
+      "data": "2025-03-01",
+      "periodo": "mar/25",
+      "procedimentosSc": 20529158,
+      "procedimentosTijucas": 49750
+    },
+    {
+      "data": "2025-04-01",
+      "periodo": "abr/25",
+      "procedimentosSc": 20754167,
+      "procedimentosTijucas": 49189
+    },
+    {
+      "data": "2025-05-01",
+      "periodo": "mai/25",
+      "procedimentosSc": 21463058,
+      "procedimentosTijucas": 51843
+    },
+    {
+      "data": "2025-06-01",
+      "periodo": "jun/25",
+      "procedimentosSc": 21005040,
+      "procedimentosTijucas": 42391
+    },
+    {
+      "data": "2025-07-01",
+      "periodo": "jul/25",
+      "procedimentosSc": 22307657,
+      "procedimentosTijucas": 46350
+    },
+    {
+      "data": "2025-08-01",
+      "periodo": "ago/25",
+      "procedimentosSc": 22290927,
+      "procedimentosTijucas": 46867
+    },
+    {
+      "data": "2025-09-01",
+      "periodo": "set/25",
+      "procedimentosSc": 23407065,
+      "procedimentosTijucas": 55701
+    },
+    {
+      "data": "2025-10-01",
+      "periodo": "out/25",
+      "procedimentosSc": 23438575,
+      "procedimentosTijucas": 53632
+    },
+    {
+      "data": "2025-11-01",
+      "periodo": "nov/25",
+      "procedimentosSc": 21675011,
+      "procedimentosTijucas": 48527
+    },
+    {
+      "data": "2025-12-01",
+      "periodo": "dez/25",
+      "procedimentosSc": 20785271,
+      "procedimentosTijucas": 38728
+    },
+    {
+      "data": "2026-01-01",
+      "periodo": "jan/26",
+      "procedimentosSc": 20834784,
+      "procedimentosTijucas": 44670
+    },
+    {
+      "data": "2026-02-01",
+      "periodo": "fev/26",
+      "procedimentosSc": 20879562,
+      "procedimentosTijucas": 45849
+    },
+    {
+      "data": "2026-03-01",
+      "periodo": "mar/26",
+      "procedimentosSc": 20982899,
+      "procedimentosTijucas": 56247
+    }
+  ],
+  "bolsaFamiliaMonthly": [
+    {
+      "data": "2023-06-01",
+      "periodo": "jun/23",
+      "FamíliasSc": 225040,
+      "FamíliasTijucas": 1543,
+      "valorSc": 163103610,
+      "valorTijucas": 1112829,
+      "valorMedioTijucas": 721.21
+    },
+    {
+      "data": "2023-07-01",
+      "periodo": "jul/23",
+      "FamíliasSc": 222425,
+      "FamíliasTijucas": 1490,
+      "valorSc": 152070589,
+      "valorTijucas": 1006233,
+      "valorMedioTijucas": 675.32
+    },
+    {
+      "data": "2023-08-01",
+      "periodo": "ago/23",
+      "FamíliasSc": 225382,
+      "FamíliasTijucas": 1556,
+      "valorSc": 155237982,
+      "valorTijucas": 1064491,
+      "valorMedioTijucas": 684.12
+    },
+    {
+      "data": "2023-09-01",
+      "periodo": "set/23",
+      "FamíliasSc": 235175,
+      "FamíliasTijucas": 1553,
+      "valorSc": 162786152,
+      "valorTijucas": 1064491,
+      "valorMedioTijucas": 685.44
+    },
+    {
+      "data": "2023-10-01",
+      "periodo": "out/23",
+      "FamíliasSc": 237870,
+      "FamíliasTijucas": 1543,
+      "valorSc": 165032231,
+      "valorTijucas": 1060644,
+      "valorMedioTijucas": 687.39
+    },
+    {
+      "data": "2023-11-01",
+      "periodo": "nov/23",
+      "FamíliasSc": 238280,
+      "FamíliasTijucas": 1543,
+      "valorSc": 160893238,
+      "valorTijucas": 1061189,
+      "valorMedioTijucas": 687.74
+    },
+    {
+      "data": "2023-12-01",
+      "periodo": "dez/23",
+      "FamíliasSc": 236660,
+      "FamíliasTijucas": 1516,
+      "valorSc": 160294363,
+      "valorTijucas": 1025506,
+      "valorMedioTijucas": 676.46
+    },
+    {
+      "data": "2024-01-01",
+      "periodo": "jan/24",
+      "FamíliasSc": 236933,
+      "FamíliasTijucas": 1520,
+      "valorSc": 161990513,
+      "valorTijucas": 1026249,
+      "valorMedioTijucas": 675.16
+    },
+    {
+      "data": "2024-02-01",
+      "periodo": "fev/24",
+      "FamíliasSc": 235788,
+      "FamíliasTijucas": 1515,
+      "valorSc": 161393613,
+      "valorTijucas": 1037378,
+      "valorMedioTijucas": 684.74
+    },
+    {
+      "data": "2024-03-01",
+      "periodo": "mar/24",
+      "FamíliasSc": 231500,
+      "FamíliasTijucas": 1487,
+      "valorSc": 154870707,
+      "valorTijucas": 997441,
+      "valorMedioTijucas": 670.77
+    },
+    {
+      "data": "2024-04-01",
+      "periodo": "abr/24",
+      "FamíliasSc": 231968,
+      "FamíliasTijucas": 1494,
+      "valorSc": 155800600,
+      "valorTijucas": 1012615,
+      "valorMedioTijucas": 677.79
+    },
+    {
+      "data": "2024-05-01",
+      "periodo": "mai/24",
+      "FamíliasSc": 230571,
+      "FamíliasTijucas": 1516,
+      "valorSc": 155949450,
+      "valorTijucas": 1036020,
+      "valorMedioTijucas": 683.39
+    },
+    {
+      "data": "2024-06-01",
+      "periodo": "jun/24",
+      "FamíliasSc": 230647,
+      "FamíliasTijucas": 1606,
+      "valorSc": 156437195,
+      "valorTijucas": 1101199,
+      "valorMedioTijucas": 685.68
+    },
+    {
+      "data": "2024-07-01",
+      "periodo": "jul/24",
+      "FamíliasSc": 235965,
+      "FamíliasTijucas": 1613,
+      "valorSc": 158934381,
+      "valorTijucas": 1119850,
+      "valorMedioTijucas": 694.27
+    },
+    {
+      "data": "2024-08-01",
+      "periodo": "ago/24",
+      "FamíliasSc": 233661,
+      "FamíliasTijucas": 1615,
+      "valorSc": 157094109,
+      "valorTijucas": 1099495,
+      "valorMedioTijucas": 680.8
+    },
+    {
+      "data": "2024-09-01",
+      "periodo": "set/24",
+      "FamíliasSc": 232663,
+      "FamíliasTijucas": 1615,
+      "valorSc": 156787012,
+      "valorTijucas": 1102274,
+      "valorMedioTijucas": 682.52
+    },
+    {
+      "data": "2024-10-01",
+      "periodo": "out/24",
+      "FamíliasSc": 234921,
+      "FamíliasTijucas": 1703,
+      "valorSc": 156778015,
+      "valorTijucas": 1134643,
+      "valorMedioTijucas": 666.26
+    },
+    {
+      "data": "2024-11-01",
+      "periodo": "nov/24",
+      "FamíliasSc": 235012,
+      "FamíliasTijucas": 1702,
+      "valorSc": 157684166,
+      "valorTijucas": 1141257,
+      "valorMedioTijucas": 670.54
+    },
+    {
+      "data": "2024-12-01",
+      "periodo": "dez/24",
+      "FamíliasSc": 235252,
+      "FamíliasTijucas": 1729,
+      "valorSc": 157184133,
+      "valorTijucas": 1177274,
+      "valorMedioTijucas": 680.9
+    },
+    {
+      "data": "2025-01-01",
+      "periodo": "jan/25",
+      "FamíliasSc": 227990,
+      "FamíliasTijucas": 1711,
+      "valorSc": 151470796,
+      "valorTijucas": 1177460,
+      "valorMedioTijucas": 688.17
+    },
+    {
+      "data": "2025-02-01",
+      "periodo": "fev/25",
+      "FamíliasSc": 229923,
+      "FamíliasTijucas": 1746,
+      "valorSc": 152378245,
+      "valorTijucas": 1190000,
+      "valorMedioTijucas": 681.56
+    },
+    {
+      "data": "2025-03-01",
+      "periodo": "mar/25",
+      "FamíliasSc": 231808,
+      "FamíliasTijucas": 1739,
+      "valorSc": 151706917,
+      "valorTijucas": 1164523,
+      "valorMedioTijucas": 669.65
+    },
+    {
+      "data": "2025-04-01",
+      "periodo": "abr/25",
+      "FamíliasSc": 230693,
+      "FamíliasTijucas": 1739,
+      "valorSc": 151181869,
+      "valorTijucas": 1169638,
+      "valorMedioTijucas": 672.59
+    },
+    {
+      "data": "2025-05-01",
+      "periodo": "mai/25",
+      "FamíliasSc": 229403,
+      "FamíliasTijucas": 1728,
+      "valorSc": 150761304,
+      "valorTijucas": 1158436,
+      "valorMedioTijucas": 670.39
+    },
+    {
+      "data": "2025-06-01",
+      "periodo": "jun/25",
+      "FamíliasSc": 229817,
+      "FamíliasTijucas": 1728,
+      "valorSc": 150758663,
+      "valorTijucas": 1157821,
+      "valorMedioTijucas": 670.04
+    },
+    {
+      "data": "2025-07-01",
+      "periodo": "jul/25",
+      "FamíliasSc": 215499,
+      "FamíliasTijucas": 1609,
+      "valorSc": 141550875,
+      "valorTijucas": 1082863,
+      "valorMedioTijucas": 673
+    },
+    {
+      "data": "2025-08-01",
+      "periodo": "ago/25",
+      "FamíliasSc": 206337,
+      "FamíliasTijucas": 1534,
+      "valorSc": 135498206,
+      "valorTijucas": 1037306,
+      "valorMedioTijucas": 676.21
+    },
+    {
+      "data": "2025-09-01",
+      "periodo": "set/25",
+      "FamíliasSc": 202626,
+      "FamíliasTijucas": 1507,
+      "valorSc": 135441071,
+      "valorTijucas": 1023085,
+      "valorMedioTijucas": 678.89
+    },
+    {
+      "data": "2025-10-01",
+      "periodo": "out/25",
+      "FamíliasSc": 199934,
+      "FamíliasTijucas": 1494,
+      "valorSc": 134127038,
+      "valorTijucas": 1023938,
+      "valorMedioTijucas": 685.37
+    },
+    {
+      "data": "2025-11-01",
+      "periodo": "nov/25",
+      "FamíliasSc": 195416,
+      "FamíliasTijucas": 1468,
+      "valorSc": 130665362,
+      "valorTijucas": 1007991,
+      "valorMedioTijucas": 686.64
+    },
+    {
+      "data": "2025-12-01",
+      "periodo": "dez/25",
+      "FamíliasSc": 202633,
+      "FamíliasTijucas": 1667,
+      "valorSc": 137185476,
+      "valorTijucas": 1161526,
+      "valorMedioTijucas": 696.78
+    },
+    {
+      "data": "2026-01-01",
+      "periodo": "jan/26",
+      "FamíliasSc": 203719,
+      "FamíliasTijucas": 1685,
+      "valorSc": 144663053,
+      "valorTijucas": 1260231,
+      "valorMedioTijucas": 747.91
+    },
+    {
+      "data": "2026-02-01",
+      "periodo": "fev/26",
+      "FamíliasSc": 205101,
+      "FamíliasTijucas": 1687,
+      "valorSc": 141531339,
+      "valorTijucas": 1182641,
+      "valorMedioTijucas": 701.03
+    },
+    {
+      "data": "2026-03-01",
+      "periodo": "mar/26",
+      "FamíliasSc": 201518,
+      "FamíliasTijucas": 1628,
+      "valorSc": 136291197,
+      "valorTijucas": 1131723,
+      "valorMedioTijucas": 695.16
+    },
+    {
+      "data": "2026-04-01",
+      "periodo": "abr/26",
+      "FamíliasSc": 207112,
+      "FamíliasTijucas": 1626,
+      "valorSc": 139172927,
+      "valorTijucas": 1138019,
+      "valorMedioTijucas": 699.89
+    },
+    {
+      "data": "2026-05-01",
+      "periodo": "mai/26",
+      "FamíliasSc": 209749,
+      "FamíliasTijucas": 1703,
+      "valorSc": 141401643,
+      "valorTijucas": 1193716,
+      "valorMedioTijucas": 700.95
+    }
+  ],
+  "employmentSectorsTijucas": [
+    {
+      "setor": "Fabricação De Produtos Alimentícios",
+      "saldo": 558
+    },
+    {
+      "setor": "Comércio Por Atacado, Exceto Veículos Automotores E Motocicletas",
+      "saldo": 530
+    },
+    {
+      "setor": "Comércio Varejista",
+      "saldo": 291
+    },
+    {
+      "setor": "Serviços Especializados Para Construção",
+      "saldo": 243
+    },
+    {
+      "setor": "Fabricação De Produtos De Metal, Exceto Máquinas E Equipamentos",
+      "saldo": 205
+    },
+    {
+      "setor": "Atividades De Atenção À Saúde Humana",
+      "saldo": 192
+    },
+    {
+      "setor": "Construção De Edifícios",
+      "saldo": 175
+    },
+    {
+      "setor": "Serviços De Escritório, De Apoio Administrativo E Outros Serviços Prestados Principalmente Às Empresas",
+      "saldo": 116
+    },
+    {
+      "setor": "Outras Atividades Profissionais, Científicas E Técnicas",
+      "saldo": -12
+    },
+    {
+      "setor": "Atividades Dos Serviços De Tecnologia Da Informação",
+      "saldo": -11
+    },
+    {
+      "setor": "Fabricação De Bebidas",
+      "saldo": -10
+    },
+    {
+      "setor": "Serviços Para Edifícios E Atividades Paisagísticas",
+      "saldo": -10
+    },
+    {
+      "setor": "Fabricação De Máquinas E Equipamentos",
+      "saldo": -9
+    }
+  ]
+}

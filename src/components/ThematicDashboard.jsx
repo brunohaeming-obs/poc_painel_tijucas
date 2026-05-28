@@ -1,9 +1,12 @@
 import {
   Banknote,
   BriefcaseBusiness,
+  Building2,
   GraduationCap,
+  HardHat,
   HeartPulse,
   Leaf,
+  UsersRound,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { EChartCard } from "./EChartCard.jsx";
@@ -35,6 +38,25 @@ const themeIcons = {
   educacao: GraduationCap,
   economiaEmpregos: BriefcaseBusiness,
   meioAmbiente: Leaf,
+  populacao: UsersRound,
+  construcaoCivil: HardHat || Building2,
+};
+
+const axisNarratives = {
+  economiaEmpregos:
+    "A economia mostra a capacidade do municipio de gerar renda, manter empregos e sustentar a atividade produtiva. Este eixo ajuda a identificar setores em expansao, pressoes sociais e oportunidades para politicas de desenvolvimento local.",
+  populacao:
+    "A populacao orienta a escala dos servicos publicos e a demanda por equipamentos urbanos. Entender crescimento, domicilios e perfil etario apoia o planejamento de saude, educacao, mobilidade e habitacao.",
+  educacao:
+    "A educacao acompanha acesso, permanencia e aprendizagem na rede. O eixo e central para avaliar capacidade escolar, pressao por vagas e resultados que afetam o desenvolvimento de longo prazo.",
+  saude:
+    "A saude revela o uso da rede assistencial e os principais pontos de pressao operacional. Monitorar procedimentos, cobertura e linhas de cuidado apoia decisoes sobre oferta, equipes e prioridades de atendimento.",
+  meioAmbiente:
+    "O meio ambiente acompanha residuos, licenciamento, arborizacao e riscos urbanos. O eixo permite observar sustentabilidade, qualidade de vida e impactos do crescimento sobre o territorio.",
+  contasPublicas:
+    "Contas publicas mostram a capacidade de arrecadar, executar o orcamento e financiar entregas. Este eixo e essencial para avaliar sustentabilidade fiscal, investimentos e prioridades de gasto.",
+  construcaoCivil:
+    "A construcao civil indica dinamica urbana, investimento privado e pressao sobre infraestrutura. Alvaras, area licenciada e tipos de obra ajudam a antecipar demandas por servicos e ordenamento territorial.",
 };
 
 function baseGrid(extra = {}) {
@@ -198,6 +220,47 @@ function scatterOption(data) {
   };
 }
 
+function axisWithDarkStyle(axis) {
+  return {
+    ...axis,
+    axisLabel: { ...(axis.axisLabel || {}), color: "#DDE3EA" },
+    axisLine: { ...(axis.axisLine || {}), lineStyle: { color: "rgba(255,255,255,0.24)" } },
+    axisTick: { ...(axis.axisTick || {}), lineStyle: { color: "rgba(255,255,255,0.24)" } },
+    nameTextStyle: { ...(axis.nameTextStyle || {}), color: "#DDE3EA", fontWeight: 700 },
+    splitLine: {
+      ...(axis.splitLine || {}),
+      lineStyle: { color: "rgba(255,255,255,0.12)", type: "dashed" },
+    },
+  };
+}
+
+function withDarkChartTheme(option) {
+  const mapAxis = (axis) =>
+    Array.isArray(axis) ? axis.map(axisWithDarkStyle) : axisWithDarkStyle(axis || {});
+
+  return {
+    ...option,
+    backgroundColor: "transparent",
+    textStyle: { ...(option.textStyle || {}), color: "#FFFFFF" },
+    tooltip: {
+      ...(option.tooltip || {}),
+      backgroundColor: "rgba(0,0,54,0.94)",
+      borderColor: "rgba(255,255,255,0.18)",
+      textStyle: { color: "#FFFFFF" },
+    },
+    legend: {
+      ...(option.legend || {}),
+      textStyle: { color: "#DDE3EA", fontWeight: 700 },
+    },
+    xAxis: option.xAxis ? mapAxis(option.xAxis) : option.xAxis,
+    yAxis: option.yAxis ? mapAxis(option.yAxis) : option.yAxis,
+    series: option.series?.map((serie) => ({
+      ...serie,
+      label: { ...(serie.label || {}), color: serie.label?.color || "#FFFFFF" },
+    })),
+  };
+}
+
 function TableCard({ title, subtitle, rows }) {
   return (
     <article className="card p-6">
@@ -244,7 +307,7 @@ function ThemeButton({ theme, active, onClick }) {
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`group min-h-[128px] rounded-lg border p-4 text-left transition ${
+      className={`group min-h-[148px] rounded-lg border p-5 text-left transition ${
         active
           ? "border-[#000086] bg-[#000086] text-white shadow-soft"
           : "border-brand-border bg-white text-brand-navy hover:border-[#007FFE] hover:shadow-soft"
@@ -393,6 +456,36 @@ export function ThematicDashboard({ themes }) {
       ];
     }
 
+    if (activeTheme.id === "populacao") {
+      return [
+        {
+          kind: "chart",
+          title: "População estimada",
+          subtitle: "Série mensal simulada",
+          option: lineOption({
+            labels: activeTheme.population.map((row) => row.periodo),
+            series: [{ name: "População", data: activeTheme.population.map((row) => row.valor) }],
+          }),
+        },
+        {
+          kind: "chart",
+          title: "Composição etária",
+          subtitle: "Distribuição percentual simulada",
+          option: pieOption(activeTheme.ageGroups),
+        },
+        {
+          kind: "chart",
+          title: "Domicílios",
+          subtitle: "Série mensal simulada",
+          option: lineOption({
+            labels: activeTheme.households.map((row) => row.periodo),
+            series: [{ name: "Domicílios", data: activeTheme.households.map((row) => row.valor) }],
+          }),
+        },
+        { kind: "table", title: "Resumo populacional", subtitle: "Indicadores selecionados", rows: activeTheme.table },
+      ];
+    }
+
     if (activeTheme.id === "meioAmbiente") {
       return [
         {
@@ -420,6 +513,36 @@ export function ThematicDashboard({ themes }) {
           }),
         },
         { kind: "table", title: "Ocorrências ambientais", subtitle: "Resumo operacional", rows: activeTheme.table },
+      ];
+    }
+
+    if (activeTheme.id === "construcaoCivil") {
+      return [
+        {
+          kind: "chart",
+          title: "Alvarás emitidos",
+          subtitle: "Série mensal simulada",
+          option: barOption({
+            labels: activeTheme.permits.map((row) => row.periodo),
+            series: [{ name: "Alvarás", data: activeTheme.permits.map((row) => row.valor) }],
+          }),
+        },
+        {
+          kind: "chart",
+          title: "Área licenciada",
+          subtitle: "Mil m² por mês",
+          option: lineOption({
+            labels: activeTheme.areaLicensed.map((row) => row.periodo),
+            series: [{ name: "Área licenciada", data: activeTheme.areaLicensed.map((row) => row.valor) }],
+          }),
+        },
+        {
+          kind: "chart",
+          title: "Tipo de obra",
+          subtitle: "Distribuição percentual simulada",
+          option: pieOption(activeTheme.types),
+        },
+        { kind: "table", title: "Alvarás por tipo", subtitle: "Resumo do período", rows: activeTheme.table },
       ];
     }
 
@@ -469,6 +592,9 @@ export function ThematicDashboard({ themes }) {
     ];
   }, [activeTheme]);
 
+  const visibleCharts = cards.filter((card) => card.kind === "chart").slice(0, 2);
+  const narrative = axisNarratives[activeTheme.id] ?? activeTheme.summary;
+
   return (
     <section className="flex flex-col gap-5" aria-labelledby="themes-title">
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
@@ -482,7 +608,7 @@ export function ThematicDashboard({ themes }) {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-7">
         {themeList.map((theme) => (
           <ThemeButton
             key={theme.id}
@@ -493,40 +619,55 @@ export function ThematicDashboard({ themes }) {
         ))}
       </div>
 
-      <div className="rounded-lg border border-brand-border bg-white p-5">
-        <div className="mb-4 flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
-          <div>
-            <h3 className="text-2xl font-extrabold text-brand-navy">{activeTheme.label}</h3>
-            <p className="mt-1 max-w-4xl text-sm font-medium text-brand-gray">
-              {activeTheme.summary}
-            </p>
-          </div>
-          <span className="w-fit rounded border border-brand-border bg-brand-page px-3 py-1 text-xs font-bold text-brand-gray">
-            {activeTheme.source}
-          </span>
-        </div>
-        <KpiStrip items={activeTheme.kpis} />
-      </div>
+      <div className="rounded-lg bg-brand-navy p-6 text-white shadow-soft md:p-8 2xl:p-10">
+        <div className="grid gap-8 xl:grid-cols-[minmax(420px,0.95fr)_minmax(0,2.35fr)] 2xl:gap-10">
+          <aside className="flex flex-col justify-between gap-6">
+            <div>
+              <span className="text-xs font-extrabold uppercase tracking-normal text-brand-yellow">
+                Eixo selecionado
+              </span>
+              <h3 className="mt-4 text-3xl font-extrabold leading-tight text-white">
+                {activeTheme.label}
+              </h3>
+              <p className="mt-5 text-base font-semibold leading-7 text-white">
+                {narrative}
+              </p>
+              <p className="mt-5 text-sm font-medium leading-6 text-blue-50">
+                {activeTheme.summary}
+              </p>
+            </div>
 
-      <div className="grid gap-5 xl:grid-cols-2">
-        {cards.map((card) =>
-          card.kind === "table" ? (
-            <TableCard
-              key={card.title}
-              title={card.title}
-              subtitle={card.subtitle}
-              rows={card.rows}
-            />
-          ) : (
-            <EChartCard
-              key={card.title}
-              title={card.title}
-              subtitle={card.subtitle}
-              height={card.height}
-              option={card.option}
-            />
-          ),
-        )}
+            <div className="grid gap-3">
+              {activeTheme.kpis.slice(0, 3).map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-lg border border-white bg-white px-6 py-5"
+                >
+                  <p className="text-xs font-bold uppercase tracking-normal text-slate-700">
+                    {item.label}
+                  </p>
+                  <strong className="mt-2 block text-2xl font-extrabold text-brand-navy">
+                    {item.value}
+                  </strong>
+                  <span className="text-xs font-semibold text-slate-700">{item.note}</span>
+                </div>
+              ))}
+            </div>
+          </aside>
+
+          <div className="grid gap-6 lg:grid-cols-2 2xl:gap-8">
+            {visibleCharts.map((card) => (
+              <EChartCard
+                key={card.title}
+                title={card.title}
+                subtitle={card.subtitle}
+                height={card.height ?? 560}
+                option={card.option}
+                variant="dark"
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

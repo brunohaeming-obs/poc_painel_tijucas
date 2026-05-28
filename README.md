@@ -1,27 +1,32 @@
 # Tijucas em Dados
 
-Projeto de ciência de dados e painel web para indicadores do município de Tijucas/SC.
+Projeto de ciencia de dados e painel web para indicadores do municipio de Tijucas/SC.
 
 ## Estrutura
 
 ```text
 .
-├── assets/source/          # imagens e arquivos visuais originais
+├── assets/source/              # imagens e arquivos visuais originais
 ├── data/
-│   ├── raw/                # dados brutos, sem edição manual
-│   ├── interim/            # dados intermediários de tratamento
-│   ├── processed/          # bases tratadas para análise/app
-│   └── external/           # dados externos auxiliares
-├── docs/                   # documentação metodológica
-├── notebooks/              # análises exploratórias
+│   ├── raw/                    # dados brutos, sem edicao manual
+│   ├── interim/                # dados intermediarios de tratamento
+│   ├── processed/              # bases tratadas para analise
+│   └── published/              # artefatos prontos para publicacao
+├── docs/                       # documentacao metodologica e inventarios
+├── notebooks/                  # analises exploratorias
 ├── public/
-│   ├── assets/             # assets servidos pelo painel
-│   └── downloads/          # arquivos disponíveis para download no app
-├── reports/figures/        # gráficos, tabelas e saídas analíticas
+│   ├── assets/                 # assets servidos pelo painel
+│   ├── data/                   # JSONs consumiveis pelo app/API estatica
+│   └── downloads/              # arquivos disponiveis para download no app
+├── references/
+│   ├── fontes_indicadores.yml
+│   └── indicadores_catalogo.yml
+├── reports/figures/            # graficos, tabelas e saidas analiticas
 ├── scripts/
-│   ├── data_collection/    # scripts de coleta
-│   └── data_processing/    # scripts de limpeza e transformação
-└── src/                    # código-fonte do painel React
+│   ├── data_collection/        # scripts de coleta
+│   ├── data_processing/        # scripts de limpeza e transformacao
+│   └── data_publish/           # scripts de publicacao para public/
+└── src/                        # codigo-fonte do painel React
 ```
 
 ## Comandos
@@ -32,15 +37,24 @@ npm run dev
 npm run build
 ```
 
-Para reprocessar a conversão do DataSUS:
+Para reprocessar a conversao do DataSUS:
 
 ```bash
-python scripts/data_processing/tratamento.py
+python scripts/data_processing/process_datasus_ambulatorial.py
 ```
 
-## Convenções
+Para republicar downloads e JSONs estaticos:
 
-- `data/raw` deve preservar os arquivos de origem.
-- `data/processed` guarda bases prontas para consumo no painel e análises.
-- Arquivos expostos no app devem ficar em `public/assets` ou `public/downloads`.
-- Scripts Python devem usar caminhos relativos ao projeto, não caminhos absolutos locais.
+```bash
+python scripts/data_publish/publish_downloads.py
+python scripts/data_publish/publish_public_json.py
+```
+
+## Convencoes
+
+- `data/raw` preserva os arquivos de origem.
+- `data/interim` guarda saidas temporarias de tratamento.
+- `data/processed` guarda bases tratadas para analise.
+- `data/published` guarda artefatos prontos para serem copiados para `public/`.
+- Arquivos expostos no app ficam em `public/assets`, `public/data` ou `public/downloads`.
+- Scripts Python devem usar caminhos relativos ao projeto.
