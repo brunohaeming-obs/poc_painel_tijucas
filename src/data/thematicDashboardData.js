@@ -1,4 +1,6 @@
 import { realIndicators } from "./realIndicators.js";
+import { employmentDashboardData } from "./employmentDashboardData.js";
+import { pibDashboardData } from "./pibDashboardData.js";
 
 const meses = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
 
@@ -13,15 +15,16 @@ export const thematicDashboardData = {
     id: "economiaEmpregos",
     label: "Economia",
     shortLabel: "Economia",
-    source: "MTE/CAGED e Bolsa Família reais",
-    summary: "Combina geração de empregos, setores econômicos e pressão social sobre a renda.",
+    source: "MTE/CAGED real",
+    summary: employmentDashboardData.scopes.sc.summary,
     kpis: [
-      { label: "Saldo mensal", value: realIndicators.kpis[2].value, note: realIndicators.kpis[2].variation },
-      { label: "Famílias no BF", value: realIndicators.kpis[0].value, note: realIndicators.kpis[0].variation },
-      { label: "Repasse BF", value: realIndicators.kpis[1].value, note: realIndicators.kpis[1].variation },
+      ...employmentDashboardData.scopes.sc.kpis,
     ],
-    employment: realIndicators.employmentMonthly,
-    sectors: realIndicators.employmentSectorsTijucas,
+    employmentScopes: employmentDashboardData.scopes,
+    employmentPeriod: employmentDashboardData.metadata.periodo12m,
+    employment: employmentDashboardData.scopes.sc.monthly,
+    sectors: employmentDashboardData.scopes.sc.sectors,
+    pib: pibDashboardData,
     bolsaFamilia: realIndicators.bolsaFamiliaMonthly,
     scatter: realIndicators.municipalScatter,
     table: realIndicators.employmentSectorsTijucas.slice(0, 6).map((row) => [

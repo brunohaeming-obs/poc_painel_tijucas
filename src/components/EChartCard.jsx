@@ -1,7 +1,7 @@
 import * as echarts from "echarts";
 import { useEffect, useRef } from "react";
 
-export function EChartCard({ title, subtitle, height = 320, option, variant = "light" }) {
+export function EChartCard({ title, subtitle, height = 320, option, variant = "light", actions = null }) {
   const chartRef = useRef(null);
 
   useEffect(() => {
@@ -31,27 +31,30 @@ export function EChartCard({ title, subtitle, height = 320, option, variant = "l
           : "card p-6"
       }
     >
-      <div className="mb-5">
-        <h3
-          className={
-            variant === "dark"
-              ? "text-base font-extrabold text-brand-navy"
-              : "text-lg font-extrabold text-brand-navy"
-          }
-        >
-          {title}
-        </h3>
-        {subtitle ? (
-          <p
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h3
             className={
               variant === "dark"
-                ? "text-xs font-semibold text-slate-700"
-                : "text-sm font-medium text-brand-gray"
+                ? "text-base font-extrabold text-brand-navy"
+                : "text-lg font-extrabold text-brand-navy"
             }
           >
-            {subtitle}
-          </p>
-        ) : null}
+            {title}
+          </h3>
+          {subtitle ? (
+            <p
+              className={
+                variant === "dark"
+                  ? "text-xs font-semibold text-slate-700"
+                  : "text-sm font-medium text-brand-gray"
+              }
+            >
+              {subtitle}
+            </p>
+          ) : null}
+        </div>
+        {actions ? <div className="shrink-0">{actions}</div> : null}
       </div>
       <div ref={chartRef} style={{ height }} />
     </article>

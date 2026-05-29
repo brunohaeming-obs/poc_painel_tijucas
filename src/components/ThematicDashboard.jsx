@@ -31,6 +31,9 @@ const compactNumber = new Intl.NumberFormat("pt-BR", {
   notation: "compact",
   maximumFractionDigits: 1,
 });
+const decimalNumber = new Intl.NumberFormat("pt-BR", {
+  maximumFractionDigits: 1,
+});
 
 const themeIcons = {
   contasPublicas: Banknote,
@@ -132,7 +135,10 @@ function barOption({ labels, series, horizontal = false, yFormatter = compactNum
     series: series.map((item) => ({
       ...item,
       type: "bar",
-      itemStyle: { borderRadius: horizontal ? [0, 6, 6, 0] : [6, 6, 0, 0] },
+      itemStyle: {
+        ...(item.itemStyle || {}),
+        borderRadius: item.itemStyle?.borderRadius ?? (horizontal ? [0, 6, 6, 0] : [6, 6, 0, 0]),
+      },
     })),
   };
 }
@@ -151,6 +157,120 @@ function pieOption(data) {
         label: { formatter: "{b}\n{d}%" },
       },
     ],
+  };
+}
+
+function treemapOption(data) {
+  return {
+    tooltip: {
+      trigger: "item",
+      formatter: (params) => {
+        const saldo = params.data?.saldo ?? params.value;
+        return [
+          `<strong>${params.name}</strong>`,
+          `Saldo: ${saldo > 0 ? "+" : ""}${brInteger.format(saldo)}`,
+        ].join("<br/>");
+      },
+    },
+    series: [
+      {
+        type: "treemap",
+        roam: false,
+        nodeClick: false,
+        breadcrumb: { show: false },
+        left: 0,
+        right: 0,
+        top: 8,
+        bottom: 0,
+        label: {
+          show: true,
+          formatter: (params) => {
+            const saldo = params.data?.saldo ?? 0;
+            return `${params.name}\n${saldo > 0 ? "+" : ""}${brInteger.format(saldo)}`;
+          },
+          color: "#FFFFFF",
+          fontSize: 12,
+          fontWeight: 700,
+          overflow: "truncate",
+        },
+        itemStyle: {
+          borderColor: "#FFFFFF",
+          borderWidth: 3,
+          gapWidth: 3,
+        },
+        data: data.map((row) => ({
+          ...row,
+          itemStyle: {
+            color: row.saldo >= 0 ? palette.blue : palette.orange,
+          },
+        })),
+      },
+    ],
+  };
+}
+
+function pibLineOption({ series }) {
+  const labels = series[0]?.data.map((row) => String(row.ano)) ?? [];
+
+  return {
+    color: [
+      palette.navy,
+      palette.orange,
+      palette.blue,
+      palette.green,
+      palette.yellow,
+      "#8B5CF6",
+      "#14B8A6",
+      "#EF4444",
+      "#64748B",
+    ],
+    tooltip: {
+      trigger: "axis",
+      formatter: (params) =>
+        params
+          .map((item) => {
+            const value = item.value;
+            return `${item.marker}${item.seriesName}: R$ ${decimalNumber.format(value)} bi`;
+          })
+          .join("<br/>"),
+    },
+    legend: {
+      top: 0,
+      left: 0,
+      type: "scroll",
+    },
+    grid: baseGrid({ top: 72, left: 72, right: 30, bottom: 54 }),
+    dataZoom: [{ type: "inside" }, { type: "slider", bottom: 12, height: 18 }],
+    xAxis: {
+      type: "category",
+      data: labels,
+      axisLabel: { color: "#6B7280" },
+    },
+    yAxis: {
+      type: "log",
+      name: "R$ bi",
+      axisLabel: { color: "#6B7280", formatter: (value) => decimalNumber.format(value) },
+      splitLine: { lineStyle: { color: palette.border, type: "dashed" } },
+    },
+    series: series.map((item) => ({
+      name: item.name,
+      type: "line",
+      smooth: true,
+      symbolSize: item.scope === "Municipio" ? 7 : 4,
+      lineStyle: {
+        width: item.scope === "SC" || item.scope === "Municipio" ? 4 : 2,
+      },
+      data: item.data.map((row) => Math.round(row.pib / 100_000_000) / 10),
+      markArea:
+        item.name === series[0]?.name
+          ? {
+              silent: true,
+              itemStyle: { color: "rgba(252, 212, 24, 0.12)" },
+              label: { color: "#475569", fontWeight: 700 },
+              data: [[{ name: "Projeção", xAxis: "2024" }, { xAxis: "2030" }]],
+            }
+          : undefined,
+    })),
   };
 }
 
@@ -261,6 +381,135 @@ function withDarkChartTheme(option) {
   };
 }
 
+function ScopeToggle({ value, onChange }) {
+  const buttons = [
+    { id: "sc", label: "SC" },
+    { id: "tijucas", label: "Tijucas" },
+  ];
+
+  return (
+    <div className="inline-flex rounded-lg border border-brand-border bg-slate-100 p-1">
+      {buttons.map((button) => (
+        <button
+          key={button.id}
+          type="button"
+          aria-pressed={value === button.id}
+          onClick={() => onChange(button.id)}
+          className={`min-w-[74px] rounded-md px-3 py-1.5 text-xs font-extrabold transition ${
+            value === button.id
+              ? "bg-brand-navy text-white shadow-sm"
+              : "text-slate-700 hover:bg-white"
+          }`}
+        >
+          {button.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function EconomyViewToggle({ value, onChange }) {
+  const buttons = [
+    { id: "employment", label: "Emprego" },
+    { id: "pib", label: "PIB" },
+  ];
+
+  return (
+    <div className="mt-5 inline-flex rounded-lg border border-white/20 bg-white/10 p-1">
+      {buttons.map((button) => (
+        <button
+          key={button.id}
+          type="button"
+          aria-pressed={value === button.id}
+          onClick={() => onChange(button.id)}
+          className={`min-w-[96px] rounded-md px-3 py-2 text-sm font-extrabold transition ${
+            value === button.id
+              ? "bg-brand-yellow text-brand-navy"
+              : "text-white hover:bg-white/10"
+          }`}
+        >
+          {button.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function PibSeriesSelector({ series, selected, onToggle }) {
+  return (
+    <div className="flex max-w-[420px] flex-wrap justify-end gap-2">
+      {series.map((item) => {
+        const active = selected.includes(item.name);
+
+        return (
+          <button
+            key={item.name}
+            type="button"
+            aria-pressed={active}
+            onClick={() => onToggle(item.name)}
+            className={`rounded-md border px-2.5 py-1.5 text-xs font-extrabold transition ${
+              active
+                ? "border-brand-navy bg-brand-navy text-white"
+                : "border-brand-border bg-slate-100 text-slate-700 hover:bg-white"
+            }`}
+          >
+            {item.name}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function formatPib(value) {
+  if (Math.abs(value) >= 1_000_000_000) {
+    return `R$ ${decimalNumber.format(value / 1_000_000_000)} bi`;
+  }
+  return `R$ ${brInteger.format(value / 1_000_000)} mi`;
+}
+
+function PibTableCard({ title, subtitle, rows }) {
+  return (
+    <article className="rounded-lg border border-white bg-white p-8">
+      <div className="mb-5">
+        <h3 className="text-base font-extrabold text-brand-navy">{title}</h3>
+        <p className="text-xs font-semibold text-slate-700">{subtitle}</p>
+      </div>
+      <div className="max-h-[560px] overflow-auto rounded-lg border border-brand-border">
+        <table className="w-full min-w-[720px] border-collapse text-left text-xs">
+          <thead className="sticky top-0 z-10 bg-slate-100 text-slate-700">
+            <tr>
+              <th className="px-3 py-3 font-extrabold">Município</th>
+              <th className="px-3 py-3 font-extrabold">Mesorregião</th>
+              <th className="px-3 py-3 text-right font-extrabold">PIB 2023</th>
+              <th className="px-3 py-3 text-right font-extrabold">Proj. 2024</th>
+              <th className="px-3 py-3 text-right font-extrabold">Proj. 2025</th>
+              <th className="px-3 py-3 text-right font-extrabold">Proj. 2030</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr
+                key={row.codigo}
+                className={`border-t border-brand-border ${
+                  row.municipio === "Tijucas" ? "bg-blue-50" : "bg-white"
+                }`}
+              >
+                <td className="px-3 py-2 font-bold text-brand-navy">{row.municipio}</td>
+                <td className="px-3 py-2 font-semibold text-slate-600">{row.mesorregiao}</td>
+                <td className="px-3 py-2 text-right font-semibold text-slate-800">{formatPib(row.pibObservado)}</td>
+                <td className="px-3 py-2 text-right font-semibold text-slate-800">{formatPib(row.pib2024)}</td>
+                <td className="px-3 py-2 text-right font-semibold text-slate-800">{formatPib(row.pib2025)}</td>
+                <td className="px-3 py-2 text-right font-extrabold text-brand-navy">{formatPib(row.pibProjetado)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </article>
+  );
+}
+
 function TableCard({ title, subtitle, rows }) {
   return (
     <article className="card p-6">
@@ -342,7 +591,25 @@ function ThemeButton({ theme, active, onClick }) {
 export function ThematicDashboard({ themes }) {
   const themeList = Object.values(themes);
   const [activeThemeId, setActiveThemeId] = useState("economiaEmpregos");
+  const [employmentScope, setEmploymentScope] = useState("sc");
+  const [economyView, setEconomyView] = useState("employment");
+  const [selectedPibSeries, setSelectedPibSeries] = useState(["Tijucas"]);
   const activeTheme = themes[activeThemeId];
+  const isEconomyTheme = activeTheme.id === "economiaEmpregos";
+  const activeEmploymentScope =
+    isEconomyTheme && economyView === "employment"
+      ? activeTheme.employmentScopes[employmentScope]
+      : null;
+  const activePib = isEconomyTheme && economyView === "pib" ? activeTheme.pib : null;
+  const togglePibSeries = (name) => {
+    setSelectedPibSeries((current) => {
+      if (current.includes(name)) {
+        const next = current.filter((item) => item !== name);
+        return next.length ? next : current;
+      }
+      return [...current, name];
+    });
+  };
 
   const cards = useMemo(() => {
     if (activeTheme.id === "contasPublicas") {
@@ -546,28 +813,66 @@ export function ThematicDashboard({ themes }) {
       ];
     }
 
+    if (activePib) {
+      const selectedSeries = activePib.chartSeries.filter((item) =>
+        selectedPibSeries.includes(item.name),
+      );
+
+      return [
+        {
+          kind: "chart",
+          title: "PIB observado e projetado",
+          subtitle: `Selecione as séries para comparar, 2002 a ${activePib.metadata.projectionYear}`,
+          actions: (
+            <PibSeriesSelector
+              series={activePib.chartSeries}
+              selected={selectedPibSeries}
+              onToggle={togglePibSeries}
+            />
+          ),
+          option: pibLineOption({ series: selectedSeries }),
+          height: 560,
+        },
+        {
+          kind: "pibTable",
+          title: "PIB por município",
+          subtitle: `PIB observado ${activePib.metadata.observedYear} e projeções selecionadas`,
+          rows: activePib.municipalTable,
+        },
+      ];
+    }
+
+    const scope = activeEmploymentScope;
+    const scopeToggle = (
+      <ScopeToggle value={employmentScope} onChange={setEmploymentScope} />
+    );
+
     return [
       {
         kind: "chart",
-        title: "Saldo de empregos formais",
-        subtitle: "MTE/CAGED, Tijucas e SC",
+        title: `Saldo de empregos formais - ${scope.fullLabel}`,
+        subtitle: `Últimos 12 meses, ${activeTheme.employmentPeriod}`,
+        actions: scopeToggle,
         option: barOption({
-          labels: activeTheme.employment.map((row) => row.periodo),
+          labels: scope.monthly.map((row) => row.periodo),
           series: [
-            { name: "Tijucas", type: "line", data: activeTheme.employment.map((row) => row.saldoTijucas) },
-            { name: "SC", data: activeTheme.employment.map((row) => row.saldoSc) },
+            {
+              name: scope.label,
+              data: scope.monthly.map((row) => row.saldo),
+              itemStyle: {
+                borderRadius: [6, 6, 0, 0],
+                color: (params) => (params.value >= 0 ? palette.blue : palette.orange),
+              },
+            },
           ],
         }),
       },
       {
         kind: "chart",
-        title: "Setores que mais movem emprego",
-        subtitle: "Saldo acumulado por divisão econômica",
-        option: barOption({
-          labels: activeTheme.sectors.slice(0, 9).map((row) => row.setor),
-          series: [{ name: "Saldo", data: activeTheme.sectors.slice(0, 9).map((row) => row.saldo) }],
-          horizontal: true,
-        }),
+        title: `Saldo de empregos por CNAE - ${scope.fullLabel}`,
+        subtitle: `Saldo acumulado, ${activeTheme.employmentPeriod}`,
+        actions: scopeToggle,
+        option: treemapOption(scope.sectors),
         height: 420,
       },
       {
@@ -590,10 +895,17 @@ export function ThematicDashboard({ themes }) {
         option: scatterOption(activeTheme.scatter),
       },
     ];
-  }, [activeTheme]);
+  }, [activeEmploymentScope, activePib, activeTheme, employmentScope, selectedPibSeries]);
 
-  const visibleCharts = cards.filter((card) => card.kind === "chart").slice(0, 2);
-  const narrative = axisNarratives[activeTheme.id] ?? activeTheme.summary;
+  const visibleCards = cards.slice(0, 2);
+  const narrative =
+    activePib?.summary ?? activeEmploymentScope?.summary ?? axisNarratives[activeTheme.id] ?? activeTheme.summary;
+  const kpis = activePib?.kpis ?? activeEmploymentScope?.kpis ?? activeTheme.kpis;
+  const supportingText = activePib
+    ? `Fonte: planilhas locais de PIB municipal e PIB das mesorregiões. Projeções até ${activePib.metadata.projectionYear}.`
+    : activeEmploymentScope
+      ? `Fonte: MTE/CAGED. Recorte exibido: ${activeTheme.employmentPeriod}.`
+      : activeTheme.summary;
 
   return (
     <section className="flex flex-col gap-5" aria-labelledby="themes-title">
@@ -629,16 +941,19 @@ export function ThematicDashboard({ themes }) {
               <h3 className="mt-4 text-3xl font-extrabold leading-tight text-white">
                 {activeTheme.label}
               </h3>
+              {isEconomyTheme ? (
+                <EconomyViewToggle value={economyView} onChange={setEconomyView} />
+              ) : null}
               <p className="mt-5 text-base font-semibold leading-7 text-white">
                 {narrative}
               </p>
               <p className="mt-5 text-sm font-medium leading-6 text-blue-50">
-                {activeTheme.summary}
+                {supportingText}
               </p>
             </div>
 
             <div className="grid gap-3">
-              {activeTheme.kpis.slice(0, 3).map((item) => (
+              {kpis.slice(0, 3).map((item) => (
                 <div
                   key={item.label}
                   className="rounded-lg border border-white bg-white px-6 py-5"
@@ -656,16 +971,26 @@ export function ThematicDashboard({ themes }) {
           </aside>
 
           <div className="grid gap-6 lg:grid-cols-2 2xl:gap-8">
-            {visibleCharts.map((card) => (
-              <EChartCard
-                key={card.title}
-                title={card.title}
-                subtitle={card.subtitle}
-                height={card.height ?? 560}
-                option={card.option}
-                variant="dark"
-              />
-            ))}
+            {visibleCards.map((card) =>
+              card.kind === "pibTable" ? (
+                <PibTableCard
+                  key={card.title}
+                  title={card.title}
+                  subtitle={card.subtitle}
+                  rows={card.rows}
+                />
+              ) : (
+                <EChartCard
+                  key={card.title}
+                  title={card.title}
+                  subtitle={card.subtitle}
+                  height={card.height ?? 560}
+                  option={card.option}
+                  variant="dark"
+                  actions={card.actions}
+                />
+              ),
+            )}
           </div>
         </div>
       </div>

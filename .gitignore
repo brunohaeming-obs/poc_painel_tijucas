@@ -19,3 +19,10 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Local/raw data files generated or supplied outside the repository
+data/raw/MTE - Saldo de empregos SC.mar26(databricks).csv
+data/raw/MTE - Saldo empregos municipais SC (databricks).csv
+data/raw/PIB mesos long.xlsx
+data/raw/PIB municipios long.xlsx
+data/processed/*.parquet
