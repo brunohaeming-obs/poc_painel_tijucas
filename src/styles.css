@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 :root {
-  color: #1f2937;
-  background: #f5f7fa;
+  color: #eaf4ff;
+  background: #081d2d;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,7 +17,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #f5f7fa;
+  background: #081d2d;
 }
 
 button,
@@ -37,4 +37,21 @@ input:focus-visible {
   border-radius: 14px;
   background: #ffffff;
   box-shadow: 0 12px 30px rgba(0, 59, 115, 0.08);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+summary::-webkit-details-marker {
+  display: none;
 }

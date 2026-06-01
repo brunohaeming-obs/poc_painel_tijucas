@@ -1,3 +1,5 @@
+"use client";
+
 import * as echarts from "echarts";
 import { useEffect, useRef } from "react";
 
@@ -26,7 +28,9 @@ export function EChartCard({ title, subtitle, height = 320, option, variant = "l
   return (
     <article
       className={
-        variant === "dark"
+        variant === "midnight"
+          ? "rounded-lg border border-white/10 bg-[#10293c]/80 p-5 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur 2xl:p-6"
+          : variant === "dark"
           ? "rounded-lg border border-white bg-white p-5 2xl:p-6"
           : "card p-6"
       }
@@ -35,7 +39,9 @@ export function EChartCard({ title, subtitle, height = 320, option, variant = "l
         <div>
           <h3
             className={
-              variant === "dark"
+              variant === "midnight"
+                ? "text-base font-extrabold text-white"
+                : variant === "dark"
                 ? "text-base font-extrabold text-brand-navy"
                 : "text-lg font-extrabold text-brand-navy"
             }
@@ -45,7 +51,9 @@ export function EChartCard({ title, subtitle, height = 320, option, variant = "l
           {subtitle ? (
             <p
               className={
-                variant === "dark"
+                variant === "midnight"
+                  ? "text-xs font-semibold text-sky-100/80"
+                  : variant === "dark"
                   ? "text-xs font-semibold text-slate-700"
                   : "text-sm font-medium text-brand-gray"
               }
