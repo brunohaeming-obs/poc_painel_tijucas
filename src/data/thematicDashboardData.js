@@ -1,6 +1,7 @@
 import { realIndicators } from "./realIndicators.js";
 import { employmentDashboardData } from "./employmentDashboardData.js";
 import { pibDashboardData } from "./pibDashboardData.js";
+import { publicFinanceDashboardData } from "./publicFinanceDashboardData.js";
 
 const meses = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
 
@@ -143,13 +144,12 @@ export const thematicDashboardData = {
     id: "contasPublicas",
     label: "Contas públicas",
     shortLabel: "Contas",
-    source: "Dados simulados para prototipação visual",
-    summary: "Acompanha capacidade de arrecadação, execução orçamentária e composição das despesas.",
+    source: "SICONFI 2025 e IBGE Censo 2022",
+    summary: publicFinanceDashboardData.summary,
     kpis: [
-      { label: "Receita corrente", value: "R$ 18,6 mi", note: "+7,4% no ano" },
-      { label: "Despesa liquidada", value: "R$ 16,9 mi", note: "91% da receita" },
-      { label: "Investimentos", value: "R$ 2,4 mi", note: "13% da despesa" },
+      ...publicFinanceDashboardData.kpis,
     ],
+    finance: publicFinanceDashboardData,
     revenueExpense: {
       receita: monthSeries([13.2, 14.8, 15.4, 16.1, 16.7, 17.6, 17.2, 18.4, 18.9, 18.1, 19.3, 18.6]),
       despesa: monthSeries([11.9, 12.7, 13.8, 14.3, 15.1, 16.2, 15.8, 16.9, 17.4, 16.2, 17.1, 16.9]),

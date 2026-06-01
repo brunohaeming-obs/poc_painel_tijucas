@@ -27,7 +27,7 @@ export function EChartCard({ title, subtitle, height = 320, option, variant = "l
     <article
       className={
         variant === "dark"
-          ? "rounded-lg border border-white bg-white p-8"
+          ? "rounded-lg border border-white bg-white p-5 2xl:p-6"
           : "card p-6"
       }
     >

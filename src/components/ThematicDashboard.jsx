@@ -436,28 +436,38 @@ function EconomyViewToggle({ value, onChange }) {
 }
 
 function PibSeriesSelector({ series, selected, onToggle }) {
-  return (
-    <div className="flex max-w-[420px] flex-wrap justify-end gap-2">
-      {series.map((item) => {
-        const active = selected.includes(item.name);
+  const label =
+    selected.length === 1
+      ? selected[0]
+      : `${selected.length} séries selecionadas`;
 
-        return (
-          <button
-            key={item.name}
-            type="button"
-            aria-pressed={active}
-            onClick={() => onToggle(item.name)}
-            className={`rounded-md border px-2.5 py-1.5 text-xs font-extrabold transition ${
-              active
-                ? "border-brand-navy bg-brand-navy text-white"
-                : "border-brand-border bg-slate-100 text-slate-700 hover:bg-white"
-            }`}
-          >
-            {item.name}
-          </button>
-        );
-      })}
-    </div>
+  return (
+    <details className="relative">
+      <summary className="flex min-h-9 min-w-[220px] cursor-pointer list-none items-center justify-between gap-3 rounded-md border border-brand-border bg-slate-100 px-3 py-2 text-xs font-extrabold text-slate-800 transition hover:bg-white">
+        <span>{label}</span>
+        <span className="text-brand-navy">▾</span>
+      </summary>
+      <div className="absolute right-0 z-20 mt-2 grid w-[300px] gap-1 rounded-lg border border-brand-border bg-white p-2 shadow-soft">
+        {series.map((item) => {
+          const active = selected.includes(item.name);
+
+          return (
+            <label
+              key={item.name}
+              className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-xs font-bold text-slate-700 hover:bg-slate-100"
+            >
+              <input
+                type="checkbox"
+                checked={active}
+                onChange={() => onToggle(item.name)}
+                className="h-4 w-4 rounded border-slate-300 accent-brand-navy"
+              />
+              <span>{item.name}</span>
+            </label>
+          );
+        })}
+      </div>
+    </details>
   );
 }
 
@@ -470,12 +480,12 @@ function formatPib(value) {
 
 function PibTableCard({ title, subtitle, rows }) {
   return (
-    <article className="rounded-lg border border-white bg-white p-8">
+    <article className="rounded-lg border border-white bg-white p-5 2xl:p-6">
       <div className="mb-5">
         <h3 className="text-base font-extrabold text-brand-navy">{title}</h3>
         <p className="text-xs font-semibold text-slate-700">{subtitle}</p>
       </div>
-      <div className="max-h-[560px] overflow-auto rounded-lg border border-brand-border">
+      <div className="max-h-[430px] overflow-auto rounded-lg border border-brand-border 2xl:max-h-[500px]">
         <table className="w-full min-w-[720px] border-collapse text-left text-xs">
           <thead className="sticky top-0 z-10 bg-slate-100 text-slate-700">
             <tr>
@@ -508,6 +518,81 @@ function PibTableCard({ title, subtitle, rows }) {
       </div>
     </article>
   );
+}
+
+function InfoCard({ title, subtitle, children }) {
+  return (
+    <article className="rounded-lg border border-white bg-white p-5 2xl:p-6">
+      <div className="mb-4">
+        <h3 className="text-base font-extrabold text-brand-navy">{title}</h3>
+        <p className="text-xs font-semibold text-slate-700">{subtitle}</p>
+      </div>
+      <div className="rounded-lg border border-dashed border-brand-border bg-slate-50 p-5 text-sm font-semibold leading-6 text-slate-700">
+        {children}
+      </div>
+    </article>
+  );
+}
+
+function PublicFinanceModeToggle({ value, onChange }) {
+  const buttons = [
+    { id: "total", label: "Total" },
+    { id: "perCapita", label: "Per capita" },
+  ];
+
+  return (
+    <div className="inline-flex rounded-lg border border-brand-border bg-slate-100 p-1">
+      {buttons.map((button) => (
+        <button
+          key={button.id}
+          type="button"
+          aria-pressed={value === button.id}
+          onClick={() => onChange(button.id)}
+          className={`min-w-[86px] rounded-md px-3 py-1.5 text-xs font-extrabold transition ${
+            value === button.id
+              ? "bg-brand-navy text-white shadow-sm"
+              : "text-slate-700 hover:bg-white"
+          }`}
+        >
+          {button.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function publicFinanceRevenueExpenseOption({ rows, mode }) {
+  const divisor = mode === "perCapita" ? 1 : 1_000_000;
+  const suffix = mode === "perCapita" ? "R$/hab" : "R$ mi";
+
+  return barOption({
+    labels: rows.map((row) => row.name),
+    yFormatter: (value) => `${decimalNumber.format(value)} ${suffix}`,
+    series: [
+      {
+        name: "Receita",
+        data: rows.map((row) => (row.receita == null ? null : row.receita / divisor)),
+      },
+      {
+        name: "Despesa",
+        data: rows.map((row) => (row.despesa == null ? null : row.despesa / divisor)),
+      },
+    ],
+  });
+}
+
+function publicFinanceFunctionsOption(rows) {
+  return barOption({
+    labels: rows.map((row) => row.funcao),
+    yFormatter: (value) => `R$ ${decimalNumber.format(value / 1_000_000)} mi`,
+    series: [
+      {
+        name: "Despesa empenhada",
+        data: rows.map((row) => row.valor),
+      },
+    ],
+    horizontal: true,
+  });
 }
 
 function TableCard({ title, subtitle, rows }) {
@@ -594,6 +679,7 @@ export function ThematicDashboard({ themes }) {
   const [employmentScope, setEmploymentScope] = useState("sc");
   const [economyView, setEconomyView] = useState("employment");
   const [selectedPibSeries, setSelectedPibSeries] = useState(["Tijucas"]);
+  const [publicFinanceMode, setPublicFinanceMode] = useState("total");
   const activeTheme = themes[activeThemeId];
   const isEconomyTheme = activeTheme.id === "economiaEmpregos";
   const activeEmploymentScope =
@@ -601,6 +687,7 @@ export function ThematicDashboard({ themes }) {
       ? activeTheme.employmentScopes[employmentScope]
       : null;
   const activePib = isEconomyTheme && economyView === "pib" ? activeTheme.pib : null;
+  const activeFinance = activeTheme.id === "contasPublicas" ? activeTheme.finance : null;
   const togglePibSeries = (name) => {
     setSelectedPibSeries((current) => {
       if (current.includes(name)) {
@@ -613,36 +700,61 @@ export function ThematicDashboard({ themes }) {
 
   const cards = useMemo(() => {
     if (activeTheme.id === "contasPublicas") {
+      const finance = activeTheme.finance;
+
+      if (!finance.available) {
+        return [
+          {
+            kind: "info",
+            title: "Receita x despesa de Tijucas",
+            subtitle: "SICONFI 2025",
+            content: (
+              <>
+                Não há registros de receitas ou despesas para Tijucas/SC no SICONFI 2025 fornecido.
+                O código IBGE esperado é <strong>4218004</strong>; a população do Censo 2022 foi localizada.
+              </>
+            ),
+          },
+          {
+            kind: "info",
+            title: "Gastos por função",
+            subtitle: "Despesas empenhadas por função",
+            content: (
+              <>
+                Sem registros de despesas por função para Tijucas/SC. O único nome semelhante encontrado
+                nos arquivos é <strong>Tijucas do Sul - PR</strong>, que não foi usado.
+              </>
+            ),
+          },
+        ];
+      }
+
       return [
         {
           kind: "chart",
-          title: "Receita x despesa",
-          subtitle: "Valores mensais simulados em milhões de reais",
-          option: lineOption({
-            labels: activeTheme.revenueExpense.receita.map((row) => row.periodo),
-            series: [
-              { name: "Receita", data: activeTheme.revenueExpense.receita.map((row) => row.valor) },
-              { name: "Despesa", data: activeTheme.revenueExpense.despesa.map((row) => row.valor) },
-            ],
+          title: "Receita x despesa de Tijucas",
+          subtitle: publicFinanceMode === "perCapita" ? "Valores por habitante, Censo 2022" : "Valores anuais, SICONFI 2025",
+          actions: (
+            <PublicFinanceModeToggle
+              value={publicFinanceMode}
+              onChange={setPublicFinanceMode}
+            />
+          ),
+          option: publicFinanceRevenueExpenseOption({
+            rows:
+              publicFinanceMode === "perCapita"
+                ? finance.revenueExpensePerCapita
+                : finance.revenueExpense,
+            mode: publicFinanceMode,
           }),
+          height: 430,
         },
         {
           kind: "chart",
-          title: "Execução por área",
-          subtitle: "Orçado e executado no exercício",
-          option: barOption({
-            labels: activeTheme.budgetExecution.map((row) => row.area),
-            series: [
-              { name: "Previsto", data: activeTheme.budgetExecution.map((row) => row.previsto) },
-              { name: "Executado", data: activeTheme.budgetExecution.map((row) => row.executado) },
-            ],
-          }),
-        },
-        {
-          kind: "chart",
-          title: "Composição da despesa",
-          subtitle: "Participação por grupo",
-          option: pieOption(activeTheme.expenseComposition),
+          title: "Gastos por função em Tijucas",
+          subtitle: "Despesas empenhadas, SICONFI 2025",
+          option: publicFinanceFunctionsOption(finance.expenseFunctions),
+          height: 430,
         },
         { kind: "table", title: "Principais receitas", subtitle: "Fontes selecionadas", rows: activeTheme.table },
       ];
@@ -831,7 +943,7 @@ export function ThematicDashboard({ themes }) {
             />
           ),
           option: pibLineOption({ series: selectedSeries }),
-          height: 560,
+          height: 430,
         },
         {
           kind: "pibTable",
@@ -866,6 +978,7 @@ export function ThematicDashboard({ themes }) {
             },
           ],
         }),
+        height: 430,
       },
       {
         kind: "chart",
@@ -873,7 +986,7 @@ export function ThematicDashboard({ themes }) {
         subtitle: `Saldo acumulado, ${activeTheme.employmentPeriod}`,
         actions: scopeToggle,
         option: treemapOption(scope.sectors),
-        height: 420,
+        height: 430,
       },
       {
         kind: "chart",
@@ -895,14 +1008,16 @@ export function ThematicDashboard({ themes }) {
         option: scatterOption(activeTheme.scatter),
       },
     ];
-  }, [activeEmploymentScope, activePib, activeTheme, employmentScope, selectedPibSeries]);
+  }, [activeEmploymentScope, activePib, activeTheme, employmentScope, publicFinanceMode, selectedPibSeries]);
 
   const visibleCards = cards.slice(0, 2);
   const narrative =
-    activePib?.summary ?? activeEmploymentScope?.summary ?? axisNarratives[activeTheme.id] ?? activeTheme.summary;
+    activePib?.summary ?? activeEmploymentScope?.summary ?? activeFinance?.summary ?? axisNarratives[activeTheme.id] ?? activeTheme.summary;
   const kpis = activePib?.kpis ?? activeEmploymentScope?.kpis ?? activeTheme.kpis;
   const supportingText = activePib
     ? `Fonte: planilhas locais de PIB municipal e PIB das mesorregiões. Projeções até ${activePib.metadata.projectionYear}.`
+    : activeFinance
+      ? `Fonte: SICONFI 2025 e IBGE Censo 2022. Código IBGE esperado: ${activeFinance.cdIbge}.`
     : activeEmploymentScope
       ? `Fonte: MTE/CAGED. Recorte exibido: ${activeTheme.employmentPeriod}.`
       : activeTheme.summary;
@@ -931,23 +1046,23 @@ export function ThematicDashboard({ themes }) {
         ))}
       </div>
 
-      <div className="rounded-lg bg-brand-navy p-6 text-white shadow-soft md:p-8 2xl:p-10">
-        <div className="grid gap-8 xl:grid-cols-[minmax(420px,0.95fr)_minmax(0,2.35fr)] 2xl:gap-10">
-          <aside className="flex flex-col justify-between gap-6">
+      <div className="rounded-lg bg-brand-navy p-5 text-white shadow-soft md:p-6 2xl:p-8">
+        <div className="grid gap-6 xl:grid-cols-[minmax(340px,0.82fr)_minmax(0,2.55fr)] 2xl:gap-8">
+          <aside className="flex flex-col justify-between gap-5">
             <div>
               <span className="text-xs font-extrabold uppercase tracking-normal text-brand-yellow">
                 Eixo selecionado
               </span>
-              <h3 className="mt-4 text-3xl font-extrabold leading-tight text-white">
+              <h3 className="mt-3 text-3xl font-extrabold leading-tight text-white 2xl:text-4xl">
                 {activeTheme.label}
               </h3>
               {isEconomyTheme ? (
                 <EconomyViewToggle value={economyView} onChange={setEconomyView} />
               ) : null}
-              <p className="mt-5 text-base font-semibold leading-7 text-white">
+              <p className="mt-5 text-base font-semibold leading-7 text-white xl:text-[15px] xl:leading-7 2xl:text-base">
                 {narrative}
               </p>
-              <p className="mt-5 text-sm font-medium leading-6 text-blue-50">
+              <p className="mt-4 text-sm font-medium leading-6 text-blue-50">
                 {supportingText}
               </p>
             </div>
@@ -956,12 +1071,12 @@ export function ThematicDashboard({ themes }) {
               {kpis.slice(0, 3).map((item) => (
                 <div
                   key={item.label}
-                  className="rounded-lg border border-white bg-white px-6 py-5"
+                  className="rounded-lg border border-white bg-white px-5 py-4 2xl:px-6 2xl:py-5"
                 >
                   <p className="text-xs font-bold uppercase tracking-normal text-slate-700">
                     {item.label}
                   </p>
-                  <strong className="mt-2 block text-2xl font-extrabold text-brand-navy">
+                  <strong className="mt-2 block text-2xl font-extrabold text-brand-navy 2xl:text-3xl">
                     {item.value}
                   </strong>
                   <span className="text-xs font-semibold text-slate-700">{item.note}</span>
@@ -979,6 +1094,10 @@ export function ThematicDashboard({ themes }) {
                   subtitle={card.subtitle}
                   rows={card.rows}
                 />
+              ) : card.kind === "info" ? (
+                <InfoCard key={card.title} title={card.title} subtitle={card.subtitle}>
+                  {card.content}
+                </InfoCard>
               ) : (
                 <EChartCard
                   key={card.title}

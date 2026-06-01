@@ -77,3 +77,97 @@ df_mte_municipal['saldo_total'] = df_mte_municipal['saldo_total'].round().astype
 
 df_mte_municipal.to_parquet(mte_municipal_processed, index=False, engine='pyarrow')
 
+
+def tratar_siconfi_csv(nome_arquivo, nome_saida):
+    caminho_raw = RAW_DIR / nome_arquivo
+    caminho_processed = PROCESSED_DIR / nome_saida
+
+    metadata = {}
+    with caminho_raw.open('r', encoding='latin-1') as file:
+        for _ in range(3):
+            chave, valor = file.readline().strip().split(': ', 1)
+            metadata[chave.lower()] = valor
+
+    df_siconfi = pd.read_csv(
+        caminho_raw,
+        sep=';',
+        skiprows=3,
+        decimal=',',
+        encoding='latin-1',
+        dtype={
+            'Cod.IBGE': 'string',
+            'UF': 'string',
+            'Coluna': 'string',
+            'Conta': 'string',
+            'Identificador da Conta': 'string',
+        },
+    )
+
+    df_siconfi = df_siconfi.rename(
+        columns={
+            'Instituição': 'instituicao',
+            'Cod.IBGE': 'cd_ibge',
+            'UF': 'uf',
+            'População': 'populacao',
+            'Coluna': 'coluna',
+            'Conta': 'conta',
+            'Identificador da Conta': 'identificador_conta',
+            'Valor': 'valor',
+        }
+    )
+
+    text_columns = ['instituicao', 'cd_ibge', 'uf', 'coluna', 'conta', 'identificador_conta']
+    for column in text_columns:
+        df_siconfi[column] = df_siconfi[column].astype('string').str.strip()
+
+    df_siconfi['cd_ibge'] = df_siconfi['cd_ibge'].str.zfill(7)
+    df_siconfi['populacao'] = df_siconfi['populacao'].astype('Int64')
+    df_siconfi['valor'] = df_siconfi['valor'].astype('float64')
+    df_siconfi['exercicio'] = int(metadata['exercício'])
+    df_siconfi['escopo'] = metadata['escopo']
+    df_siconfi['tabela'] = metadata['tabela']
+    df_siconfi['nm_municipio'] = df_siconfi['instituicao'].str.replace(
+        r'^Prefeitura Municipal de\s+|\s+-\s+[A-Z]{2}$',
+        '',
+        regex=True,
+    )
+
+    conta_parts = df_siconfi['conta'].str.extract(r'^(?:(?P<cd_conta>[\d.]+)\s+-\s+)?(?P<nm_conta>.+)$')
+    df_siconfi['cd_conta'] = conta_parts['cd_conta'].astype('string')
+    df_siconfi['nm_conta'] = conta_parts['nm_conta'].astype('string').str.strip()
+
+    ordered_columns = [
+        'exercicio',
+        'escopo',
+        'tabela',
+        'instituicao',
+        'nm_municipio',
+        'cd_ibge',
+        'uf',
+        'populacao',
+        'coluna',
+        'conta',
+        'cd_conta',
+        'nm_conta',
+        'identificador_conta',
+        'valor',
+    ]
+    df_siconfi = df_siconfi[ordered_columns]
+    df_siconfi.to_parquet(caminho_processed, index=False, engine='pyarrow')
+    return df_siconfi
+
+
+# Arquivos SICONFI - execução orçamentária municipal 2025
+tratar_siconfi_csv(
+    'SICONFI - Despesas orcamentaria muni 2025.csv',
+    'siconfi_despesas_orcamentarias_muni_2025.parquet',
+)
+tratar_siconfi_csv(
+    'SICONFI - despesas por funcao muni 2025.csv',
+    'siconfi_despesas_por_funcao_muni_2025.parquet',
+)
+tratar_siconfi_csv(
+    'SICONFI - Receitas orcamentaria muni 2025.csv',
+    'siconfi_receitas_orcamentarias_muni_2025.parquet',
+)
+
