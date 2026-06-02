@@ -1,6 +1,14 @@
 import { Search } from "lucide-react";
 
-const menuItems = ["Início", "Indicadores", "Transparência", "Boletins"];
+const menuItems = [
+  { label: "Início", href: "#inicio" },
+  { label: "Indicadores", href: "#indicadores" },
+  { label: "Educação", href: "#indicadores", themeId: "educacao" },
+  { label: "Transparência", href: "#transparencia" },
+  { label: "Boletins", href: "#boletins" },
+];
+
+const THEME_SELECT_EVENT = "tijucas:select-theme";
 
 export function Header() {
   return (
@@ -29,10 +37,19 @@ export function Header() {
           {menuItems.map((item) => (
             <a
               className="rounded-full px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-white hover:text-brand-blue"
-              href="#inicio"
-              key={item}
+              href={item.href}
+              key={item.label}
+              onClick={() => {
+                if (item.themeId) {
+                  window.dispatchEvent(
+                    new CustomEvent(THEME_SELECT_EVENT, {
+                      detail: { themeId: item.themeId },
+                    }),
+                  );
+                }
+              }}
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </nav>

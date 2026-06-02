@@ -2,7 +2,7 @@ import { Download } from "lucide-react";
 
 export function MonthlyIndicatorsTable({ indicators }) {
   return (
-    <section className="card overflow-hidden" aria-labelledby="indicadores-mensais">
+    <section id="transparencia" className="card overflow-hidden" aria-labelledby="indicadores-mensais">
       <div className="border-b border-brand-border px-6 py-5">
         <h2 id="indicadores-mensais" className="text-xl font-extrabold text-brand-navy">
           Bases de dados disponíveis
