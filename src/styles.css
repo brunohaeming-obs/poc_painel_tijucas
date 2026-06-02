@@ -7,10 +7,24 @@
 :root {
   color: #1f2937;
   background: #f5f7fa;
+  --color-tijucas-blue: #007ffe;
+  --color-tijucas-yellow: #fcd418;
+  --color-panel-bg: #000086;
+  --color-panel-bg-soft: #032a8b;
+  --color-panel-card: rgba(255, 255, 255, 0.06);
+  --color-panel-card-strong: rgba(255, 255, 255, 0.1);
+  --color-panel-border: rgba(255, 255, 255, 0.14);
+  --color-text-main: #f8fbff;
+  --color-text-muted: #c8d4ec;
+  --color-text-soft: #93a6c7;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -21,13 +35,15 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
 button:focus-visible,
 a:focus-visible,
-input:focus-visible {
+input:focus-visible,
+select:focus-visible {
   outline: 3px solid rgba(0, 94, 168, 0.28);
   outline-offset: 2px;
 }
@@ -37,4 +53,50 @@ input:focus-visible {
   border-radius: 14px;
   background: #ffffff;
   box-shadow: 0 12px 30px rgba(0, 59, 115, 0.08);
+}
+
+.educacao-shell {
+  background:
+    radial-gradient(circle at top right, rgba(0, 127, 254, 0.16), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(252, 212, 24, 0.09), transparent 24%),
+    linear-gradient(180deg, var(--color-panel-bg) 0%, var(--color-panel-bg-soft) 100%);
+}
+
+.educacao-surface {
+  border: 1px solid var(--color-panel-border);
+  background: var(--color-panel-card);
+}
+
+.educacao-surface-strong {
+  border: 1px solid var(--color-panel-border);
+  background: var(--color-panel-card-strong);
+}
+
+.educacao-kpi-card {
+  min-height: 176px;
+}
+
+.educacao-chart-card {
+  min-height: 360px;
+}
+
+.educacao-mini-card {
+  min-height: 0;
+}
+
+.educacao-shell select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.72) 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72) 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) calc(50% - 2px),
+    calc(100% - 14px) calc(50% - 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.educacao-year-select option {
+  background: #04154d;
+  color: #f8fbff;
 }

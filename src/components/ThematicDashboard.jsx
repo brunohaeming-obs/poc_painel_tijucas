@@ -8,8 +8,9 @@ import {
   Leaf,
   UsersRound,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { EChartCard } from "./EChartCard.jsx";
+import { EducacaoPage } from "../features/educacao/EducacaoPage.jsx";
 
 const palette = {
   navy: "#000086",
@@ -61,6 +62,7 @@ const axisNarratives = {
   construcaoCivil:
     "A construcao civil indica dinamica urbana, investimento privado e pressao sobre infraestrutura. Alvaras, area licenciada e tipos de obra ajudam a antecipar demandas por servicos e ordenamento territorial.",
 };
+const THEME_SELECT_EVENT = "tijucas:select-theme";
 
 function baseGrid(extra = {}) {
   return {
@@ -688,6 +690,31 @@ export function ThematicDashboard({ themes }) {
       : null;
   const activePib = isEconomyTheme && economyView === "pib" ? activeTheme.pib : null;
   const activeFinance = activeTheme.id === "contasPublicas" ? activeTheme.finance : null;
+
+  useEffect(() => {
+    function handleThemeSelection(event) {
+      const nextThemeId = event.detail?.themeId;
+      if (nextThemeId && themes[nextThemeId]) {
+        setActiveThemeId(nextThemeId);
+      }
+    }
+
+    function syncThemeWithHash() {
+      if (window.location.hash === "#educacao" && themes.educacao) {
+        setActiveThemeId("educacao");
+      }
+    }
+
+    syncThemeWithHash();
+    window.addEventListener(THEME_SELECT_EVENT, handleThemeSelection);
+    window.addEventListener("hashchange", syncThemeWithHash);
+
+    return () => {
+      window.removeEventListener(THEME_SELECT_EVENT, handleThemeSelection);
+      window.removeEventListener("hashchange", syncThemeWithHash);
+    };
+  }, [themes]);
+
   const togglePibSeries = (name) => {
     setSelectedPibSeries((current) => {
       if (current.includes(name)) {
@@ -699,6 +726,10 @@ export function ThematicDashboard({ themes }) {
   };
 
   const cards = useMemo(() => {
+    if (activeTheme.id === "educacao") {
+      return [];
+    }
+
     if (activeTheme.id === "contasPublicas") {
       const finance = activeTheme.finance;
 
@@ -1023,7 +1054,7 @@ export function ThematicDashboard({ themes }) {
       : activeTheme.summary;
 
   return (
-    <section className="flex flex-col gap-5" aria-labelledby="themes-title">
+    <section id="indicadores" className="flex flex-col gap-5" aria-labelledby="themes-title">
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 id="themes-title" className="text-xl font-extrabold text-brand-navy">
@@ -1046,73 +1077,79 @@ export function ThematicDashboard({ themes }) {
         ))}
       </div>
 
-      <div className="rounded-lg bg-brand-navy p-5 text-white shadow-soft md:p-6 2xl:p-8">
-        <div className="grid gap-6 xl:grid-cols-[minmax(340px,0.82fr)_minmax(0,2.55fr)] 2xl:gap-8">
-          <aside className="flex flex-col justify-between gap-5">
-            <div>
-              <span className="text-xs font-extrabold uppercase tracking-normal text-brand-yellow">
-                Eixo selecionado
-              </span>
-              <h3 className="mt-3 text-3xl font-extrabold leading-tight text-white 2xl:text-4xl">
-                {activeTheme.label}
-              </h3>
-              {isEconomyTheme ? (
-                <EconomyViewToggle value={economyView} onChange={setEconomyView} />
-              ) : null}
-              <p className="mt-5 text-base font-semibold leading-7 text-white xl:text-[15px] xl:leading-7 2xl:text-base">
-                {narrative}
-              </p>
-              <p className="mt-4 text-sm font-medium leading-6 text-blue-50">
-                {supportingText}
-              </p>
-            </div>
+      {activeTheme.id === "educacao" ? (
+        <div className="rounded-[32px] border border-brand-border/70 bg-white p-2 shadow-soft md:p-3">
+          <EducacaoPage />
+        </div>
+      ) : (
+        <div className="rounded-lg bg-brand-navy p-5 text-white shadow-soft md:p-6 2xl:p-8">
+          <div className="grid gap-6 xl:grid-cols-[minmax(340px,0.82fr)_minmax(0,2.55fr)] 2xl:gap-8">
+            <aside className="flex flex-col justify-between gap-5">
+              <div>
+                <span className="text-xs font-extrabold uppercase tracking-normal text-brand-yellow">
+                  Eixo selecionado
+                </span>
+                <h3 className="mt-3 text-3xl font-extrabold leading-tight text-white 2xl:text-4xl">
+                  {activeTheme.label}
+                </h3>
+                {isEconomyTheme ? (
+                  <EconomyViewToggle value={economyView} onChange={setEconomyView} />
+                ) : null}
+                <p className="mt-5 text-base font-semibold leading-7 text-white xl:text-[15px] xl:leading-7 2xl:text-base">
+                  {narrative}
+                </p>
+                <p className="mt-4 text-sm font-medium leading-6 text-blue-50">
+                  {supportingText}
+                </p>
+              </div>
 
-            <div className="grid gap-3">
-              {kpis.slice(0, 3).map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-lg border border-white bg-white px-5 py-4 2xl:px-6 2xl:py-5"
-                >
-                  <p className="text-xs font-bold uppercase tracking-normal text-slate-700">
-                    {item.label}
-                  </p>
-                  <strong className="mt-2 block text-2xl font-extrabold text-brand-navy 2xl:text-3xl">
-                    {item.value}
-                  </strong>
-                  <span className="text-xs font-semibold text-slate-700">{item.note}</span>
-                </div>
-              ))}
-            </div>
-          </aside>
+              <div className="grid gap-3">
+                {kpis.slice(0, 3).map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-lg border border-white bg-white px-5 py-4 2xl:px-6 2xl:py-5"
+                  >
+                    <p className="text-xs font-bold uppercase tracking-normal text-slate-700">
+                      {item.label}
+                    </p>
+                    <strong className="mt-2 block text-2xl font-extrabold text-brand-navy 2xl:text-3xl">
+                      {item.value}
+                    </strong>
+                    <span className="text-xs font-semibold text-slate-700">{item.note}</span>
+                  </div>
+                ))}
+              </div>
+            </aside>
 
-          <div className="grid gap-6 lg:grid-cols-2 2xl:gap-8">
-            {visibleCards.map((card) =>
-              card.kind === "pibTable" ? (
-                <PibTableCard
-                  key={card.title}
-                  title={card.title}
-                  subtitle={card.subtitle}
-                  rows={card.rows}
-                />
-              ) : card.kind === "info" ? (
-                <InfoCard key={card.title} title={card.title} subtitle={card.subtitle}>
-                  {card.content}
-                </InfoCard>
-              ) : (
-                <EChartCard
-                  key={card.title}
-                  title={card.title}
-                  subtitle={card.subtitle}
-                  height={card.height ?? 560}
-                  option={card.option}
-                  variant="dark"
-                  actions={card.actions}
-                />
-              ),
-            )}
+            <div className="grid gap-6 lg:grid-cols-2 2xl:gap-8">
+              {visibleCards.map((card) =>
+                card.kind === "pibTable" ? (
+                  <PibTableCard
+                    key={card.title}
+                    title={card.title}
+                    subtitle={card.subtitle}
+                    rows={card.rows}
+                  />
+                ) : card.kind === "info" ? (
+                  <InfoCard key={card.title} title={card.title} subtitle={card.subtitle}>
+                    {card.content}
+                  </InfoCard>
+                ) : (
+                  <EChartCard
+                    key={card.title}
+                    title={card.title}
+                    subtitle={card.subtitle}
+                    height={card.height ?? 560}
+                    option={card.option}
+                    variant="dark"
+                    actions={card.actions}
+                  />
+                ),
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

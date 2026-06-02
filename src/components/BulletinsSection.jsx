@@ -2,7 +2,7 @@ import { FileText } from "lucide-react";
 
 export function BulletinsSection({ bulletins }) {
   return (
-    <section aria-labelledby="boletins-title">
+    <section id="boletins" aria-labelledby="boletins-title">
       <div className="mb-4">
         <h2 id="boletins-title" className="text-xl font-extrabold text-brand-navy">
           Boletins e estudos
