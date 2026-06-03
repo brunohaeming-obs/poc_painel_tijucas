@@ -11,6 +11,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { EChartCard } from "./EChartCard.jsx";
 import { EducacaoPage } from "../features/educacao/EducacaoPage.jsx";
+import { EconomiaPage } from "../features/economia/EconomiaPage.jsx";
 
 const palette = {
   navy: "#000086",
@@ -211,7 +212,7 @@ function treemapOption(data) {
   };
 }
 
-function pibLineOption({ series }) {
+function pibLineOption({ series, highlightedName = "Tijucas" }) {
   const labels = series[0]?.data.map((row) => String(row.ano)) ?? [];
 
   return {
@@ -258,10 +259,12 @@ function pibLineOption({ series }) {
       name: item.name,
       type: "line",
       smooth: true,
-      symbolSize: item.scope === "Municipio" ? 7 : 4,
+      symbolSize: item.name === highlightedName ? 9 : item.scope === "Municipio" ? 7 : 4,
       lineStyle: {
-        width: item.scope === "SC" || item.scope === "Municipio" ? 4 : 2,
+        width: item.name === highlightedName ? 5 : item.scope === "SC" || item.scope === "Municipio" ? 4 : 2,
+        opacity: item.name === highlightedName ? 1 : 0.62,
       },
+      emphasis: { focus: "series" },
       data: item.data.map((row) => Math.round(row.pib / 100_000_000) / 10),
       markArea:
         item.name === series[0]?.name
@@ -480,6 +483,33 @@ function formatPib(value) {
   return `R$ ${brInteger.format(value / 1_000_000)} mi`;
 }
 
+function PibScopeToggle({ value, onChange }) {
+  const buttons = [
+    { id: "tijucas", label: "Tijucas" },
+    { id: "sc", label: "SC" },
+  ];
+
+  return (
+    <div className="inline-flex rounded-lg border border-brand-border bg-slate-100 p-1">
+      {buttons.map((button) => (
+        <button
+          key={button.id}
+          type="button"
+          aria-pressed={value === button.id}
+          onClick={() => onChange(button.id)}
+          className={`min-w-[86px] rounded-md px-3 py-1.5 text-xs font-extrabold transition ${
+            value === button.id
+              ? "bg-brand-navy text-white shadow-sm"
+              : "text-slate-700 hover:bg-white"
+          }`}
+        >
+          {button.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function PibTableCard({ title, subtitle, rows }) {
   return (
     <article className="rounded-lg border border-white bg-white p-5 2xl:p-6">
@@ -520,6 +550,55 @@ function PibTableCard({ title, subtitle, rows }) {
       </div>
     </article>
   );
+}
+
+function buildPibView(pib, scope) {
+  const tijucasSeries = pib.chartSeries.find((item) => item.name === "Tijucas");
+  const scSeries = pib.chartSeries.find((item) => item.scope === "SC");
+  const mesoregionSeries = pib.chartSeries.filter((item) => item.scope === "Mesorregiao");
+  const tijucasRow = pib.municipalTable.find((row) => row.municipio === "Tijucas");
+  const comparisonRows = pib.municipalTable
+    .filter((row) => row.municipio !== "Tijucas")
+    .slice(0, 9);
+  const tijucasGrowth = tijucasRow
+    ? ((tijucasRow.pibProjetado / tijucasRow.pibObservado - 1) * 100)
+    : 0;
+
+  if (scope === "sc") {
+    return {
+      summary: `Santa Catarina combina serie observada ate ${pib.metadata.observedYear} com projecoes ate ${pib.metadata.projectionYear}. O recorte estadual mostra o total de SC e a contribuicao das mesorregioes para contextualizar a posicao de Tijucas na economia catarinense.`,
+      source: `Fonte: planilhas locais de PIB municipal e PIB das mesorregioes. Projecoes ate ${pib.metadata.projectionYear}.`,
+      kpis: [
+        pib.kpis[0],
+        { label: "Mesorregioes", value: String(mesoregionSeries.length), note: "series comparadas" },
+        { label: "PIB Tijucas", value: pib.kpis[1].value, note: "referencia local 2030" },
+      ],
+      series: [scSeries, ...mesoregionSeries].filter(Boolean),
+      rows: pib.municipalTable.slice(0, 12),
+      highlightedName: "Santa Catarina",
+      chartTitle: "PIB observado e projetado - SC",
+      chartSubtitle: `Estado e mesorregioes, 2002 a ${pib.metadata.projectionYear}`,
+      tableTitle: "Maiores PIBs municipais de SC",
+      tableSubtitle: `PIB observado ${pib.metadata.observedYear} e projecoes selecionadas`,
+    };
+  }
+
+  return {
+    summary: `Tijucas e o foco do recorte municipal. O PIB observado em ${pib.metadata.observedYear} foi de ${formatPib(tijucasRow?.pibObservado ?? 0)} e a projecao para ${pib.metadata.projectionYear} chega a ${formatPib(tijucasRow?.pibProjetado ?? 0)}, com ganho estimado de ${decimalNumber.format(tijucasGrowth)}% no periodo.`,
+    source: `Fonte: planilhas locais de PIB municipal e PIB das mesorregioes. Projecoes ate ${pib.metadata.projectionYear}.`,
+    kpis: [
+      { label: "PIB Tijucas 2030", value: formatPib(tijucasRow?.pibProjetado ?? 0), note: "projecao" },
+      { label: "Crescimento", value: `+${decimalNumber.format(tijucasGrowth)}%`, note: `${pib.metadata.observedYear} a ${pib.metadata.projectionYear}` },
+      { label: "PIB observado", value: formatPib(tijucasRow?.pibObservado ?? 0), note: String(pib.metadata.observedYear) },
+    ],
+    series: [tijucasSeries, scSeries].filter(Boolean),
+    rows: [tijucasRow, ...comparisonRows].filter(Boolean),
+    highlightedName: "Tijucas",
+    chartTitle: "PIB observado e projetado - Tijucas",
+    chartSubtitle: `Tijucas em destaque, com SC como referencia, 2002 a ${pib.metadata.projectionYear}`,
+    tableTitle: "Tijucas e comparaveis em SC",
+    tableSubtitle: "Tijucas no topo; valores observados e projetados",
+  };
 }
 
 function InfoCard({ title, subtitle, children }) {
@@ -679,8 +758,8 @@ export function ThematicDashboard({ themes }) {
   const themeList = Object.values(themes);
   const [activeThemeId, setActiveThemeId] = useState("economiaEmpregos");
   const [employmentScope, setEmploymentScope] = useState("sc");
-  const [economyView, setEconomyView] = useState("employment");
-  const [selectedPibSeries, setSelectedPibSeries] = useState(["Tijucas"]);
+  const [economyView, setEconomyView] = useState("pib");
+  const [pibScope, setPibScope] = useState("tijucas");
   const [publicFinanceMode, setPublicFinanceMode] = useState("total");
   const activeTheme = themes[activeThemeId];
   const isEconomyTheme = activeTheme.id === "economiaEmpregos";
@@ -689,6 +768,7 @@ export function ThematicDashboard({ themes }) {
       ? activeTheme.employmentScopes[employmentScope]
       : null;
   const activePib = isEconomyTheme && economyView === "pib" ? activeTheme.pib : null;
+  const activePibView = activePib ? buildPibView(activePib, pibScope) : null;
   const activeFinance = activeTheme.id === "contasPublicas" ? activeTheme.finance : null;
 
   useEffect(() => {
@@ -714,16 +794,6 @@ export function ThematicDashboard({ themes }) {
       window.removeEventListener("hashchange", syncThemeWithHash);
     };
   }, [themes]);
-
-  const togglePibSeries = (name) => {
-    setSelectedPibSeries((current) => {
-      if (current.includes(name)) {
-        const next = current.filter((item) => item !== name);
-        return next.length ? next : current;
-      }
-      return [...current, name];
-    });
-  };
 
   const cards = useMemo(() => {
     if (activeTheme.id === "educacao") {
@@ -956,31 +1026,29 @@ export function ThematicDashboard({ themes }) {
       ];
     }
 
-    if (activePib) {
-      const selectedSeries = activePib.chartSeries.filter((item) =>
-        selectedPibSeries.includes(item.name),
-      );
-
+    if (activePibView) {
       return [
         {
           kind: "chart",
-          title: "PIB observado e projetado",
-          subtitle: `Selecione as séries para comparar, 2002 a ${activePib.metadata.projectionYear}`,
+          title: activePibView.chartTitle,
+          subtitle: activePibView.chartSubtitle,
           actions: (
-            <PibSeriesSelector
-              series={activePib.chartSeries}
-              selected={selectedPibSeries}
-              onToggle={togglePibSeries}
+            <PibScopeToggle
+              value={pibScope}
+              onChange={setPibScope}
             />
           ),
-          option: pibLineOption({ series: selectedSeries }),
+          option: pibLineOption({
+            series: activePibView.series,
+            highlightedName: activePibView.highlightedName,
+          }),
           height: 430,
         },
         {
           kind: "pibTable",
-          title: "PIB por município",
-          subtitle: `PIB observado ${activePib.metadata.observedYear} e projeções selecionadas`,
-          rows: activePib.municipalTable,
+          title: activePibView.tableTitle,
+          subtitle: activePibView.tableSubtitle,
+          rows: activePibView.rows,
         },
       ];
     }
@@ -1039,14 +1107,14 @@ export function ThematicDashboard({ themes }) {
         option: scatterOption(activeTheme.scatter),
       },
     ];
-  }, [activeEmploymentScope, activePib, activeTheme, employmentScope, publicFinanceMode, selectedPibSeries]);
+  }, [activeEmploymentScope, activePibView, activeTheme, employmentScope, pibScope, publicFinanceMode]);
 
   const visibleCards = cards.slice(0, 2);
   const narrative =
-    activePib?.summary ?? activeEmploymentScope?.summary ?? activeFinance?.summary ?? axisNarratives[activeTheme.id] ?? activeTheme.summary;
-  const kpis = activePib?.kpis ?? activeEmploymentScope?.kpis ?? activeTheme.kpis;
-  const supportingText = activePib
-    ? `Fonte: planilhas locais de PIB municipal e PIB das mesorregiões. Projeções até ${activePib.metadata.projectionYear}.`
+    activePibView?.summary ?? activeEmploymentScope?.summary ?? activeFinance?.summary ?? axisNarratives[activeTheme.id] ?? activeTheme.summary;
+  const kpis = activePibView?.kpis ?? activeEmploymentScope?.kpis ?? activeTheme.kpis;
+  const supportingText = activePibView
+    ? activePibView.source
     : activeFinance
       ? `Fonte: SICONFI 2025 e IBGE Censo 2022. Código IBGE esperado: ${activeFinance.cdIbge}.`
     : activeEmploymentScope
@@ -1077,7 +1145,11 @@ export function ThematicDashboard({ themes }) {
         ))}
       </div>
 
-      {activeTheme.id === "educacao" ? (
+      {activeTheme.id === "economiaEmpregos" ? (
+        <div className="rounded-[32px] border border-brand-border/70 bg-white p-2 shadow-soft md:p-3">
+          <EconomiaPage theme={activeTheme} />
+        </div>
+      ) : activeTheme.id === "educacao" ? (
         <div className="rounded-[32px] border border-brand-border/70 bg-white p-2 shadow-soft md:p-3">
           <EducacaoPage />
         </div>
