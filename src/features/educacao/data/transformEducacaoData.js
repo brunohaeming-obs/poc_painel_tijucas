@@ -108,16 +108,67 @@ function getPreviousYear(availableYears, selectedYear) {
   return availableYears[currentIndex - 1];
 }
 
+function getSortedRendimentoRows(rendimento = []) {
+  return [...rendimento]
+    .filter((row) => Number.isFinite(Number(row?.ano)))
+    .sort((first, second) => Number(first.ano) - Number(second.ano));
+}
+
 function getMapAvailableYears(mapaEscolas) {
   return mapaEscolas?.anos_disponiveis ?? [];
 }
 
-function buildOverviewKpis(indicadoresLong, availableYears, selectedYear) {
+function buildOverviewKpis(indicadoresLong, availableYears, selectedYear, rendimento = []) {
   const currentRows = getYearRows(indicadoresLong, selectedYear);
   const previousYear = getPreviousYear(availableYears, selectedYear);
   const previousRows = previousYear ? getYearRows(indicadoresLong, previousYear) : [];
+  const rendimentoRows = getSortedRendimentoRows(rendimento);
+  const currentRendimento = rendimentoRows[rendimentoRows.length - 1] ?? null;
+  const previousRendimento =
+    rendimentoRows.length > 1 ? rendimentoRows[rendimentoRows.length - 2] : null;
 
   return overviewKpiDefinitions.map((definition) => {
+    const useApprovalKpi =
+      definition.key === "approval" ||
+      definition.key === "internet" ||
+      normalizeText(definition.label).includes("internet");
+    const useAbandonmentKpi =
+      definition.key === "abandonment" ||
+      definition.key === "accessibility" ||
+      normalizeText(definition.label).includes("acessibilidade");
+
+    if (useApprovalKpi) {
+      const currentValue = currentRendimento?.taxa_aprovacao_fundamental ?? null;
+      const previousValue = previousRendimento?.taxa_aprovacao_fundamental ?? null;
+
+      return {
+        key: "approval",
+        label: "Taxa de aprovação",
+        note: "Percentual de estudantes do ensino fundamental que avançaram no percurso escolar.",
+        unit: "%",
+        value: currentValue,
+        valueText: formatIndicatorValue(currentValue, "%"),
+        comparisonText: null,
+        variation: buildVariation(currentValue, previousValue, "%", previousRendimento?.ano ?? null),
+      };
+    }
+
+    if (useAbandonmentKpi) {
+      const currentValue = currentRendimento?.taxa_abandono_fundamental ?? null;
+      const previousValue = previousRendimento?.taxa_abandono_fundamental ?? null;
+
+      return {
+        key: "abandonment",
+        label: "Taxa de abandono",
+        note: "Percentual de estudantes do ensino fundamental que perderam vínculo com a escola no ano.",
+        unit: "%",
+        value: currentValue,
+        valueText: formatIndicatorValue(currentValue, "%"),
+        comparisonText: null,
+        variation: buildVariation(currentValue, previousValue, "%", previousRendimento?.ano ?? null),
+      };
+    }
+
     const current = getIndicatorRow(currentRows, definition.indicator);
     const previous = getIndicatorRow(previousRows, definition.indicator);
 
@@ -359,7 +410,12 @@ export function buildEducacaoViewModel(allData, filters) {
   return {
     selectedYear,
     availableYears,
-    overviewKpis: buildOverviewKpis(allData.indicadoresLong, availableYears, selectedYear),
+    overviewKpis: buildOverviewKpis(
+      allData.indicadoresLong,
+      availableYears,
+      selectedYear,
+      allData.rendimento ?? [],
+    ),
     schoolComposition: buildSchoolComposition(allData.indicadoresLong, selectedYear),
     enrollmentHistory: buildEnrollmentHistory(allData.seriesTemporais, availableYears),
     enrollmentComposition: buildEnrollmentComposition(allData.indicadoresLong, selectedYear),

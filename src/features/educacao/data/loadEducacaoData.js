@@ -54,6 +54,10 @@ export async function loadEducacaoIndicadoresApenasTijucas() {
   return fetchOptionalEducacaoJson("/data/educacao/educacao_indicadores_apenas_tijucas.json");
 }
 
+export async function loadEducacaoRendimento() {
+  return fetchOptionalEducacaoJson("/data/educacao/educacao_rendimento.json");
+}
+
 export async function loadAllEducacaoData() {
   try {
     const [
@@ -65,6 +69,7 @@ export async function loadAllEducacaoData() {
       comparativoSc,
       comparativoSc2024,
       indicadoresApenasTijucas,
+      rendimento,
     ] = await Promise.all([
       loadEducacaoIndicadoresLong(),
       loadEducacaoSeriesTemporais(),
@@ -74,6 +79,7 @@ export async function loadAllEducacaoData() {
       loadEducacaoComparativoSc(),
       loadEducacaoComparativoSc2024(),
       loadEducacaoIndicadoresApenasTijucas(),
+      loadEducacaoRendimento(),
     ]);
 
     return {
@@ -85,6 +91,7 @@ export async function loadAllEducacaoData() {
       comparativoSc,
       comparativoSc2024,
       indicadoresApenasTijucas,
+      rendimento,
     };
   } catch (error) {
     console.error("Dados de educação não encontrados.", error);

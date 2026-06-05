@@ -1,4 +1,5 @@
-import { Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Info, Sparkles } from "lucide-react";
 import {
   Bar,
   BarChart,
@@ -38,29 +39,75 @@ function renderBarTooltip({ active, payload, label }) {
   );
 }
 
+const methodologyText = `Como ler este indicador
+
+Os percentuais mostram a proporção de escolas que declararam possuir cada recurso no Censo Escolar.
+
+A comparação com 2024 indica mudança na declaração entre os anos. Ela pode refletir ampliação real da estrutura, atualização cadastral ou mudança no conjunto de escolas informantes.
+
+Esses indicadores ajudam a observar condições materiais da rede, mas não medem diretamente qualidade do ensino.
+
+No caso de acessibilidade, o painel usa banheiro acessível como aproximação. Esse dado não representa todas as dimensões de acessibilidade escolar.`;
+
 export function InfraestruturaSection({
   selectedYear,
   infrastructureKpis,
   infrastructureChart,
   narratives,
 }) {
+  const [showMethodology, setShowMethodology] = useState(false);
   const hasComparativo = Boolean(infrastructureChart?.hasReference);
   const chartYear = infrastructureChart?.year ?? 2024;
 
   return (
     <section className="grid gap-8" aria-labelledby="educacao-infra-title">
-      <EducacaoSectionHeader
-        titleId="educacao-infra-title"
-        eyebrow="Infraestrutura das escolas"
-        title="Condições essenciais de funcionamento"
-      />
+      <div className="relative">
+        <EducacaoSectionHeader
+          titleId="educacao-infra-title"
+          eyebrow="Infraestrutura das escolas"
+          title="Condições essenciais de funcionamento"
+        />
+
+        <div className="relative mt-3 flex items-start justify-start">
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#F2A116]"
+            onMouseEnter={() => setShowMethodology(true)}
+            onMouseLeave={() => setShowMethodology(false)}
+            onFocus={() => setShowMethodology(true)}
+            onBlur={() => setShowMethodology(false)}
+            onClick={() => setShowMethodology((current) => !current)}
+            aria-expanded={showMethodology}
+            aria-label="Como ler este indicador"
+          >
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-[#F2A116] text-[11px] font-bold text-[#10213A]">
+              <Info size={12} strokeWidth={2.4} />
+            </span>
+            Como ler este indicador
+          </button>
+
+          {showMethodology ? (
+            <div
+              className="absolute left-0 top-full z-20 mt-3 w-full max-w-[520px] rounded-3xl border border-white/12 bg-[#071845] p-5 text-sm leading-7 text-slate-200 shadow-2xl"
+              onMouseEnter={() => setShowMethodology(true)}
+              onMouseLeave={() => setShowMethodology(false)}
+            >
+              {methodologyText.split("\n\n").map((paragraph, index) => (
+                <p key={index} className={index === 0 ? "font-semibold text-white" : "mt-3"}>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </div>
 
       <div className="grid gap-8 xl:grid-cols-[minmax(280px,0.72fr)_minmax(0,1.28fr)] xl:items-start">
         <EducacaoNarrativeText
           eyebrow="Leitura de apoio"
-          title="Infraestrutura ajuda a ler a capacidade da rede"
+          title="Condições básicas da rede"
           body={narratives.infrastructure}
-          caption="Os indicadores de infraestrutura não medem diretamente a qualidade do ensino, mas ajudam a compreender as condições materiais da rede."
+          caption="Os indicadores mostram recursos declarados pelas escolas e ajudam a acompanhar diferenças nas condições básicas de funcionamento da rede."
           className="xl:pt-4"
           icon={Sparkles}
         />

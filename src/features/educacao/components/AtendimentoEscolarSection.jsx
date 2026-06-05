@@ -1,11 +1,8 @@
-import { BookCopy, LineChart as LineChartIcon } from "lucide-react";
+import { LineChart as LineChartIcon } from "lucide-react";
 import {
   CartesianGrid,
-  Cell,
   Line,
   LineChart,
-  Pie,
-  PieChart,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
@@ -42,23 +39,9 @@ function renderLineTooltip({ active, label, payload }) {
   );
 }
 
-function renderPieTooltip({ active, payload }) {
-  if (!active || !payload?.length) return null;
-
-  const point = payload[0].payload;
-
-  return (
-    <div className="rounded-2xl border border-white/10 bg-[#071845] px-4 py-3 text-sm text-white shadow-lg">
-      <strong>{point.label}</strong>
-      <p className="mt-1 text-slate-300">{integerFormatter.format(point.value)} matrículas</p>
-    </div>
-  );
-}
-
 export function AtendimentoEscolarSection({
   selectedYear,
   enrollmentHistory,
-  enrollmentComposition,
   narratives,
 }) {
   return (
@@ -73,13 +56,13 @@ export function AtendimentoEscolarSection({
         chart={
           <EducacaoChartCard
             title="Evolução das matrículas por etapa"
-            subtitle="A série histórica permanece completa e o ano filtrado aparece como destaque visual."
+            subtitle="Cada ponto representa um ano do Censo Escolar. As linhas mostram como as matrículas evoluíram por etapa de ensino. O ano selecionado ajuda a localizar o recorte atual sem esconder a série histórica."
           >
-            <div className="flex flex-wrap gap-3 text-sm">
+            <div className="flex flex-wrap gap-2.5 text-sm">
               {enrollmentHistory.series.map((seriesItem) => (
                 <span
                   key={seriesItem.key}
-                  className="rounded-full border border-white/10 px-3 py-1.5 text-slate-200"
+                  className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-slate-100"
                 >
                   <span
                     className="mr-2 inline-block h-2.5 w-2.5 rounded-full"
@@ -109,10 +92,19 @@ export function AtendimentoEscolarSection({
                       dataKey={seriesItem.key}
                       name={seriesItem.label}
                       stroke={seriesItem.color}
-                      strokeWidth={seriesItem.key === "total" ? 2.2 : 3}
-                      dot={false}
-                      strokeDasharray={seriesItem.key === "total" ? "7 4" : undefined}
-                      activeDot={{ r: 5 }}
+                      strokeWidth={seriesItem.key === "total" ? 3.8 : 2.6}
+                      dot={{
+                        r: seriesItem.key === "total" ? 4.4 : 3.4,
+                        fill: seriesItem.color,
+                        stroke: "#071845",
+                        strokeWidth: 1.5,
+                      }}
+                      activeDot={{
+                        r: seriesItem.key === "total" ? 6 : 5,
+                        fill: seriesItem.color,
+                        stroke: "#FCD418",
+                        strokeWidth: 2,
+                      }}
                     />
                   ))}
                 </LineChart>
@@ -123,73 +115,11 @@ export function AtendimentoEscolarSection({
         narrative={
           <EducacaoNarrativeText
             eyebrow="Leitura da série"
-            title="O atendimento não se resume ao total"
+            title="Como a demanda escolar mudou?"
             body={narratives.enrollmentTrend}
+            caption={narratives.enrollmentTrendNote}
             className="w-full"
             icon={LineChartIcon}
-          />
-        }
-      />
-
-      <EducacaoChartNarrativeRow
-        chart={
-          <EducacaoChartCard
-            title={`Composição das matrículas em ${selectedYear}`}
-            subtitle="Distribuição do atendimento por etapa no ano selecionado."
-          >
-            {enrollmentComposition.items.length ? (
-              <>
-                <div className="h-[250px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={enrollmentComposition.items}
-                        dataKey="value"
-                        nameKey="label"
-                        innerRadius={64}
-                        outerRadius={100}
-                        paddingAngle={2}
-                        stroke="rgba(255,255,255,0.06)"
-                        strokeWidth={2}
-                      >
-                        {enrollmentComposition.items.map((item) => (
-                          <Cell key={item.label} fill={item.color} />
-                        ))}
-                      </Pie>
-                      <Tooltip content={renderPieTooltip} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="grid gap-2">
-                  {enrollmentComposition.items.map((item) => (
-                    <div key={item.label} className="flex items-center justify-between gap-4 text-sm">
-                      <span className="flex items-center gap-2 text-slate-200">
-                        <span
-                          className="h-2.5 w-2.5 rounded-full"
-                          style={{ backgroundColor: item.color }}
-                        />
-                        {item.label}
-                      </span>
-                      <strong className="text-white">{integerFormatter.format(item.value)}</strong>
-                    </div>
-                  ))}
-                </div>
-              </>
-            ) : (
-              <p className="text-sm leading-7 text-slate-300">
-                Sem dados suficientes para a composição de matrículas no ano selecionado.
-              </p>
-            )}
-          </EducacaoChartCard>
-        }
-        narrative={
-          <EducacaoNarrativeText
-            eyebrow="Composição"
-            title="Quais etapas puxam o perfil da rede"
-            body={narratives.enrollmentComposition}
-            caption="EJA e educação especial aparecem apenas quando ajudam a leitura e não poluem a composição."
-            className="w-full"
-            icon={BookCopy}
           />
         }
       />

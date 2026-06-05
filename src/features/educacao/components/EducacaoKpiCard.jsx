@@ -1,5 +1,7 @@
 import {
   Accessibility,
+  AlertTriangle,
+  CheckCircle2,
   Droplets,
   GraduationCap,
   School,
@@ -21,6 +23,8 @@ const decimalFormatter = new Intl.NumberFormat("pt-BR", {
 const iconMap = {
   schools: School,
   enrollments: GraduationCap,
+  approval: CheckCircle2,
+  abandonment: AlertTriangle,
   internet: Wifi,
   accessibility: Accessibility,
   water: Droplets,
@@ -83,6 +87,18 @@ function buildOverviewVariationText(variation) {
   return `${directionLabel} de ${cleanDeltaText} desde ${variation.previousYear}`;
 }
 
+function buildDefaultVariationText(variation) {
+  if (!variation || variation.value === null || !variation.previousYear) {
+    return "Sem comparação anual disponível";
+  }
+
+  if (variation.value === 0) {
+    return `Sem mudança desde ${variation.previousYear}`;
+  }
+
+  return `${variation.deltaText} em relação a ${variation.previousYear}`;
+}
+
 export function EducacaoKpiCard({
   item,
   variant = "default",
@@ -92,7 +108,9 @@ export function EducacaoKpiCard({
   const Icon = iconMap[item.key] ?? School;
   const VariationIcon = getVariationIcon(item.variation.direction);
   const isOverview = variant === "overview";
-  const variationText = isOverview ? buildOverviewVariationText(item.variation) : item.variation.label;
+  const variationText = isOverview
+    ? buildOverviewVariationText(item.variation)
+    : buildDefaultVariationText(item.variation);
 
   return (
     <article
@@ -107,7 +125,7 @@ export function EducacaoKpiCard({
           className={`grid place-items-center rounded-2xl ${
             isOverview
               ? "h-14 w-14 border border-[rgba(242,161,22,0.22)] bg-white text-[#F2A116]"
-              : "bg-white/[0.08] text-white h-12 w-12"
+              : "h-12 w-12 bg-white/[0.08] text-white"
           }`}
         >
           <Icon size={isOverview ? 28 : 24} strokeWidth={2.1} />
