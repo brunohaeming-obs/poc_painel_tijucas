@@ -533,6 +533,7 @@ export function EconomiaPage({ theme }) {
   const [showSectorImpact, setShowSectorImpact] = useState(false);
 
   const tijucas = municipalities.find((row) => row.municipio === "Tijucas");
+  const mesoregionMunicipalities = municipalities.filter((row) => row.mesorregiao === tijucas?.mesorregiao);
   const selectedNames = pibMode === "total" ? pibNames : pibPerCapitaNames;
   const setSelectedNames = pibMode === "total" ? setPibNames : setPibPerCapitaNames;
   const chartRows = selectedNames.map((name) => municipalities.find((row) => row.municipio === name)).filter(Boolean);
@@ -544,6 +545,7 @@ export function EconomiaPage({ theme }) {
   const pibAverageMultiplier = calculateShare(tijucas.pib2025, peerAveragePib2025) / 100;
   const pibPerCapitaAverageMultiplier = calculateShare(tijucas.pibPerCapita2025, peerAveragePibPc2025) / 100;
   const economyPeerHelp = `Comparação feita com municípios de Santa Catarina com população de até ${numberFormatter.format(pibCitizenData.metadata.populationLimit)} habitantes, usando população de referência do ${pibCitizenData.metadata.populationSource}.`;
+  const mesoregionHelp = `Ranking feito entre os ${mesoregionMunicipalities.length} municípios da mesorregião ${tijucas?.mesorregiao}, usando PIB per capita projetado de 2025 e população de referência do ${pibCitizenData.metadata.populationSource}.`;
   const pibSourceHelp = "Fonte: base de PIB municipal do projeto, com série observada até 2023 e projeções de 2025 a 2030. PIB é o valor total produzido pela economia do município.";
   const employmentSourceHelp = "Fonte: base de empregos formais do projeto, derivada do Novo Caged/MTE. Saldo significa admissões menos desligamentos no período.";
 
@@ -590,10 +592,10 @@ export function EconomiaPage({ theme }) {
           help: `Crescimento anual médio do PIB per capita projetado entre 2025 e 2030. A população fica fixa pela referência do ${pibCitizenData.metadata.populationSource}, para comparar cidades na mesma régua.`,
         },
         {
-          label: "Posição no grupo",
-          value: `${rankWithin(peerMunicipalities, "Tijucas", (row) => row.pibPerCapita2025)}º`,
-          note: `Entre municípios até ${numberFormatter.format(pibCitizenData.metadata.populationLimit)} hab.`,
-          help: `Ranking do PIB per capita projetado de 2025. ${economyPeerHelp}`,
+          label: "Posição na mesorregião",
+          value: `${rankWithin(mesoregionMunicipalities, "Tijucas", (row) => row.pibPerCapita2025)}º`,
+          note: `Na mesorregião ${tijucas?.mesorregiao}.`,
+          help: mesoregionHelp,
         },
         {
           label: "Acima da média",
