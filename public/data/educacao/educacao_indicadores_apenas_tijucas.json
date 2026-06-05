@@ -1,0 +1,66 @@
+[
+  {
+    "indicador_codigo": "perc_escolas_agua_potavel",
+    "indicador_nome": "Escolas com água potável",
+    "tema": "Infraestrutura básica",
+    "grupo_exibicao": "apenas_tijucas",
+    "motivo_sem_comparacao": "Indicador mais específico, sujeito a validação adicional de comparabilidade estadual.",
+    "observacao_metodologica": "Apresentado apenas para Tijucas nesta primeira versão pública."
+  },
+  {
+    "indicador_codigo": "perc_escolas_agua_rede_publica",
+    "indicador_nome": "Escolas com água da rede pública",
+    "tema": "Infraestrutura básica",
+    "grupo_exibicao": "apenas_tijucas",
+    "motivo_sem_comparacao": "Indicador mais específico, sujeito a validação adicional de comparabilidade estadual.",
+    "observacao_metodologica": "Apresentado apenas para Tijucas nesta primeira versão pública."
+  },
+  {
+    "indicador_codigo": "perc_escolas_banda_larga",
+    "indicador_nome": "Escolas com banda larga",
+    "tema": "Tecnologia e conectividade",
+    "grupo_exibicao": "apenas_tijucas",
+    "motivo_sem_comparacao": "Indicador mais específico, sujeito a diferenças de preenchimento e validação adicional de comparabilidade estadual.",
+    "observacao_metodologica": "Apresentado apenas para Tijucas nesta primeira versão pública."
+  },
+  {
+    "indicador_codigo": "perc_escolas_internet_alunos",
+    "indicador_nome": "Escolas com internet para alunos",
+    "tema": "Tecnologia e conectividade",
+    "grupo_exibicao": "apenas_tijucas",
+    "motivo_sem_comparacao": "Indicador mais específico, sujeito a diferenças de interpretação de uso ao longo da série.",
+    "observacao_metodologica": "Apresentado apenas para Tijucas nesta primeira versão pública."
+  },
+  {
+    "indicador_codigo": "perc_escolas_internet_aprendizagem",
+    "indicador_nome": "Escolas com internet para aprendizagem",
+    "tema": "Tecnologia e conectividade",
+    "grupo_exibicao": "apenas_tijucas",
+    "motivo_sem_comparacao": "Indicador mais específico, sujeito a diferenças de interpretação de uso ao longo da série.",
+    "observacao_metodologica": "Apresentado apenas para Tijucas nesta primeira versão pública."
+  },
+  {
+    "indicador_codigo": "perc_escolas_acessibilidade_rampas",
+    "indicador_nome": "Escolas com rampas de acessibilidade",
+    "tema": "Acessibilidade",
+    "grupo_exibicao": "apenas_tijucas",
+    "motivo_sem_comparacao": "Indicador mais específico, sujeito a validação adicional de comparabilidade estadual.",
+    "observacao_metodologica": "Apresentado apenas para Tijucas nesta primeira versão pública."
+  },
+  {
+    "indicador_codigo": "perc_escolas_salas_acessiveis",
+    "indicador_nome": "Escolas com salas acessíveis",
+    "tema": "Acessibilidade",
+    "grupo_exibicao": "apenas_tijucas",
+    "motivo_sem_comparacao": "Indicador proxy baseado em quantidade e sujeito a diferenças de preenchimento.",
+    "observacao_metodologica": "Apresentado apenas para Tijucas nesta primeira versão pública."
+  },
+  {
+    "indicador_codigo": "perc_escolas_sem_recurso_acessibilidade",
+    "indicador_nome": "Escolas sem recurso de acessibilidade",
+    "tema": "Acessibilidade",
+    "grupo_exibicao": "apenas_tijucas",
+    "motivo_sem_comparacao": "Indicador proxy negativo, sujeito a diferenças de interpretação e preenchimento.",
+    "observacao_metodologica": "Apresentado apenas para Tijucas nesta primeira versão pública."
+  }
+]
