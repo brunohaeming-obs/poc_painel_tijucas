@@ -44,6 +44,9 @@ export function InfraestruturaSection({
   infrastructureChart,
   narratives,
 }) {
+  const hasComparativo = Boolean(infrastructureChart?.hasReference);
+  const chartYear = infrastructureChart?.year ?? 2024;
+
   return (
     <section className="grid gap-8" aria-labelledby="educacao-infra-title">
       <EducacaoSectionHeader
@@ -65,12 +68,8 @@ export function InfraestruturaSection({
       </div>
 
       <EducacaoChartCard
-        title={`Recursos físicos e tecnológicos em ${selectedYear}`}
-        subtitle={
-          infrastructureChart.hasReference
-            ? "Comparação lado a lado entre Tijucas e Santa Catarina."
-            : "Comparativo com Santa Catarina será incorporado após geração da base estadual."
-        }
+        title="Recursos comparáveis com Santa Catarina"
+        subtitle="Comparação de Tijucas com a média estadual em indicadores selecionados de infraestrutura escolar."
       >
         <div className="h-[340px]">
           <ResponsiveContainer width="100%" height="100%">
@@ -90,7 +89,7 @@ export function InfraestruturaSection({
               <YAxis type="category" dataKey="label" width={210} stroke="#A8B6D8" />
               <Tooltip content={renderBarTooltip} />
               <Bar dataKey="tijucas" name="Tijucas" fill="#007FFE" radius={[0, 10, 10, 0]} />
-              {infrastructureChart.hasReference ? (
+              {hasComparativo ? (
                 <Bar
                   dataKey="reference"
                   name="Santa Catarina"
@@ -101,6 +100,18 @@ export function InfraestruturaSection({
             </BarChart>
           </ResponsiveContainer>
         </div>
+
+        <p className="mt-5 text-sm leading-6 text-slate-300">
+          {hasComparativo
+            ? infrastructureChart.note
+            : "Comparativo estadual indisponível nos arquivos atuais."}
+        </p>
+
+        <p className="mt-2 text-xs leading-6 text-slate-400">
+          {hasComparativo
+            ? `Fotografia principal usada no gráfico: ${chartYear}.`
+            : `O gráfico segue exibindo apenas Tijucas no recorte disponível de ${selectedYear}.`}
+        </p>
       </EducacaoChartCard>
     </section>
   );

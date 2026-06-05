@@ -229,20 +229,51 @@ function buildInfrastructureKpis(indicadoresLong, availableYears, selectedYear) 
   });
 }
 
-function buildInfrastructureChart(indicadoresLong, selectedYear) {
+function buildFallbackInfrastructureChart(indicadoresLong, selectedYear) {
   const currentRows = getYearRows(indicadoresLong, selectedYear);
   const items = infrastructureChartDefinitions.map((definition) => {
     const row = getIndicatorRow(currentRows, definition.indicator);
     return {
+      key: definition.indicator,
       label: definition.label,
       tijucas: row?.valor ?? null,
       reference: null,
+      note: "",
+      unit: "%",
     };
   });
 
   return {
+    year: selectedYear,
     items,
     hasReference: false,
+    comparisonAvailable: false,
+    note: "Comparativo estadual indisponível nos arquivos atuais.",
+  };
+}
+
+function buildInfrastructureChart(indicadoresLong, selectedYear, comparativoSc2024) {
+  const rows = Array.isArray(comparativoSc2024)
+    ? comparativoSc2024.filter((row) => Number(row.ano) === 2024)
+    : [];
+
+  if (!rows.length) {
+    return buildFallbackInfrastructureChart(indicadoresLong, selectedYear);
+  }
+
+  return {
+    year: 2024,
+    items: rows.map((row) => ({
+      key: row.indicador_codigo,
+      label: row.indicador_nome,
+      tijucas: row.tijucas ?? null,
+      reference: row.santa_catarina ?? null,
+      note: row.observacao_metodologica ?? "",
+      unit: row.unidade ?? "%",
+    })),
+    hasReference: true,
+    comparisonAvailable: true,
+    note: "A comparação utiliza 2024 como fotografia principal. O ano de 2025 não foi incluído no comparativo estadual por mudança na estrutura dos microdados do Censo Escolar.",
   };
 }
 
@@ -337,7 +368,11 @@ export function buildEducacaoViewModel(allData, filters) {
       availableYears,
       selectedYear,
     ),
-    infrastructureChart: buildInfrastructureChart(allData.indicadoresLong, selectedYear),
+    infrastructureChart: buildInfrastructureChart(
+      allData.indicadoresLong,
+      selectedYear,
+      allData.comparativoSc2024,
+    ),
     territoryData: buildTerritoryData(allData.mapaEscolas, {
       ...filters,
       selectedYear,
