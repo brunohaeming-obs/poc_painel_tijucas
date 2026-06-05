@@ -345,8 +345,12 @@ export function EconomiaPage({ theme }) {
               PIB e emprego formal em fluxo continuo
             </h2>
             <p className="mt-4 max-w-3xl text-base leading-8 text-slate-200">
-              O eixo comeca pelo PIB para situar Tijucas na economia de Santa Catarina e da mesorregiao.
-              Depois, acompanha o saldo de empregos formais, com leitura acumulada em 12 meses e setores de maior impacto.
+              Tijucas combina um PIB observado de {formatPib(pibModel.tijucasRow?.pibObservado ?? 0)} em{" "}
+              {pibModel.observedYear} com projecao de {formatPib(pibModel.tijucasRow?.pibProjetado ?? 0)} em{" "}
+              {pibModel.projectionYear}. No mercado formal, o municipio soma{" "}
+              {activeEmployment.annualBalance > 0 ? "+" : ""}
+              {numberFormatter.format(activeEmployment.annualBalance)} vagas em {theme.employmentPeriod}, sinalizando
+              atividade recente puxada pelos setores de maior saldo.
             </p>
           </div>
           <div className="educacao-surface rounded-[28px] px-5 py-4">
@@ -361,14 +365,14 @@ export function EconomiaPage({ theme }) {
             eyebrow="PIB primeiro"
             title="Tijucas em destaque frente a SC e Grande Florianopolis"
             badge={`Projecao ate ${pibModel.projectionYear}`}
-            description="A leitura separa o comportamento municipal do estadual e da mesorregiao, preservando Tijucas como serie principal."
+            description={`O municipio aparece como uma economia local em expansao: cresce de ${formatPib(pibModel.tijucasRow?.pibObservado ?? 0)} para ${formatPib(pibModel.tijucasRow?.pibProjetado ?? 0)} no horizonte projetado e chega a ${decimalFormatter.format(pibModel.mesoShare2030)}% do PIB de ${mesoName} em ${pibModel.projectionYear}.`}
           />
 
           <div className="grid gap-8 xl:grid-cols-[minmax(280px,0.9fr)_minmax(0,1.25fr)] xl:items-stretch">
             <EducacaoNarrativeText
               eyebrow="Leitura economica"
               title="PIB municipal ganha escala no horizonte projetado"
-              body={`Tijucas parte de ${formatPib(pibModel.tijucasRow?.pibObservado ?? 0)} em ${pibModel.observedYear} e chega a ${formatPib(pibModel.tijucasRow?.pibProjetado ?? 0)} em ${pibModel.projectionYear}. Entre 2025 e 2030, o CAGR estimado e de ${decimalFormatter.format(pibModel.cagr2025To2030)}% ao ano. Em 2030, o municipio representa ${decimalFormatter.format(pibModel.mesoShare2030)}% do PIB projetado da mesorregiao e ${decimalFormatter.format(pibModel.scShare2030)}% de SC.`}
+              body={`A trajetoria projetada indica ganho de escala para Tijucas dentro da economia regional. Entre 2025 e 2030, o CAGR estimado e de ${decimalFormatter.format(pibModel.cagr2025To2030)}% ao ano; em ${pibModel.projectionYear}, o municipio representa ${decimalFormatter.format(pibModel.mesoShare2030)}% do PIB projetado de ${mesoName} e ${decimalFormatter.format(pibModel.scShare2030)}% de SC.`}
               caption="Valores em reais correntes no arquivo de PIB do projeto; anos de 2024 a 2030 sao projecoes."
               icon={TrendingUp}
               className="h-full"
