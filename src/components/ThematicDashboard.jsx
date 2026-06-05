@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { EChartCard } from "./EChartCard.jsx";
+import { ObrasMapCard } from "./ObrasMapCard.jsx";
+import { ObrasSeriesCharts } from "./ObrasSeriesCharts.jsx";
 import { EducacaoPage } from "../features/educacao/EducacaoPage.jsx";
 import { EconomiaPage } from "../features/economia/EconomiaPage.jsx";
 
@@ -999,30 +1001,11 @@ export function ThematicDashboard({ themes }) {
     if (activeTheme.id === "construcaoCivil") {
       return [
         {
-          kind: "chart",
-          title: "Alvarás emitidos",
-          subtitle: "Série mensal simulada",
-          option: barOption({
-            labels: activeTheme.permits.map((row) => row.periodo),
-            series: [{ name: "Alvarás", data: activeTheme.permits.map((row) => row.valor) }],
-          }),
+          kind: "map",
+          title: "Obras geolocalizadas em Tijucas",
+          subtitle: "Setores censitários com obras ativas (CNO)",
         },
-        {
-          kind: "chart",
-          title: "Área licenciada",
-          subtitle: "Mil m² por mês",
-          option: lineOption({
-            labels: activeTheme.areaLicensed.map((row) => row.periodo),
-            series: [{ name: "Área licenciada", data: activeTheme.areaLicensed.map((row) => row.valor) }],
-          }),
-        },
-        {
-          kind: "chart",
-          title: "Tipo de obra",
-          subtitle: "Distribuição percentual simulada",
-          option: pieOption(activeTheme.types),
-        },
-        { kind: "table", title: "Alvarás por tipo", subtitle: "Resumo do período", rows: activeTheme.table },
+        { kind: "obrasSeries" },
       ];
     }
 
@@ -1109,7 +1092,8 @@ export function ThematicDashboard({ themes }) {
     ];
   }, [activeEmploymentScope, activePibView, activeTheme, employmentScope, pibScope, publicFinanceMode]);
 
-  const visibleCards = cards.slice(0, 2);
+  const visibleCards =
+    activeTheme.id === "construcaoCivil" ? cards : cards.slice(0, 2);
   const narrative =
     activePibView?.summary ?? activeEmploymentScope?.summary ?? activeFinance?.summary ?? axisNarratives[activeTheme.id] ?? activeTheme.summary;
   const kpis = activePibView?.kpis ?? activeEmploymentScope?.kpis ?? activeTheme.kpis;
@@ -1156,7 +1140,7 @@ export function ThematicDashboard({ themes }) {
       ) : (
         <div className="rounded-lg bg-brand-navy p-5 text-white shadow-soft md:p-6 2xl:p-8">
           <div className="grid gap-6 xl:grid-cols-[minmax(340px,0.82fr)_minmax(0,2.55fr)] 2xl:gap-8">
-            <aside className="flex flex-col justify-between gap-5">
+            <aside className="flex flex-col gap-4 xl:self-start">
               <div>
                 <span className="text-xs font-extrabold uppercase tracking-normal text-brand-yellow">
                   Eixo selecionado
@@ -1195,7 +1179,17 @@ export function ThematicDashboard({ themes }) {
 
             <div className="grid gap-6 lg:grid-cols-2 2xl:gap-8">
               {visibleCards.map((card) =>
-                card.kind === "pibTable" ? (
+                card.kind === "map" ? (
+                  <ObrasMapCard
+                    key={card.title}
+                    title={card.title}
+                    subtitle={card.subtitle}
+                    height={520}
+                    className="lg:col-span-2"
+                  />
+                ) : card.kind === "obrasSeries" ? (
+                  <ObrasSeriesCharts key="obras-series" className="lg:col-span-2" />
+                ) : card.kind === "pibTable" ? (
                   <PibTableCard
                     key={card.title}
                     title={card.title}
