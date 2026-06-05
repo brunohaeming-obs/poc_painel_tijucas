@@ -108,16 +108,67 @@ function getPreviousYear(availableYears, selectedYear) {
   return availableYears[currentIndex - 1];
 }
 
+function getSortedRendimentoRows(rendimento = []) {
+  return [...rendimento]
+    .filter((row) => Number.isFinite(Number(row?.ano)))
+    .sort((first, second) => Number(first.ano) - Number(second.ano));
+}
+
 function getMapAvailableYears(mapaEscolas) {
   return mapaEscolas?.anos_disponiveis ?? [];
 }
 
-function buildOverviewKpis(indicadoresLong, availableYears, selectedYear) {
+function buildOverviewKpis(indicadoresLong, availableYears, selectedYear, rendimento = []) {
   const currentRows = getYearRows(indicadoresLong, selectedYear);
   const previousYear = getPreviousYear(availableYears, selectedYear);
   const previousRows = previousYear ? getYearRows(indicadoresLong, previousYear) : [];
+  const rendimentoRows = getSortedRendimentoRows(rendimento);
+  const currentRendimento = rendimentoRows[rendimentoRows.length - 1] ?? null;
+  const previousRendimento =
+    rendimentoRows.length > 1 ? rendimentoRows[rendimentoRows.length - 2] : null;
 
   return overviewKpiDefinitions.map((definition) => {
+    const useApprovalKpi =
+      definition.key === "approval" ||
+      definition.key === "internet" ||
+      normalizeText(definition.label).includes("internet");
+    const useAbandonmentKpi =
+      definition.key === "abandonment" ||
+      definition.key === "accessibility" ||
+      normalizeText(definition.label).includes("acessibilidade");
+
+    if (useApprovalKpi) {
+      const currentValue = currentRendimento?.taxa_aprovacao_fundamental ?? null;
+      const previousValue = previousRendimento?.taxa_aprovacao_fundamental ?? null;
+
+      return {
+        key: "approval",
+        label: "Taxa de aprovação",
+        note: "Percentual de estudantes do ensino fundamental que avançaram no percurso escolar.",
+        unit: "%",
+        value: currentValue,
+        valueText: formatIndicatorValue(currentValue, "%"),
+        comparisonText: null,
+        variation: buildVariation(currentValue, previousValue, "%", previousRendimento?.ano ?? null),
+      };
+    }
+
+    if (useAbandonmentKpi) {
+      const currentValue = currentRendimento?.taxa_abandono_fundamental ?? null;
+      const previousValue = previousRendimento?.taxa_abandono_fundamental ?? null;
+
+      return {
+        key: "abandonment",
+        label: "Taxa de abandono",
+        note: "Percentual de estudantes do ensino fundamental que perderam vínculo com a escola no ano.",
+        unit: "%",
+        value: currentValue,
+        valueText: formatIndicatorValue(currentValue, "%"),
+        comparisonText: null,
+        variation: buildVariation(currentValue, previousValue, "%", previousRendimento?.ano ?? null),
+      };
+    }
+
     const current = getIndicatorRow(currentRows, definition.indicator);
     const previous = getIndicatorRow(previousRows, definition.indicator);
 
@@ -229,20 +280,51 @@ function buildInfrastructureKpis(indicadoresLong, availableYears, selectedYear) 
   });
 }
 
-function buildInfrastructureChart(indicadoresLong, selectedYear) {
+function buildFallbackInfrastructureChart(indicadoresLong, selectedYear) {
   const currentRows = getYearRows(indicadoresLong, selectedYear);
   const items = infrastructureChartDefinitions.map((definition) => {
     const row = getIndicatorRow(currentRows, definition.indicator);
     return {
+      key: definition.indicator,
       label: definition.label,
       tijucas: row?.valor ?? null,
       reference: null,
+      note: "",
+      unit: "%",
     };
   });
 
   return {
+    year: selectedYear,
     items,
     hasReference: false,
+    comparisonAvailable: false,
+    note: "Comparativo estadual indisponível nos arquivos atuais.",
+  };
+}
+
+function buildInfrastructureChart(indicadoresLong, selectedYear, comparativoSc2024) {
+  const rows = Array.isArray(comparativoSc2024)
+    ? comparativoSc2024.filter((row) => Number(row.ano) === 2024)
+    : [];
+
+  if (!rows.length) {
+    return buildFallbackInfrastructureChart(indicadoresLong, selectedYear);
+  }
+
+  return {
+    year: 2024,
+    items: rows.map((row) => ({
+      key: row.indicador_codigo,
+      label: row.indicador_nome,
+      tijucas: row.tijucas ?? null,
+      reference: row.santa_catarina ?? null,
+      note: row.observacao_metodologica ?? "",
+      unit: row.unidade ?? "%",
+    })),
+    hasReference: true,
+    comparisonAvailable: true,
+    note: "A comparação utiliza 2024 como fotografia principal. O ano de 2025 não foi incluído no comparativo estadual por mudança na estrutura dos microdados do Censo Escolar.",
   };
 }
 
@@ -328,7 +410,12 @@ export function buildEducacaoViewModel(allData, filters) {
   return {
     selectedYear,
     availableYears,
-    overviewKpis: buildOverviewKpis(allData.indicadoresLong, availableYears, selectedYear),
+    overviewKpis: buildOverviewKpis(
+      allData.indicadoresLong,
+      availableYears,
+      selectedYear,
+      allData.rendimento ?? [],
+    ),
     schoolComposition: buildSchoolComposition(allData.indicadoresLong, selectedYear),
     enrollmentHistory: buildEnrollmentHistory(allData.seriesTemporais, availableYears),
     enrollmentComposition: buildEnrollmentComposition(allData.indicadoresLong, selectedYear),
@@ -337,7 +424,11 @@ export function buildEducacaoViewModel(allData, filters) {
       availableYears,
       selectedYear,
     ),
-    infrastructureChart: buildInfrastructureChart(allData.indicadoresLong, selectedYear),
+    infrastructureChart: buildInfrastructureChart(
+      allData.indicadoresLong,
+      selectedYear,
+      allData.comparativoSc2024,
+    ),
     territoryData: buildTerritoryData(allData.mapaEscolas, {
       ...filters,
       selectedYear,

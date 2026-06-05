@@ -47,16 +47,16 @@ export const overviewKpiDefinitions = [
     note: "Alcance do atendimento escolar no município.",
   },
   {
-    key: "internet",
-    label: "Escolas com internet",
-    indicator: "Percentual de escolas com internet",
-    note: "Percentual da rede com acesso declarado a internet.",
+    key: "approval",
+    label: "Taxa de aprovação",
+    indicator: "Taxa de aprovação no ensino fundamental",
+    note: "Percentual de estudantes aprovados no ensino fundamental.",
   },
   {
-    key: "accessibility",
-    label: "Escolas com acessibilidade",
-    indicator: "Percentual de escolas com banheiro acessível",
-    note: "Proxy de acessibilidade baseada em banheiro acessível.",
+    key: "abandonment",
+    label: "Taxa de abandono",
+    indicator: "Taxa de abandono no ensino fundamental",
+    note: "Percentual de estudantes que deixaram a escola no ensino fundamental.",
   },
 ];
 

@@ -1,5 +1,7 @@
 import {
   Accessibility,
+  AlertTriangle,
+  CheckCircle2,
   Droplets,
   GraduationCap,
   School,
@@ -21,6 +23,8 @@ const decimalFormatter = new Intl.NumberFormat("pt-BR", {
 const iconMap = {
   schools: School,
   enrollments: GraduationCap,
+  approval: CheckCircle2,
+  abandonment: AlertTriangle,
   internet: Wifi,
   accessibility: Accessibility,
   water: Droplets,
@@ -39,12 +43,12 @@ function getVariationClasses(direction, isOverview) {
   }
 
   if (direction === "up") {
-    return "bg-lime-300/16 text-lime-100";
+    return "bg-lime-100 text-lime-700";
   }
   if (direction === "down") {
-    return "bg-orange-300/16 text-orange-50";
+    return "bg-orange-100 text-orange-700";
   }
-  return "bg-white/10 text-slate-100";
+  return "bg-white/80 text-slate-600";
 }
 
 function getVariationIcon(direction) {
@@ -83,6 +87,18 @@ function buildOverviewVariationText(variation) {
   return `${directionLabel} de ${cleanDeltaText} desde ${variation.previousYear}`;
 }
 
+function buildDefaultVariationText(variation) {
+  if (!variation || variation.value === null || !variation.previousYear) {
+    return "Sem comparação anual disponível";
+  }
+
+  if (variation.value === 0) {
+    return `Sem mudança desde ${variation.previousYear}`;
+  }
+
+  return `${variation.deltaText} em relação a ${variation.previousYear}`;
+}
+
 export function EducacaoKpiCard({
   item,
   variant = "default",
@@ -92,18 +108,24 @@ export function EducacaoKpiCard({
   const Icon = iconMap[item.key] ?? School;
   const VariationIcon = getVariationIcon(item.variation.direction);
   const isOverview = variant === "overview";
-  const variationText = isOverview ? buildOverviewVariationText(item.variation) : item.variation.label;
+  const variationText = isOverview
+    ? buildOverviewVariationText(item.variation)
+    : buildDefaultVariationText(item.variation);
 
   return (
     <article
-      className={`educacao-surface educacao-kpi-card rounded-[24px] ${
-        isOverview ? "flex h-full min-h-[214px] flex-col justify-between p-6" : "p-5"
+      className={`educacao-kpi-card rounded-[24px] ${
+        isOverview
+          ? "flex h-full min-h-[214px] flex-col justify-between border border-[rgba(242,161,22,0.2)] bg-[#FDE7C2] p-6 shadow-[0_14px_32px_rgba(15,34,58,0.06)]"
+          : "educacao-surface p-5"
       }`}
     >
       <div className={`flex items-start justify-between gap-4 ${isOverview ? "min-h-[58px]" : ""}`}>
         <div
-          className={`grid place-items-center rounded-2xl bg-white/[0.08] text-white ${
-            isOverview ? "h-14 w-14" : "h-12 w-12"
+          className={`grid place-items-center rounded-2xl ${
+            isOverview
+              ? "h-14 w-14 border border-[rgba(242,161,22,0.22)] bg-white text-[#F2A116]"
+              : "h-12 w-12 bg-white/[0.08] text-white"
           }`}
         >
           <Icon size={isOverview ? 28 : 24} strokeWidth={2.1} />
@@ -117,11 +139,17 @@ export function EducacaoKpiCard({
         </span>
       </div>
 
-      <div className={isOverview ? "mt-5" : "mt-5"}>
-        <p className="text-sm font-semibold text-slate-300">{item.label}</p>
+      <div className="mt-5">
+        <p
+          className={
+            isOverview ? "text-sm font-semibold text-[#10213A]" : "text-sm font-semibold text-slate-300"
+          }
+        >
+          {item.label}
+        </p>
         <strong
-          className={`mt-2 block font-extrabold leading-none tracking-tight text-white ${
-            isOverview ? "text-[1.85rem]" : "text-[1.95rem]"
+          className={`mt-2 block font-extrabold leading-none tracking-tight ${
+            isOverview ? "text-[1.85rem] text-[#10213A]" : "text-[1.95rem] text-white"
           }`}
         >
           {isOverview ? (
@@ -139,7 +167,9 @@ export function EducacaoKpiCard({
       </div>
 
       <div className={isOverview ? "mt-4 space-y-2" : "mt-3"}>
-        <p className="text-xs leading-6 text-slate-400">{item.note}</p>
+        <p className={isOverview ? "text-xs leading-6 text-slate-700" : "text-xs leading-6 text-slate-400"}>
+          {item.note}
+        </p>
         {item.comparisonText ? (
           <p className="text-[11px] font-semibold text-slate-500">{item.comparisonText}</p>
         ) : null}

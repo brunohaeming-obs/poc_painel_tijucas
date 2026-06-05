@@ -13,6 +13,15 @@ async function fetchEducacaoJson(path) {
   }
 }
 
+async function fetchOptionalEducacaoJson(path) {
+  try {
+    return await fetchEducacaoJson(path);
+  } catch (error) {
+    console.warn(`Arquivo opcional de educação não carregado: ${path}.`, error);
+    return null;
+  }
+}
+
 export async function loadEducacaoIndicadoresLong() {
   return fetchEducacaoJson("/data/educacao/educacao_indicadores_long.json");
 }
@@ -33,6 +42,22 @@ export async function loadEducacaoMetadata() {
   return fetchEducacaoJson("/data/educacao/educacao_metadata.json");
 }
 
+export async function loadEducacaoComparativoSc() {
+  return fetchOptionalEducacaoJson("/data/educacao/educacao_comparativo_sc.json");
+}
+
+export async function loadEducacaoComparativoSc2024() {
+  return fetchOptionalEducacaoJson("/data/educacao/educacao_comparativo_sc_2024.json");
+}
+
+export async function loadEducacaoIndicadoresApenasTijucas() {
+  return fetchOptionalEducacaoJson("/data/educacao/educacao_indicadores_apenas_tijucas.json");
+}
+
+export async function loadEducacaoRendimento() {
+  return fetchOptionalEducacaoJson("/data/educacao/educacao_rendimento.json");
+}
+
 export async function loadAllEducacaoData() {
   try {
     const [
@@ -41,12 +66,20 @@ export async function loadAllEducacaoData() {
       cardsResumo,
       mapaEscolas,
       metadata,
+      comparativoSc,
+      comparativoSc2024,
+      indicadoresApenasTijucas,
+      rendimento,
     ] = await Promise.all([
       loadEducacaoIndicadoresLong(),
       loadEducacaoSeriesTemporais(),
       loadEducacaoCardsResumo(),
       loadEducacaoMapaEscolas(),
       loadEducacaoMetadata(),
+      loadEducacaoComparativoSc(),
+      loadEducacaoComparativoSc2024(),
+      loadEducacaoIndicadoresApenasTijucas(),
+      loadEducacaoRendimento(),
     ]);
 
     return {
@@ -55,6 +88,10 @@ export async function loadAllEducacaoData() {
       cardsResumo,
       mapaEscolas,
       metadata,
+      comparativoSc,
+      comparativoSc2024,
+      indicadoresApenasTijucas,
+      rendimento,
     };
   } catch (error) {
     console.error("Dados de educação não encontrados.", error);

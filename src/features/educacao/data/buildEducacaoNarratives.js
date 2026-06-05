@@ -21,22 +21,6 @@ function findKpi(kpis, key) {
   return kpis.find((item) => item.key === key) ?? null;
 }
 
-function describeVariation(kpi) {
-  if (!kpi?.variation || kpi.variation.value === null) {
-    return "sem comparação anual disponível";
-  }
-
-  if (kpi.variation.value === 0) {
-    return `permaneceu estável em relação a ${kpi.variation.previousYear}`;
-  }
-
-  if (kpi.variation.direction === "up") {
-    return `aumento de ${kpi.variation.deltaText} em relação a ${kpi.variation.previousYear}`;
-  }
-
-  return `redução de ${kpi.variation.deltaText.replace("-", "")} em relação a ${kpi.variation.previousYear}`;
-}
-
 function describeSeriesEvolution(chartData, key, selectedYear) {
   if (!chartData.length) {
     return null;
@@ -74,20 +58,34 @@ function describeSeriesEvolution(chartData, key, selectedYear) {
     : `recuou ${decimalFormatter.format(Math.abs(percent))}% desde ${firstPoint.year}`;
 }
 
-function buildOverviewVariationSentence(kpi, label) {
-  if (!kpi?.variation || kpi.variation.value === null) {
+function getAverageAnnualGrowth(chartData, key) {
+  const validPoints = chartData.filter(
+    (row) => Number.isFinite(row?.[key]) && Number(row[key]) > 0 && Number.isFinite(Number(row.year)),
+  );
+
+  if (validPoints.length < 2) {
     return null;
   }
 
-  if (kpi.variation.value === 0) {
-    return `${label} permaneceu estável em relação a ${kpi.variation.previousYear}`;
+  const firstPoint = validPoints[0];
+  const lastPoint = validPoints[validPoints.length - 1];
+  const years = Number(lastPoint.year) - Number(firstPoint.year);
+
+  if (years <= 0) {
+    return null;
   }
 
-  if (kpi.variation.direction === "up") {
-    return `${label} registrou aumento de ${kpi.variation.deltaText.replace("+", "")} em relação a ${kpi.variation.previousYear}`;
+  const growth = ((lastPoint[key] / firstPoint[key]) ** (1 / years) - 1) * 100;
+
+  if (!Number.isFinite(growth)) {
+    return null;
   }
 
-  return `${label} registrou redução de ${kpi.variation.deltaText.replace("-", "")} em relação a ${kpi.variation.previousYear}`;
+  return {
+    startYear: Number(firstPoint.year),
+    endYear: Number(lastPoint.year),
+    value: growth,
+  };
 }
 
 export function buildEducacaoNarratives({
@@ -102,30 +100,59 @@ export function buildEducacaoNarratives({
 }) {
   const schools = findKpi(overviewKpis, "schools");
   const enrollments = findKpi(overviewKpis, "enrollments");
-  const internet = findKpi(overviewKpis, "internet");
-  const accessibility = findKpi(overviewKpis, "accessibility");
+  const approval = findKpi(overviewKpis, "approval");
+  const abandonment = findKpi(overviewKpis, "abandonment");
+  const rendimentoYear =
+    approval?.variation?.previousYear !== null &&
+    approval?.variation?.previousYear !== undefined
+      ? Number(approval.variation.previousYear) + 1
+      : abandonment?.variation?.previousYear !== null &&
+          abandonment?.variation?.previousYear !== undefined
+        ? Number(abandonment.variation.previousYear) + 1
+        : null;
 
-  const overviewVariations = [
-    buildOverviewVariationSentence(enrollments, "o município"),
-    schools?.variation?.value === 0
-      ? `o número de escolas permaneceu estável em relação a ${schools.variation.previousYear}`
-      : buildOverviewVariationSentence(schools, "o município"),
-  ].filter(Boolean);
+  const overviewIntro =
+    schools?.value !== null &&
+    schools?.value !== undefined &&
+    enrollments?.value !== null &&
+    enrollments?.value !== undefined
+      ? `A educação básica de Tijucas pode ser lida por dois ângulos: o tamanho da rede e o percurso dos estudantes. Em ${selectedYear}, o município registrou ${formatValue(schools.value, schools.unit)} e ${formatValue(enrollments.value, enrollments.unit)}, indicando o alcance do atendimento escolar no território.`
+      : "A educação básica de Tijucas pode ser lida por dois ângulos: o tamanho da rede e o percurso dos estudantes. Escolas e matrículas ajudam a dimensionar o alcance do atendimento escolar no território.";
+
+  const rendimentoSentence =
+    approval?.value !== null &&
+    approval?.value !== undefined &&
+    abandonment?.value !== null &&
+    abandonment?.value !== undefined
+      ? `As taxas de rendimento ajudam a observar o que acontece depois que o aluno está na escola. Em ${rendimentoYear ?? "seu recorte mais recente disponível"}, último dado disponível para esse indicador, a aprovação no ensino fundamental foi de ${formatValue(approval.value, approval.unit)} e o abandono ficou em ${formatValue(abandonment.value, abandonment.unit)}. Isso sugere baixa perda de vínculo escolar nesse recorte, embora não permita avaliar, sozinho, a qualidade da aprendizagem.`
+      : "As taxas de rendimento ajudam a observar o que acontece depois que o aluno está na escola. Aprovação e abandono ajudam a acompanhar permanência e progressão escolar, mas não permitem avaliar, sozinhos, a qualidade da aprendizagem.";
 
   const overview = [
-    `A rede escolar de Tijucas reuniu ${formatValue(schools?.value, schools?.unit)} e ${formatValue(enrollments?.value, enrollments?.unit)} em ${selectedYear}.`,
-    `No mesmo recorte, ${formatValue(internet?.value, internet?.unit)} das escolas declararam acesso à internet e ${formatValue(accessibility?.value, accessibility?.unit)} informaram banheiro acessível.`,
-    overviewVariations.length
-      ? `${overviewVariations.join(", enquanto ")}.`
-      : `O ano selecionado ajuda a ler o tamanho da rede, o alcance das matrículas e as condições básicas de atendimento.`,
-  ].join(" ");
-
-  const enrollmentTrend = [
-    `A série histórica indica que a educação infantil ${describeSeriesEvolution(enrollmentHistory.chartData, "infantil", selectedYear) ?? "não teve leitura completa"} e o ensino fundamental ${describeSeriesEvolution(enrollmentHistory.chartData, "fundamental", selectedYear) ?? "não teve leitura completa"}.`,
-    `Em ${selectedYear}, a rede registrou ${formatValue(enrollments?.value, enrollments?.unit)} e manteve a série completa visível, com destaque do ano filtrado em vez de reduzir o gráfico a um único ponto.`,
+    overviewIntro,
+    rendimentoSentence,
+    `Fonte: Censo Escolar/INEP e Taxas de Rendimento Escolar/INEP. Matrículas e escolas: ${selectedYear}; aprovação e abandono: ${rendimentoYear ?? "último dado disponível"}.`,
   ].join(" ");
 
   const compositionLeader = enrollmentComposition.largestItem;
+  const totalGrowth = getAverageAnnualGrowth(enrollmentHistory.chartData, "total");
+  const enrollmentTrendSentences = [
+    "As matrículas mostram o tamanho da demanda atendida pela rede escolar. A leitura por etapa é importante porque educação infantil, ensino fundamental e ensino médio respondem a necessidades diferentes do percurso escolar.",
+    compositionLeader
+      ? `${compositionLeader.label} concentra a maior parte dos estudantes no recorte atual, enquanto o total ajuda a visualizar o movimento geral da rede. As etapas mostram onde a mudança se concentra ao longo do tempo.`
+      : "O total mostra o movimento geral da rede, mas as etapas ajudam a localizar onde a mudança se concentra ao longo do tempo.",
+  ];
+
+  if (totalGrowth) {
+    enrollmentTrendSentences.push(
+      `Entre ${totalGrowth.startYear} e ${totalGrowth.endYear}, as matrículas totais cresceram em média ${decimalFormatter.format(totalGrowth.value)}% ao ano.`,
+    );
+  }
+
+  const enrollmentTrend = enrollmentTrendSentences.join(" ");
+  const enrollmentTrendNote = totalGrowth
+    ? `Crescimento médio ao ano calculado pela taxa composta entre ${totalGrowth.startYear} e ${totalGrowth.endYear}.`
+    : null;
+
   const compositionShare =
     compositionLeader && enrollmentComposition.total > 0
       ? (compositionLeader.value / enrollmentComposition.total) * 100
@@ -146,13 +173,10 @@ export function buildEducacaoNarratives({
     .filter((item) => item.value !== null)
     .sort((first, second) => (first.value ?? 0) - (second.value ?? 0))[0];
   const infrastructure = [
-    "Os indicadores de infraestrutura mostram a proporção de escolas com recursos físicos e tecnológicos disponíveis.",
     bestInfrastructure && weakestInfrastructure
-      ? `No recorte de ${selectedYear}, ${bestInfrastructure.label.toLowerCase()} aparece como o indicador mais alto (${bestInfrastructure.valueText}), enquanto ${weakestInfrastructure.label.toLowerCase()} pede leitura mais atenta (${weakestInfrastructure.valueText}).`
-      : "A base atual permite acompanhar a evolução anual da infraestrutura, mesmo sem comparativo com Santa Catarina nesta versão.",
-    infrastructureChart.hasReference
-      ? "Quando a referência estadual estiver incorporada, o mesmo bloco poderá contrastar Tijucas com Santa Catarina."
-      : "Comparativo com Santa Catarina será incorporado após geração da base estadual.",
+      ? `Infraestrutura ajuda a entender as condições de funcionamento da rede. Em ${selectedYear}, ${bestInfrastructure.label.toLowerCase()} aparece universalizada ou próxima da universalização nas escolas de Tijucas, enquanto ${weakestInfrastructure.label.toLowerCase()} diferencia melhor as condições declaradas entre as unidades.`
+      : `Infraestrutura ajuda a entender as condições de funcionamento da rede. Em ${selectedYear}, os indicadores disponíveis mostram recursos básicos declarados pelas escolas de Tijucas.`,
+    "Esses indicadores não medem aprendizagem, mas mostram recursos básicos que influenciam a experiência escolar. A leitura mais útil é observar quais itens já estão próximos da universalização e quais ainda exigem acompanhamento.",
   ].join(" ");
 
   const territory = territoryData.available
@@ -173,6 +197,7 @@ export function buildEducacaoNarratives({
         ? "A composição da rede no ano selecionado mostra predomínio das escolas municipais, seguida pelos demais tipos de dependência administrativa."
         : "A composição da rede por dependência administrativa ainda não teve dados suficientes para exibição.",
     enrollmentTrend,
+    enrollmentTrendNote,
     enrollmentComposition: enrollmentCompositionText,
     infrastructure,
     territory,

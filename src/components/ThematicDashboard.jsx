@@ -26,6 +26,16 @@ const palette = {
   text: "#1F2937",
 };
 
+const axisTheme = {
+  economiaEmpregos: { primary: "#007FFE", secondary: "#EFF6FF" },
+  populacao: { primary: "#8D2A8A", secondary: "#FFEFFE" },
+  educacao: { primary: "#F2A116", secondary: "#FDE7C2" },
+  saude: { primary: "#EC4137", secondary: "#FFEAE9" },
+  meioAmbiente: { primary: "#71B434", secondary: "#E7F7DA" },
+  contasPublicas: { primary: "#FCD418", secondary: "#FDF5C7" },
+  construcaoCivil: { primary: "#000086", secondary: "#EBF4FF" },
+};
+
 const brInteger = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 0 });
 const brCurrency = new Intl.NumberFormat("pt-BR", {
   style: "currency",
@@ -754,6 +764,51 @@ function ThemeButton({ theme, active, onClick }) {
   );
 }
 
+function AxisThemeButton({ theme, active, onClick }) {
+  const Icon = themeIcons[theme.id];
+  const themeColors = axisTheme[theme.id] ?? axisTheme.economiaEmpregos;
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className="group min-h-[148px] rounded-lg border p-5 text-left text-brand-navy transition hover:shadow-soft"
+      style={{
+        borderColor: active ? themeColors.primary : palette.border,
+        background: active
+          ? `linear-gradient(180deg, ${themeColors.secondary} 0%, #FFFFFF 100%)`
+          : "#FFFFFF",
+        boxShadow: active ? `0 18px 40px ${themeColors.primary}22` : undefined,
+      }}
+    >
+      <div className="flex h-full flex-col justify-between gap-4">
+        <div className="flex items-start justify-between gap-3">
+          <span
+            className="grid h-11 w-11 place-items-center rounded-lg border"
+            style={{
+              backgroundColor: active ? themeColors.primary : themeColors.secondary,
+              borderColor: `${themeColors.primary}33`,
+              color: active ? "#FFFFFF" : themeColors.primary,
+            }}
+          >
+            <Icon size={23} strokeWidth={2.2} />
+          </span>
+        </div>
+        <div>
+          <strong className="block text-lg font-extrabold leading-tight">{theme.label}</strong>
+          <p
+            className="mt-1 text-xs font-semibold"
+            style={{ color: active ? themeColors.primary : "#6B7280" }}
+          >
+            Ver painel
+          </p>
+        </div>
+      </div>
+    </button>
+  );
+}
+
 export function ThematicDashboard({ themes }) {
   const themeList = Object.values(themes);
   const [activeThemeId, setActiveThemeId] = useState("economiaEmpregos");
@@ -1118,7 +1173,7 @@ export function ThematicDashboard({ themes }) {
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-7">
         {themeList.map((theme) => (
-          <ThemeButton
+          <AxisThemeButton
             key={theme.id}
             theme={theme}
             active={theme.id === activeThemeId}
