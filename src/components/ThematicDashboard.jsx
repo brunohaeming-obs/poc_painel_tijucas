@@ -12,6 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 import { EChartCard } from "./EChartCard.jsx";
 import { EducacaoPage } from "../features/educacao/EducacaoPage.jsx";
 import { EconomiaPage } from "../features/economia/EconomiaPage.jsx";
+import { ContasPublicasPage } from "../features/contas-publicas/ContasPublicasPage.jsx";
 
 const palette = {
   navy: "#000086",
@@ -745,9 +746,6 @@ function ThemeButton({ theme, active, onClick }) {
         </div>
         <div>
           <strong className="block text-lg font-extrabold leading-tight">{theme.label}</strong>
-          <p className={`mt-1 text-xs font-semibold ${active ? "text-blue-100" : "text-brand-gray"}`}>
-            4 visualizações
-          </p>
         </div>
       </div>
     </button>
@@ -1146,12 +1144,16 @@ export function ThematicDashboard({ themes }) {
       </div>
 
       {activeTheme.id === "economiaEmpregos" ? (
-        <div className="rounded-[32px] border border-brand-border/70 bg-white p-2 shadow-soft md:p-3">
+        <div className="rounded-[32px] shadow-soft">
           <EconomiaPage theme={activeTheme} />
         </div>
       ) : activeTheme.id === "educacao" ? (
-        <div className="rounded-[32px] border border-brand-border/70 bg-white p-2 shadow-soft md:p-3">
+        <div className="rounded-[32px] shadow-soft">
           <EducacaoPage />
+        </div>
+      ) : activeTheme.id === "contasPublicas" ? (
+        <div className="rounded-[32px] shadow-soft">
+          <ContasPublicasPage />
         </div>
       ) : (
         <div className="rounded-lg bg-brand-navy p-5 text-white shadow-soft md:p-6 2xl:p-8">

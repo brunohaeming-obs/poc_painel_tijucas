@@ -1,7 +1,7 @@
 export function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-brand-border bg-white/95 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-[1600px] items-center justify-start gap-5 px-6 py-4 md:px-10 2xl:px-12">
+      <div className="mx-auto flex w-full max-w-[2200px] items-center justify-start gap-5 px-6 py-4 md:px-10 2xl:px-16">
         <div className="flex min-w-[230px] items-center gap-3">
           <img
             src="/assets/brasao-tijucas.png"
