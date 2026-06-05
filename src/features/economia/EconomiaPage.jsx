@@ -91,8 +91,79 @@ function rankWithin(rows, municipality, valueGetter) {
   return ranked.findIndex((row) => row.municipio === municipality) + 1;
 }
 
+function buildPibRanking(rows, mode) {
+  const valueGetter = mode === "perCapita" ? (row) => row.pibPerCapita2025 : (row) => row.pib2025;
+  return [...rows]
+    .sort((a, b) => valueGetter(b) - valueGetter(a))
+    .map((row, index) => ({
+      rank: index + 1,
+      municipio: row.municipio,
+      value: valueGetter(row),
+    }));
+}
+
 function topPositiveSectors(sectors, limit = 5) {
   return [...sectors].filter((sector) => sector.saldo > 0).sort((a, b) => b.saldo - a.saldo).slice(0, limit);
+}
+
+function PibRankingBox({ ranking, mode, average, onClose }) {
+  const formatter = mode === "perCapita" ? formatPerCapita : formatMoney;
+  const topItems = ranking.slice(0, 5);
+  const tijucasItem = ranking.find((item) => item.municipio === "Tijucas");
+  const showTijucasPosition = tijucasItem && !topItems.some((item) => item.municipio === "Tijucas");
+
+  const renderItem = (item) => (
+    <li
+      key={`${item.rank}-${item.municipio}`}
+      className={`flex items-start gap-3 rounded-2xl border p-3 ${
+        item.municipio === "Tijucas"
+          ? "border-brand-yellow/60 bg-brand-yellow/[0.12]"
+          : "border-white/10 bg-white/[0.04]"
+      }`}
+    >
+      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-yellow text-sm font-extrabold text-brand-navy">
+        {item.rank}
+      </span>
+      <div>
+        <p className="text-sm font-extrabold leading-5 text-white">{item.municipio}</p>
+        <p className="mt-1 text-xs font-bold text-slate-300">{formatter(item.value)}</p>
+      </div>
+    </li>
+  );
+
+  return (
+    <aside className="educacao-surface rounded-[24px] p-5">
+      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-yellow">Ranking do recorte comparável</p>
+          <h4 className="mt-2 text-xl font-extrabold text-white">
+            Top municípios por {mode === "perCapita" ? "PIB per capita projetado" : "PIB projetado"}
+          </h4>
+          <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-300">
+            Recorte: municípios de Santa Catarina com até {numberFormatter.format(pibCitizenData.metadata.populationLimit)} habitantes.
+            A média do grupo é {formatter(average)}.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="self-start rounded-xl border border-white/15 bg-white/[0.04] px-3 py-2 text-sm font-extrabold text-slate-100 transition hover:bg-white/10"
+        >
+          Fechar
+        </button>
+      </div>
+      <ol className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+        {topItems.map(renderItem)}
+      </ol>
+      {showTijucasPosition ? (
+        <div className="mt-4 rounded-2xl border border-brand-yellow/45 bg-brand-yellow/[0.10] p-4">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-yellow">Posição de Tijucas</p>
+          <div className="mt-3">{renderItem(tijucasItem)}</div>
+        </div>
+      ) : null}
+      <SourceLine>PIB municipal do projeto; IBGE Censo 2022; projeções 2025-2030.</SourceLine>
+    </aside>
+  );
 }
 
 function SectorImpactBox({ monthlySectors, annualSectors, monthLabel, annualLabel, onClose }) {
@@ -140,6 +211,7 @@ function SectorImpactBox({ monthlySectors, annualSectors, monthLabel, annualLabe
           {renderList(annualSectors)}
         </section>
       </div>
+      <SourceLine>MTE/Novo Caged, dados de emprego formal atualizados em 2026.</SourceLine>
     </aside>
   );
 }
@@ -225,7 +297,12 @@ function KpiGrid({ items }) {
   );
 }
 
-function NarrativeCard({ eyebrow, title, body, caption, icon: Icon, restartKey }) {
+function SourceLine({ children }) {
+  if (!children) return null;
+  return <p className="mt-4 border-t border-white/10 pt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-slate-400">Fonte: {children}</p>;
+}
+
+function NarrativeCard({ eyebrow, title, body, caption, source, icon: Icon, restartKey }) {
   return (
     <aside className="educacao-surface flex h-full flex-col justify-between rounded-[24px] p-6">
       <div>
@@ -244,7 +321,10 @@ function NarrativeCard({ eyebrow, title, body, caption, icon: Icon, restartKey }
           />
         </p>
       </div>
-      {caption ? <p className="mt-6 text-xs font-semibold leading-5 text-slate-400">{caption}</p> : null}
+      <div>
+        {caption ? <p className="mt-6 text-xs font-semibold leading-5 text-slate-400">{caption}</p> : null}
+        <SourceLine>{source}</SourceLine>
+      </div>
     </aside>
   );
 }
@@ -448,6 +528,7 @@ export function EconomiaPage({ theme }) {
   const [pibMode, setPibMode] = useState("total");
   const [pibNames, setPibNames] = useState(["Tijucas", "Xanxerê", "Imbituba"]);
   const [pibPerCapitaNames, setPibPerCapitaNames] = useState(pibCitizenData.defaultComparison.slice(0, 4));
+  const [showPibRanking, setShowPibRanking] = useState(false);
   const [employmentMode, setEmploymentMode] = useState("monthly");
   const [showSectorImpact, setShowSectorImpact] = useState(false);
 
@@ -459,6 +540,9 @@ export function EconomiaPage({ theme }) {
   const peerAverageCagr = peerMunicipalities.reduce((sum, row) => sum + row.cagrPib2025_2030, 0) / peerMunicipalities.length;
   const peerAveragePib2025 = peerMunicipalities.reduce((sum, row) => sum + row.pib2025, 0) / peerMunicipalities.length;
   const peerAveragePibPc2025 = peerMunicipalities.reduce((sum, row) => sum + row.pibPerCapita2025, 0) / peerMunicipalities.length;
+  const pibRanking = buildPibRanking(peerMunicipalities, pibMode);
+  const pibAverageMultiplier = calculateShare(tijucas.pib2025, peerAveragePib2025) / 100;
+  const pibPerCapitaAverageMultiplier = calculateShare(tijucas.pibPerCapita2025, peerAveragePibPc2025) / 100;
   const economyPeerHelp = `Comparação feita com municípios de Santa Catarina com população de até ${numberFormatter.format(pibCitizenData.metadata.populationLimit)} habitantes, usando população de referência do ${pibCitizenData.metadata.populationSource}.`;
   const pibSourceHelp = "Fonte: base de PIB municipal do projeto, com série observada até 2023 e projeções de 2025 a 2030. PIB é o valor total produzido pela economia do município.";
   const employmentSourceHelp = "Fonte: base de empregos formais do projeto, derivada do Novo Caged/MTE. Saldo significa admissões menos desligamentos no período.";
@@ -485,9 +569,11 @@ export function EconomiaPage({ theme }) {
         },
         {
           label: "Acima da média",
-          value: `${decimalFormatter.format(calculateShare(tijucas.pib2025, peerAveragePib2025))}%`,
-          note: "PIB 2025 vs média do grupo.",
-          help: `Mostra o PIB de Tijucas como percentual da média do grupo comparável. ${economyPeerHelp}`,
+          value: `${decimalFormatter.format(pibAverageMultiplier)}x`,
+          note: `PIB de Tijucas ${decimalFormatter.format(pibAverageMultiplier)}x acima da média dos municípios similares.`,
+          help: `Mostra quantas vezes o PIB de Tijucas equivale à média do grupo comparável. ${economyPeerHelp} Clique no card para ver o ranking dos municípios desse recorte.`,
+          onClick: () => setShowPibRanking((current) => !current),
+          expanded: showPibRanking,
         },
       ]
     : [
@@ -511,9 +597,11 @@ export function EconomiaPage({ theme }) {
         },
         {
           label: "Acima da média",
-          value: `${decimalFormatter.format(calculateShare(tijucas.pibPerCapita2025, peerAveragePibPc2025))}%`,
-          note: "PIB per capita 2025 vs média do grupo.",
-          help: `Mostra o PIB per capita de Tijucas como percentual da média dos municípios comparáveis. ${economyPeerHelp}`,
+          value: `${decimalFormatter.format(pibPerCapitaAverageMultiplier)}x`,
+          note: `PIB per capita de Tijucas ${decimalFormatter.format(pibPerCapitaAverageMultiplier)}x acima da média dos municípios similares.`,
+          help: `Mostra quantas vezes o PIB per capita de Tijucas equivale à média do grupo comparável. ${economyPeerHelp} Clique no card para ver o ranking dos municípios desse recorte.`,
+          onClick: () => setShowPibRanking((current) => !current),
+          expanded: showPibRanking,
         },
       ];
 
@@ -565,6 +653,8 @@ export function EconomiaPage({ theme }) {
   const accessibleEmploymentNarrative = employmentMode === "monthly"
     ? `O saldo mensal mostra vagas abertas menos vagas fechadas. Em ${employment.latestMonth}, Tijucas teve saldo de ${formatSigned(employment.monthlyBalance)} vagas formais. O setor com maior impacto foi ${formatSectorName(topSector?.name)}, com ${formatSigned(topSector?.saldo ?? 0)} vagas.`
     : `O acumulado soma os saldos de 12 meses e mostra melhor a tendência do emprego. No período, Tijucas soma ${formatSigned(employment.annualBalance)} vagas formais. O setor com maior impacto foi ${formatSectorName(topSector?.name)}, com ${formatSigned(topSector?.saldo ?? 0)} vagas.`;
+  const pibSource = "PIB municipal do projeto; IBGE Censo 2022; projeções 2025-2030.";
+  const employmentSource = "MTE/Novo Caged, dados de emprego formal atualizados em 2026.";
   return (
     <section
       id="economia"
@@ -594,6 +684,15 @@ export function EconomiaPage({ theme }) {
 
           <KpiGrid items={pibKpis} />
 
+          {showPibRanking ? (
+            <PibRankingBox
+              ranking={pibRanking}
+              mode={pibMode}
+              average={pibMode === "perCapita" ? peerAveragePibPc2025 : peerAveragePib2025}
+              onClose={() => setShowPibRanking(false)}
+            />
+          ) : null}
+
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,0.8fr)]">
             <article className="educacao-surface rounded-[24px] p-5">
               <div className="mb-4">
@@ -605,12 +704,14 @@ export function EconomiaPage({ theme }) {
               <div className="h-[360px] w-full">
                 <PibChart data={pibChartData} rows={chartRows} mode={pibMode === "total" ? "total" : "perCapita"} />
               </div>
+              <SourceLine>{pibSource}</SourceLine>
             </article>
             <NarrativeCard
               eyebrow="Leitura do gráfico"
               title={pibMode === "total" ? "Escala econômica de Tijucas" : "Comparação por habitante"}
               body={accessiblePibNarrative}
-              caption={`Fonte: PIB municipal e PIB per capita do projeto; população de referência: ${pibCitizenData.metadata.populationSource}.`}
+              caption={`População de referência: ${pibCitizenData.metadata.populationSource}.`}
+              source={pibSource}
               icon={pibMode === "total" ? TrendingUp : MapPinned}
               restartKey={`pib-${pibMode}-${selectedNames.join("|")}`}
             />
@@ -650,12 +751,14 @@ export function EconomiaPage({ theme }) {
                 <p className="text-xs font-semibold text-slate-400">Tijucas, {theme.employmentPeriod}.</p>
               </div>
               <EmploymentChart data={employmentChartData} mode={employmentMode} />
+              <SourceLine>{employmentSource}</SourceLine>
             </article>
             <NarrativeCard
               eyebrow="Destaques do emprego"
               title={employmentMode === "monthly" ? "Ritmo recente do mercado formal" : "Tendência acumulada no período"}
               body={`${accessibleEmploymentNarrative} No recorte setorial disponível, o setor com maior saldo positivo é ${formatSectorName(topSector?.name) || "sem registro"}, com ${formatSigned(topSector?.saldo ?? 0)} vagas. Para ver o ranking dos setores, clique no card de setor com maior impacto.`}
               caption="Saldo setorial considera admissões menos desligamentos no recorte disponível."
+              source={employmentSource}
               icon={BriefcaseBusiness}
               restartKey={`emprego-${employmentMode}`}
             />

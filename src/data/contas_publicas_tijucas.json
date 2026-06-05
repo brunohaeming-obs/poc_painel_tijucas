@@ -593,6 +593,764 @@
       "per_capita": 60.773044427376
     }
   ],
+  "funcoes_series": [
+    {
+      "ano": 2013,
+      "funcao": "Saúde",
+      "valor": 15272160.92,
+      "participacao_pct": 20.327335866038567,
+      "per_capita": 451.21165598132774
+    },
+    {
+      "ano": 2013,
+      "funcao": "Educação",
+      "valor": 17879425.45,
+      "participacao_pct": 23.797620265904566,
+      "per_capita": 528.2425458681714
+    },
+    {
+      "ano": 2013,
+      "funcao": "Urbanismo",
+      "valor": 3954530.42,
+      "participacao_pct": 5.263503210900331,
+      "per_capita": 116.83547788578012
+    },
+    {
+      "ano": 2013,
+      "funcao": "Administração",
+      "valor": 5917872.97,
+      "participacao_pct": 7.876723674133547,
+      "per_capita": 174.84187579401424
+    },
+    {
+      "ano": 2013,
+      "funcao": "Assistência Social",
+      "valor": 1752664.9,
+      "participacao_pct": 2.3328072739372954,
+      "per_capita": 51.78198658669896
+    },
+    {
+      "ano": 2013,
+      "funcao": "Saneamento",
+      "valor": 9394317.47,
+      "participacao_pct": 12.503891718087246,
+      "per_capita": 277.55244098442995
+    },
+    {
+      "ano": 2013,
+      "funcao": "Transporte",
+      "valor": 4675172.63,
+      "participacao_pct": 6.222682224181334,
+      "per_capita": 138.12664726563654
+    },
+    {
+      "ano": 2013,
+      "funcao": "Segurança Pública",
+      "valor": 420408.42,
+      "participacao_pct": 0.5595660757515515,
+      "per_capita": 12.420847342452802
+    },
+    {
+      "ano": 2013,
+      "funcao": "Previdência Social",
+      "valor": 3068997.65,
+      "participacao_pct": 4.084853893985362,
+      "per_capita": 90.67266375158803
+    },
+    {
+      "ano": 2014,
+      "funcao": "Saúde",
+      "valor": 16976201.52,
+      "participacao_pct": 19.319221828979362,
+      "per_capita": 490.24493242462745
+    },
+    {
+      "ano": 2014,
+      "funcao": "Educação",
+      "valor": 23701069.07,
+      "participacao_pct": 26.972241723676927,
+      "per_capita": 684.4481076007855
+    },
+    {
+      "ano": 2014,
+      "funcao": "Urbanismo",
+      "valor": 10555384.26,
+      "participacao_pct": 12.012216617999783,
+      "per_capita": 304.82223229756266
+    },
+    {
+      "ano": 2014,
+      "funcao": "Administração",
+      "valor": 6272738.66,
+      "participacao_pct": 7.138489108119092,
+      "per_capita": 181.14643236687076
+    },
+    {
+      "ano": 2014,
+      "funcao": "Assistência Social",
+      "valor": 1920875.32,
+      "participacao_pct": 2.185990568571651,
+      "per_capita": 55.47173732239806
+    },
+    {
+      "ano": 2014,
+      "funcao": "Saneamento",
+      "valor": 9433397.08,
+      "participacao_pct": 10.735375082267886,
+      "per_capita": 272.42107774055677
+    },
+    {
+      "ano": 2014,
+      "funcao": "Transporte",
+      "valor": 5270958.51,
+      "participacao_pct": 5.998445328660104,
+      "per_capita": 152.2166602171653
+    },
+    {
+      "ano": 2014,
+      "funcao": "Segurança Pública",
+      "valor": 455213.53,
+      "participacao_pct": 0.5180411622271289,
+      "per_capita": 13.14582216703246
+    },
+    {
+      "ano": 2014,
+      "funcao": "Previdência Social",
+      "valor": 3494768.32,
+      "participacao_pct": 3.9771090332208505,
+      "per_capita": 100.92319279196026
+    },
+    {
+      "ano": 2015,
+      "funcao": "Saúde",
+      "valor": 19598376.0,
+      "participacao_pct": 19.590437576598514,
+      "per_capita": 565.9690423934388
+    },
+    {
+      "ano": 2015,
+      "funcao": "Educação",
+      "valor": 22677664.89,
+      "participacao_pct": 22.6684791847327,
+      "per_capita": 654.8938688344692
+    },
+    {
+      "ano": 2015,
+      "funcao": "Urbanismo",
+      "valor": 9299288.42,
+      "participacao_pct": 9.295521695205533,
+      "per_capita": 268.54823899734316
+    },
+    {
+      "ano": 2015,
+      "funcao": "Administração",
+      "valor": 8027799.39,
+      "participacao_pct": 8.024547688402887,
+      "per_capita": 231.82971554811135
+    },
+    {
+      "ano": 2015,
+      "funcao": "Assistência Social",
+      "valor": 2475084.71,
+      "participacao_pct": 2.4740821641572976,
+      "per_capita": 71.47639800161718
+    },
+    {
+      "ano": 2015,
+      "funcao": "Saneamento",
+      "valor": 12235187.2,
+      "participacao_pct": 12.230231274244211,
+      "per_capita": 353.33219360055443
+    },
+    {
+      "ano": 2015,
+      "funcao": "Transporte",
+      "valor": 5806223.22,
+      "participacao_pct": 5.803871379302388,
+      "per_capita": 167.6742295252397
+    },
+    {
+      "ano": 2015,
+      "funcao": "Segurança Pública",
+      "valor": 772613.19,
+      "participacao_pct": 0.7723002390377472,
+      "per_capita": 22.31180518655423
+    },
+    {
+      "ano": 2015,
+      "funcao": "Previdência Social",
+      "valor": 4177447.81,
+      "participacao_pct": 4.175755713192928,
+      "per_capita": 120.63785982441955
+    },
+    {
+      "ano": 2016,
+      "funcao": "Saúde",
+      "valor": 21305067.23,
+      "participacao_pct": 20.5325920972179,
+      "per_capita": 601.8040571154172
+    },
+    {
+      "ano": 2016,
+      "funcao": "Educação",
+      "valor": 27197196.54,
+      "participacao_pct": 26.21108568750975,
+      "per_capita": 768.2389848031185
+    },
+    {
+      "ano": 2016,
+      "funcao": "Urbanismo",
+      "valor": 5685042.05,
+      "participacao_pct": 5.478914861334678,
+      "per_capita": 160.58533557426134
+    },
+    {
+      "ano": 2016,
+      "funcao": "Administração",
+      "valor": 7163562.6,
+      "participacao_pct": 6.903827490465314,
+      "per_capita": 202.34909327156657
+    },
+    {
+      "ano": 2016,
+      "funcao": "Assistência Social",
+      "valor": 2849255.94,
+      "participacao_pct": 2.7459481523821108,
+      "per_capita": 80.48290887520479
+    },
+    {
+      "ano": 2016,
+      "funcao": "Saneamento",
+      "valor": 9085258.5,
+      "participacao_pct": 8.755846900854007,
+      "per_capita": 256.6312213999209
+    },
+    {
+      "ano": 2016,
+      "funcao": "Transporte",
+      "valor": 6504083.34,
+      "participacao_pct": 6.2682595058176025,
+      "per_capita": 183.7207880910683
+    },
+    {
+      "ano": 2016,
+      "funcao": "Segurança Pública",
+      "valor": 1391379.67,
+      "participacao_pct": 1.340931286818176,
+      "per_capita": 39.302289983616745
+    },
+    {
+      "ano": 2016,
+      "funcao": "Previdência Social",
+      "valor": 5649732.21,
+      "participacao_pct": 5.444885278892566,
+      "per_capita": 159.58793881701598
+    },
+    {
+      "ano": 2017,
+      "funcao": "Saúde",
+      "valor": 22316557.77,
+      "participacao_pct": 21.13411352306503,
+      "per_capita": 616.9908147636163
+    },
+    {
+      "ano": 2017,
+      "funcao": "Educação",
+      "valor": 31523085.17,
+      "participacao_pct": 29.852832477399925,
+      "per_capita": 871.5257166159802
+    },
+    {
+      "ano": 2017,
+      "funcao": "Urbanismo",
+      "valor": 5304448.42,
+      "participacao_pct": 5.023391879738043,
+      "per_capita": 146.65326016035388
+    },
+    {
+      "ano": 2017,
+      "funcao": "Administração",
+      "valor": 7018127.29,
+      "participacao_pct": 6.646271364733895,
+      "per_capita": 194.03171938070224
+    },
+    {
+      "ano": 2017,
+      "funcao": "Assistência Social",
+      "valor": 2657129.73,
+      "participacao_pct": 2.516341540576718,
+      "per_capita": 73.46225407796517
+    },
+    {
+      "ano": 2017,
+      "funcao": "Saneamento",
+      "valor": 5707646.84,
+      "participacao_pct": 5.405226805555119,
+      "per_capita": 157.8005761680951
+    },
+    {
+      "ano": 2017,
+      "funcao": "Transporte",
+      "valor": 6368265.45,
+      "participacao_pct": 6.0308424960698055,
+      "per_capita": 176.06484517555987
+    },
+    {
+      "ano": 2017,
+      "funcao": "Segurança Pública",
+      "valor": 1190320.07,
+      "participacao_pct": 1.1272508846315108,
+      "per_capita": 32.90904257672104
+    },
+    {
+      "ano": 2017,
+      "funcao": "Previdência Social",
+      "valor": 6794745.37,
+      "participacao_pct": 6.434725350113908,
+      "per_capita": 187.85582996958806
+    },
+    {
+      "ano": 2018,
+      "funcao": "Saúde",
+      "valor": 24521823.85,
+      "participacao_pct": 19.174497596820913,
+      "per_capita": 677.9602944429085
+    },
+    {
+      "ano": 2018,
+      "funcao": "Educação",
+      "valor": 35690519.63,
+      "participacao_pct": 27.9077032385878,
+      "per_capita": 986.7437000276473
+    },
+    {
+      "ano": 2018,
+      "funcao": "Urbanismo",
+      "valor": 10589944.17,
+      "participacao_pct": 8.280658905317624,
+      "per_capita": 292.78253165606856
+    },
+    {
+      "ano": 2018,
+      "funcao": "Administração",
+      "valor": 7960065.36,
+      "participacao_pct": 6.2242619084737205,
+      "per_capita": 220.07368979817528
+    },
+    {
+      "ano": 2018,
+      "funcao": "Assistência Social",
+      "valor": 3986006.27,
+      "participacao_pct": 3.11680191948806,
+      "per_capita": 110.2019980646945
+    },
+    {
+      "ano": 2018,
+      "funcao": "Saneamento",
+      "valor": 6811875.89,
+      "participacao_pct": 5.326451192277335,
+      "per_capita": 188.3294412496544
+    },
+    {
+      "ano": 2018,
+      "funcao": "Transporte",
+      "valor": 11620015.5,
+      "participacao_pct": 9.08610879201678,
+      "per_capita": 321.26114183024606
+    },
+    {
+      "ano": 2018,
+      "funcao": "Segurança Pública",
+      "valor": 1664747.94,
+      "participacao_pct": 1.3017263956425722,
+      "per_capita": 46.02565496267625
+    },
+    {
+      "ano": 2018,
+      "funcao": "Previdência Social",
+      "valor": 7216158.46,
+      "participacao_pct": 5.6425743001799145,
+      "per_capita": 199.50673099253524
+    },
+    {
+      "ano": 2019,
+      "funcao": "Saúde",
+      "valor": 32377462.65,
+      "participacao_pct": 20.67586636832812,
+      "per_capita": 860.0733869039713
+    },
+    {
+      "ano": 2019,
+      "funcao": "Educação",
+      "valor": 37336274.57,
+      "participacao_pct": 23.842505265017344,
+      "per_capita": 991.7990322752025
+    },
+    {
+      "ano": 2019,
+      "funcao": "Urbanismo",
+      "valor": 19762218.35,
+      "participacao_pct": 12.619919916618972,
+      "per_capita": 524.9626338159119
+    },
+    {
+      "ano": 2019,
+      "funcao": "Administração",
+      "valor": 9807784.03,
+      "participacao_pct": 6.263135384196099,
+      "per_capita": 260.53351122327
+    },
+    {
+      "ano": 2019,
+      "funcao": "Assistência Social",
+      "valor": 4526391.81,
+      "participacao_pct": 2.8905005066619953,
+      "per_capita": 120.23885801567272
+    },
+    {
+      "ano": 2019,
+      "funcao": "Saneamento",
+      "valor": 10929115.46,
+      "participacao_pct": 6.979204430492607,
+      "per_capita": 290.3205063089388
+    },
+    {
+      "ano": 2019,
+      "funcao": "Transporte",
+      "valor": 10430935.61,
+      "participacao_pct": 6.661072644894091,
+      "per_capita": 277.086880329393
+    },
+    {
+      "ano": 2019,
+      "funcao": "Segurança Pública",
+      "valor": 2580130.0,
+      "participacao_pct": 1.6476406341531036,
+      "per_capita": 68.53845132155665
+    },
+    {
+      "ano": 2019,
+      "funcao": "Previdência Social",
+      "valor": 8754415.57,
+      "participacao_pct": 5.590466690203441,
+      "per_capita": 232.55188125913136
+    },
+    {
+      "ano": 2020,
+      "funcao": "Saúde",
+      "valor": 33415801.44,
+      "participacao_pct": 21.471224387859632,
+      "per_capita": 870.0445606269691
+    },
+    {
+      "ano": 2020,
+      "funcao": "Educação",
+      "valor": 34654420.99,
+      "participacao_pct": 22.267095716488157,
+      "per_capita": 902.2943991980629
+    },
+    {
+      "ano": 2020,
+      "funcao": "Urbanismo",
+      "valor": 19650464.2,
+      "participacao_pct": 12.626347655356508,
+      "per_capita": 511.6375712760694
+    },
+    {
+      "ano": 2020,
+      "funcao": "Administração",
+      "valor": 11184573.53,
+      "participacao_pct": 7.186614643265169,
+      "per_capita": 291.2118501835603
+    },
+    {
+      "ano": 2020,
+      "funcao": "Assistência Social",
+      "valor": 4966900.63,
+      "participacao_pct": 3.19146731017119,
+      "per_capita": 129.32279610487672
+    },
+    {
+      "ano": 2020,
+      "funcao": "Saneamento",
+      "valor": 9013351.05,
+      "participacao_pct": 5.791502060143324,
+      "per_capita": 234.67990340302552
+    },
+    {
+      "ano": 2020,
+      "funcao": "Transporte",
+      "valor": 7605281.79,
+      "participacao_pct": 4.886751321502728,
+      "per_capita": 198.01811622881246
+    },
+    {
+      "ano": 2020,
+      "funcao": "Segurança Pública",
+      "valor": 2154944.81,
+      "participacao_pct": 1.3846534144046416,
+      "per_capita": 56.10812638321139
+    },
+    {
+      "ano": 2020,
+      "funcao": "Previdência Social",
+      "valor": 9229756.67,
+      "participacao_pct": 5.930552851253538,
+      "per_capita": 240.3144392949202
+    },
+    {
+      "ano": 2021,
+      "funcao": "Saúde",
+      "valor": 38530468.94,
+      "participacao_pct": 21.423607298176144,
+      "per_capita": 984.0497749968075
+    },
+    {
+      "ano": 2021,
+      "funcao": "Educação",
+      "valor": 47808770.26,
+      "participacao_pct": 26.582503344402912,
+      "per_capita": 1221.0131594943175
+    },
+    {
+      "ano": 2021,
+      "funcao": "Urbanismo",
+      "valor": 14915296.81,
+      "participacao_pct": 8.293163057287705,
+      "per_capita": 380.9295571446814
+    },
+    {
+      "ano": 2021,
+      "funcao": "Administração",
+      "valor": 15413914.26,
+      "participacao_pct": 8.57040298544566,
+      "per_capita": 393.6640086834376
+    },
+    {
+      "ano": 2021,
+      "funcao": "Assistência Social",
+      "valor": 5797091.78,
+      "participacao_pct": 3.2232833179269615,
+      "per_capita": 148.0549554335334
+    },
+    {
+      "ano": 2021,
+      "funcao": "Saneamento",
+      "valor": 10296993.1,
+      "participacao_pct": 5.725306299021373,
+      "per_capita": 262.980286042651
+    },
+    {
+      "ano": 2021,
+      "funcao": "Transporte",
+      "valor": 12958325.61,
+      "participacao_pct": 7.205053214972337,
+      "per_capita": 330.949447324735
+    },
+    {
+      "ano": 2021,
+      "funcao": "Segurança Pública",
+      "valor": 1816635.46,
+      "participacao_pct": 1.010080743101944,
+      "per_capita": 46.39600204316179
+    },
+    {
+      "ano": 2021,
+      "funcao": "Previdência Social",
+      "valor": 10341214.3,
+      "participacao_pct": 5.749894051237143,
+      "per_capita": 264.1096743710893
+    },
+    {
+      "ano": 2022,
+      "funcao": "Saúde",
+      "valor": 49143617.33,
+      "participacao_pct": 20.193803787881492,
+      "per_capita": 1232.0092589435683
+    },
+    {
+      "ano": 2022,
+      "funcao": "Educação",
+      "valor": 70102973.08,
+      "participacao_pct": 28.8062979535792,
+      "per_capita": 1757.4512542304897
+    },
+    {
+      "ano": 2022,
+      "funcao": "Urbanismo",
+      "valor": 24831141.57,
+      "participacao_pct": 10.203465433294094,
+      "per_capita": 622.5059933816341
+    },
+    {
+      "ano": 2022,
+      "funcao": "Administração",
+      "valor": 16571744.5,
+      "participacao_pct": 6.8095629714994015,
+      "per_capita": 415.4464764722104
+    },
+    {
+      "ano": 2022,
+      "funcao": "Assistência Social",
+      "valor": 7304643.03,
+      "participacao_pct": 3.0015805938300097,
+      "per_capita": 183.1242455313495
+    },
+    {
+      "ano": 2022,
+      "funcao": "Saneamento",
+      "valor": 13838589.42,
+      "participacao_pct": 5.686471094954149,
+      "per_capita": 346.927459199278
+    },
+    {
+      "ano": 2022,
+      "funcao": "Transporte",
+      "valor": 14247047.38,
+      "participacao_pct": 5.854312217524569,
+      "per_capita": 357.16732382361056
+    },
+    {
+      "ano": 2022,
+      "funcao": "Segurança Pública",
+      "valor": 2427885.31,
+      "participacao_pct": 0.9976522330538796,
+      "per_capita": 60.86603599989972
+    },
+    {
+      "ano": 2022,
+      "funcao": "Previdência Social",
+      "valor": 13865906.22,
+      "participacao_pct": 5.697695952408345,
+      "per_capita": 347.6122795758229
+    },
+    {
+      "ano": 2023,
+      "funcao": "Saúde",
+      "valor": 59560987.47,
+      "participacao_pct": 21.885269093928944,
+      "per_capita": 1493.1682285843215
+    },
+    {
+      "ano": 2023,
+      "funcao": "Educação",
+      "valor": 79120061.14,
+      "participacao_pct": 29.072114186306496,
+      "per_capita": 1983.5057569756073
+    },
+    {
+      "ano": 2023,
+      "funcao": "Urbanismo",
+      "valor": 24200218.04,
+      "participacao_pct": 8.892201194681665,
+      "per_capita": 606.6890130111058
+    },
+    {
+      "ano": 2023,
+      "funcao": "Administração",
+      "valor": 16286405.25,
+      "participacao_pct": 5.984325925565907,
+      "per_capita": 408.29314472661633
+    },
+    {
+      "ano": 2023,
+      "funcao": "Assistência Social",
+      "valor": 8572121.5,
+      "participacao_pct": 3.149766209431078,
+      "per_capita": 214.89938328862593
+    },
+    {
+      "ano": 2023,
+      "funcao": "Saneamento",
+      "valor": 14383236.14,
+      "participacao_pct": 5.285019720735397,
+      "per_capita": 360.5815172102585
+    },
+    {
+      "ano": 2023,
+      "funcao": "Transporte",
+      "valor": 16327884.67,
+      "participacao_pct": 5.999567248907252,
+      "per_capita": 409.33301586903656
+    },
+    {
+      "ano": 2023,
+      "funcao": "Segurança Pública",
+      "valor": 2594451.91,
+      "participacao_pct": 0.9533132443481955,
+      "per_capita": 65.04178871368046
+    },
+    {
+      "ano": 2023,
+      "funcao": "Previdência Social",
+      "valor": 16263139.26,
+      "participacao_pct": 5.975776999943356,
+      "per_capita": 407.7098764070295
+    },
+    {
+      "ano": 2024,
+      "funcao": "Saúde",
+      "valor": 64912738.55,
+      "participacao_pct": 19.218064604353838,
+      "per_capita": 1312.057617132231
+    },
+    {
+      "ano": 2024,
+      "funcao": "Educação",
+      "valor": 88376636.69,
+      "participacao_pct": 26.164786009077222,
+      "per_capita": 1786.324871447629
+    },
+    {
+      "ano": 2024,
+      "funcao": "Urbanismo",
+      "valor": 59351936.84,
+      "participacao_pct": 17.57173371611894,
+      "per_capita": 1199.6591510692485
+    },
+    {
+      "ano": 2024,
+      "funcao": "Administração",
+      "valor": 19344949.6,
+      "participacao_pct": 5.7272655488784485,
+      "per_capita": 391.01244289930065
+    },
+    {
+      "ano": 2024,
+      "funcao": "Assistência Social",
+      "valor": 10036685.0,
+      "participacao_pct": 2.9714608419266746,
+      "per_capita": 202.86786999231919
+    },
+    {
+      "ano": 2024,
+      "funcao": "Saneamento",
+      "valor": 16865876.32,
+      "participacao_pct": 4.9933111430376025,
+      "per_capita": 340.90383474148035
+    },
+    {
+      "ano": 2024,
+      "funcao": "Transporte",
+      "valor": 15363188.89,
+      "participacao_pct": 4.548425520354374,
+      "per_capita": 310.53055928366416
+    },
+    {
+      "ano": 2024,
+      "funcao": "Segurança Pública",
+      "valor": 3006685.6,
+      "participacao_pct": 0.8901593030352959,
+      "per_capita": 60.773044427376
+    },
+    {
+      "ano": 2024,
+      "funcao": "Previdência Social",
+      "valor": 18862450.2,
+      "participacao_pct": 5.584416782243537,
+      "per_capita": 381.25985770303595
+    }
+  ],
   "benchmark_ultimo_ano": [
     {
       "indicador": "receita_total_realizada_per_capita",

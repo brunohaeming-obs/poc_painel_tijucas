@@ -716,6 +716,22 @@ def build_frontend_json(indicators: pd.DataFrame, benchmark: pd.DataFrame, score
         )
     functions_latest = sorted(functions_latest, key=lambda item: item["valor"] or 0, reverse=True)
 
+    functions_series = []
+    for _, year_row in tij.sort_values("ano").iterrows():
+        for key, label in FUNCTIONS.items():
+            value_col = f"despesa_funcao_{key}"
+            pct_col = f"{value_col}_pct_despesa_total"
+            per_capita_col = f"{value_col}_per_capita"
+            functions_series.append(
+                {
+                    "ano": int(year_row["ano"]),
+                    "funcao": label.split(" - ", 1)[1],
+                    "valor": None if pd.isna(year_row.get(value_col)) else float(year_row[value_col]),
+                    "participacao_pct": None if pd.isna(year_row.get(pct_col)) else float(year_row[pct_col]),
+                    "per_capita": None if pd.isna(year_row.get(per_capita_col)) else float(year_row[per_capita_col]),
+                }
+            )
+
     series_cols = [
         "ano",
         "populacao",
@@ -773,6 +789,7 @@ def build_frontend_json(indicators: pd.DataFrame, benchmark: pd.DataFrame, score
         "cards": cards,
         "series": tij[series_cols].replace({np.nan: None}).to_dict("records"),
         "funcoes_ultimo_ano": functions_latest,
+        "funcoes_series": functions_series,
         "benchmark_ultimo_ano": benchmark_items,
         "status_indicadores_ultimo_ano": indicator_status,
         "subindices": scores.replace({np.nan: None}).to_dict("records"),

@@ -39,6 +39,7 @@ const colors = {
   transfer: "#38BDF8",
   fpm: "#FCD418",
   investment: "#A78BFA",
+  functionPalette: ["#007FFE", "#FCD418", "#14B8A6", "#F2A116", "#A78BFA", "#71B434", "#38BDF8", "#FB7185"],
   grid: "rgba(255,255,255,0.14)",
   text: "#CBD5E1",
 };
@@ -133,7 +134,12 @@ function KpiGrid({ items, columns = "xl:grid-cols-3" }) {
   );
 }
 
-function NarrativeCard({ eyebrow, title, body, caption, icon: Icon, restartKey }) {
+function SourceLine({ children }) {
+  if (!children) return null;
+  return <p className="mt-4 border-t border-white/10 pt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-slate-400">Fonte: {children}</p>;
+}
+
+function NarrativeCard({ eyebrow, title, body, caption, source, icon: Icon, restartKey }) {
   return (
     <aside className="educacao-surface flex h-full flex-col justify-between rounded-[24px] p-6">
       <div>
@@ -148,7 +154,10 @@ function NarrativeCard({ eyebrow, title, body, caption, icon: Icon, restartKey }
           <TypewriterText text={body} restartKey={restartKey ?? body} intervalMs={16} />
         </p>
       </div>
-      {caption ? <p className="mt-6 text-xs font-semibold leading-5 text-slate-400">{caption}</p> : null}
+      <div>
+        {caption ? <p className="mt-6 text-xs font-semibold leading-5 text-slate-400">{caption}</p> : null}
+        <SourceLine>{source}</SourceLine>
+      </div>
     </aside>
   );
 }
@@ -279,6 +288,62 @@ function FunctionProfileChart({ rows, mode }) {
   );
 }
 
+function buildFunctionHistoryRows(functionNames) {
+  const allowed = new Set(functionNames);
+  const grouped = new Map();
+  contasPublicasData.funcoes_series
+    .filter((row) => allowed.has(row.funcao))
+    .forEach((row) => {
+      const current = grouped.get(row.ano) ?? { ano: row.ano };
+      current[`${row.funcao}_per_capita`] = row.per_capita;
+      current[`${row.funcao}_participacao`] = row.participacao_pct;
+      grouped.set(row.ano, current);
+    });
+  return [...grouped.values()].sort((a, b) => a.ano - b.ano);
+}
+
+function FunctionHistoryChart({ rows, mode, functions }) {
+  const isPerCapita = mode === "perCapita";
+  const data = buildFunctionHistoryRows(functions.map((row) => row.funcao));
+  const formatter = isPerCapita ? formatPerCapita : formatPercent;
+  const suffix = isPerCapita ? "_per_capita" : "_participacao";
+
+  return (
+    <div className="h-[410px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={data} margin={{ top: 18, right: 24, bottom: 34, left: 18 }}>
+          <CartesianGrid stroke={colors.grid} strokeDasharray="4 4" />
+          <XAxis dataKey="ano" tick={{ fill: colors.text, fontSize: 12, fontWeight: 700 }} />
+          <YAxis
+            tick={{ fill: colors.text, fontSize: 12 }}
+            tickFormatter={isPerCapita ? compactFormatter.format : (value) => `${decimalFormatter.format(value)}%`}
+            width={76}
+          />
+          <Tooltip content={<FiscalTooltip formatter={formatter} />} />
+          <Legend
+            verticalAlign="bottom"
+            align="center"
+            iconType="line"
+            wrapperStyle={{ color: colors.text, fontSize: 12, fontWeight: 800, paddingTop: 14 }}
+          />
+          {functions.map((row, index) => (
+            <Line
+              key={row.funcao}
+              type="monotone"
+              dataKey={`${row.funcao}${suffix}`}
+              name={row.funcao}
+              stroke={colors.functionPalette[index % colors.functionPalette.length]}
+              strokeWidth={row.funcao === "Educação" || row.funcao === "Saúde" ? 3.2 : 2.6}
+              dot={{ r: 2.8 }}
+              connectNulls
+            />
+          ))}
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
 function RevenueComposition({ latest }) {
   const own = Math.max(0, latest.receita_propria_pct_receita_corrente ?? 0);
   const transfers = Math.max(0, latest.transferencias_correntes_pct_receita_corrente ?? 0);
@@ -353,6 +418,7 @@ function benchmarkNote(benchmark, formatter) {
 export function ContasPublicasPage() {
   const [fiscalMode, setFiscalMode] = useState("total");
   const [functionMode, setFunctionMode] = useState("perCapita");
+  const [functionChartView, setFunctionChartView] = useState("comparison");
   const latest = latestSeries();
   const functionRows = useMemo(() => buildFunctionRows().slice(0, 8), []);
 
@@ -495,6 +561,9 @@ export function ContasPublicasPage() {
   const investmentNarrative = `Em ${latest.ano}, Tijucas investiu ${formatPerCapita(latest.investimento_per_capita)} por morador, acima da mediana dos municípios semelhantes. O investimento representou ${formatPercent(latest.investimento_pct_despesa)} da despesa total. Isso sugere boa capacidade de transformar parte do orçamento em obras, equipamentos e melhorias permanentes, não apenas manter os serviços do dia a dia.`;
 
   const openingNarrative = `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}, fechando o ano com ${buildSaldoText(latest, resultBenchmark)}. A cidade tem boa receita própria por morador, mas a maior parte da receita corrente ainda vem de transferências. O investimento por morador ficou acima da mediana dos municípios catarinenses semelhantes.`;
+  const dcaSource = "DCA/SICONFI, contas anuais municipais 2013-2024.";
+  const fpmSource = "STN/Tesouro Transparente, API de Transferências Constitucionais/FPM 2026; DCA/SICONFI 2013-2024.";
+  const functionSource = "DCA/SICONFI, despesa por função 2013-2024.";
 
   return (
     <section
@@ -534,12 +603,14 @@ export function ContasPublicasPage() {
                 <p className="text-xs font-semibold text-slate-400">Valores nominais da DCA. Termos técnicos ficam na metodologia.</p>
               </div>
               <RevenueExpenseChart data={contasPublicasData.series} mode={fiscalMode} />
+              <SourceLine>{dcaSource}</SourceLine>
             </article>
             <NarrativeCard
               eyebrow="Leitura cidadã"
               title={fiscalMode === "total" ? "Tamanho do orçamento" : "Comparação por morador"}
               body={fiscalNarrative}
               caption={contasPublicasData.metadata.grupo_similar.criterio}
+              source={dcaSource}
               icon={Banknote}
               restartKey={`fiscal-${fiscalMode}`}
             />
@@ -565,12 +636,14 @@ export function ContasPublicasPage() {
                 <h5 className="mb-3 text-sm font-extrabold text-white">Composição simples da receita corrente em {latest.ano}</h5>
                 <RevenueComposition latest={latest} />
               </div>
+              <SourceLine>{fpmSource}</SourceLine>
             </article>
             <NarrativeCard
               eyebrow="Origem da receita"
               title="Gera localmente ou depende de repasses?"
               body={sourceNarrative}
               caption={`FPM por morador em Tijucas: ${formatPerCapita(latest.fpm_per_capita)}. Mediana de municípios similares a Tijucas: ${formatBenchmark(fpmPerCapitaBenchmark?.mediana_similares, formatPerCapita)}.`}
+              source={fpmSource}
               icon={Building2}
               restartKey="origem-receita"
             />
@@ -593,19 +666,44 @@ export function ContasPublicasPage() {
 
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,0.8fr)]">
             <article className="educacao-surface rounded-[24px] p-5">
-              <div className="mb-4">
-                <h4 className="text-base font-extrabold text-white">
-                  {functionMode === "perCapita" ? "Gasto por área por morador" : "Peso de cada área na despesa"}
-                </h4>
-                <p className="text-xs font-semibold text-slate-400">Tijucas comparada à mediana dos municípios similares, {latest.ano}.</p>
+              <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <h4 className="text-base font-extrabold text-white">
+                    {functionChartView === "history"
+                      ? functionMode === "perCapita"
+                        ? "Série histórica do gasto por morador"
+                        : "Série histórica da participação"
+                      : functionMode === "perCapita"
+                        ? "Gasto por área por morador"
+                        : "Peso de cada área na despesa"}
+                  </h4>
+                  <p className="text-xs font-semibold text-slate-400">
+                    {functionChartView === "history"
+                      ? "Evolução anual de Tijucas por função, 2013 a 2024."
+                      : `Tijucas comparada à mediana dos municípios similares, ${latest.ano}.`}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setFunctionChartView((current) => (current === "history" ? "comparison" : "history"))}
+                  className="self-start rounded-xl border border-white/15 bg-white/[0.04] px-3 py-2 text-xs font-extrabold text-slate-100 transition hover:border-brand-yellow/60 hover:bg-white/10"
+                >
+                  {functionChartView === "history" ? "Ver comparação" : "Ver série histórica"}
+                </button>
               </div>
-              <FunctionProfileChart rows={functionRows} mode={functionMode} />
+              {functionChartView === "history" ? (
+                <FunctionHistoryChart rows={contasPublicasData.funcoes_series} mode={functionMode} functions={functionRows} />
+              ) : (
+                <FunctionProfileChart rows={functionRows} mode={functionMode} />
+              )}
+              <SourceLine>{functionSource}</SourceLine>
             </article>
             <NarrativeCard
               eyebrow="Prioridades do gasto"
               title={functionMode === "perCapita" ? "Quanto cada área recebe por morador" : "Quais áreas pesam mais"}
               body={functionNarrative}
               caption="Comparar com cidades de porte parecido evita distorções causadas por municípios muito pequenos ou muito grandes."
+              source={functionSource}
               icon={Landmark}
               restartKey={`funcoes-${functionMode}`}
             />
@@ -627,12 +725,14 @@ export function ContasPublicasPage() {
                 <p className="text-xs font-semibold text-slate-400">Série histórica nominal. Mostra a parcela voltada a melhorias permanentes.</p>
               </div>
               <InvestmentChart data={contasPublicasData.series} />
+              <SourceLine>{dcaSource}</SourceLine>
             </article>
             <NarrativeCard
               eyebrow="Capacidade de investimento"
               title="Manter serviços e criar melhorias"
               body={investmentNarrative}
               caption={`O índice fiscal sintético foi movido para leitura secundária: ${decimalFormatter.format(contasPublicasData.cards.find((card) => card.indicador === "indice_saude_fiscal_municipal")?.valor ?? 0)}/100 frente ao grupo similar.`}
+              source={dcaSource}
               icon={Hammer}
               restartKey="investimento"
             />
