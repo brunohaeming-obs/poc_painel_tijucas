@@ -179,12 +179,14 @@ export const thematicDashboardData = {
     id: "construcaoCivil",
     label: "Construção civil",
     shortLabel: "Construção",
-    source: "Dados simulados para prototipação visual",
+    source: "Dados reais de obras (CNO) — dados_obras_tijucas.csv",
     summary: "Monitora obras, alvarás, área licenciada e dinâmica da construção no município.",
+    // KPIs reais derivados de public/data/dados_obras_tijucas.csv (obras únicas por CNO):
+    // 166 construções; soma de area_total = 234.266,32 m²; média = 1.411,24 m².
     kpis: [
-      { label: "Alvarás emitidos", value: "142", note: "+8,4% no ano" },
-      { label: "Área licenciada", value: "68,5 mil m²", note: "+12,1%" },
-      { label: "Obras ativas", value: "87", note: "cadastro municipal" },
+      { label: "Construções em Tijucas", value: "166", note: "obras cadastradas (CNO)" },
+      { label: "Metragem total", value: "234,3 mil m²", note: "área construída somada" },
+      { label: "Metragem média", value: "1.411 m²", note: "por construção" },
     ],
     permits: monthSeries([8, 10, 9, 11, 13, 12, 14, 15, 13, 16, 15, 16]),
     areaLicensed: monthSeries([3.8, 4.1, 4.6, 5.2, 5.5, 5.9, 6.2, 6.5, 6.1, 6.9, 7.2, 7.5]),
