@@ -164,6 +164,10 @@ export function TerritorioSection({
       withCoordinates: territoryData?.summary?.withCoordinates ?? 0,
       urban: territoryData?.summary?.urban ?? 0,
       rural: territoryData?.summary?.rural ?? 0,
+      enrollments: territoryData?.summary?.enrollments ?? 0,
+      hasEnrollmentsByNeighborhood: Boolean(
+        territoryData?.summary?.hasEnrollmentsByNeighborhood,
+      ),
     },
   };
 
@@ -175,6 +179,12 @@ export function TerritorioSection({
     [safeTerritoryData.available, safeTerritoryData.points],
   );
   const hasMunicipalOutline = Boolean(municipalPathData);
+  const neighborhoodTableTitle = safeTerritoryData.summary.hasEnrollmentsByNeighborhood
+    ? `Escolas e matrículas por bairro em ${selectedYear}`
+    : `Escolas por bairro em ${selectedYear}`;
+  const neighborhoodTableDescription = safeTerritoryData.summary.hasEnrollmentsByNeighborhood
+    ? `A tabela mostra escolas e matrículas por bairro em ${selectedYear}. As matrículas foram agregadas a partir do vínculo entre escola, bairro e código da entidade escolar.`
+    : "A base atual permite contar escolas por bairro. Matrículas por bairro dependem de vínculo entre escola e matrícula, ainda não disponível nesta versão.";
 
   return (
     <section className="grid gap-8" aria-labelledby="educacao-territorio-title">
@@ -285,38 +295,49 @@ export function TerritorioSection({
                 </svg>
 
                 {hoveredPoint ? (
-                  <div
-                    className="pointer-events-none absolute z-10 w-[220px] rounded-2xl border border-white/10 bg-[#071845]/95 px-4 py-3 text-sm text-white shadow-lg"
-                    style={{
-                      left: `${Math.min((hoveredPoint.x / SVG_WIDTH) * 100 + 3, 82)}%`,
-                      top: `${Math.max((hoveredPoint.y / SVG_HEIGHT) * 100 - 4, 8)}%`,
-                      transform: "translate(-50%, -100%)",
-                    }}
-                  >
-                    <strong className="block text-sm">{hoveredPoint.nome_escola}</strong>
-                    <div className="mt-2 space-y-1 text-xs leading-5 text-slate-200">
-                      <p>
-                        <span className="text-slate-400">Bairro:</span> {hoveredPoint.bairro || "Não informado"}
-                      </p>
-                      {hoveredPoint.dependencia_administrativa ? (
-                        <p>
-                          <span className="text-slate-400">Dependência:</span>{" "}
-                          {hoveredPoint.dependencia_administrativa}
-                        </p>
-                      ) : null}
-                      {hoveredPoint.localizacao ? (
-                        <p>
-                          <span className="text-slate-400">Localização:</span> {hoveredPoint.localizacao}
-                        </p>
-                      ) : null}
-                      {hoveredPoint.matriculas != null ? (
-                        <p>
-                          <span className="text-slate-400">Matrículas:</span>{" "}
-                          {integerFormatter.format(hoveredPoint.matriculas)}
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
+                  (() => {
+                    const hoveredEnrollments =
+                      hoveredPoint.matriculas ??
+                      hoveredPoint.matriculas_total_educacao_basica ??
+                      null;
+
+                    return (
+                      <div
+                        className="pointer-events-none absolute z-10 w-[220px] rounded-2xl border border-white/10 bg-[#071845]/95 px-4 py-3 text-sm text-white shadow-lg"
+                        style={{
+                          left: `${Math.min((hoveredPoint.x / SVG_WIDTH) * 100 + 3, 82)}%`,
+                          top: `${Math.max((hoveredPoint.y / SVG_HEIGHT) * 100 - 4, 8)}%`,
+                          transform: "translate(-50%, -100%)",
+                        }}
+                      >
+                        <strong className="block text-sm">{hoveredPoint.nome_escola}</strong>
+                        <div className="mt-2 space-y-1 text-xs leading-5 text-slate-200">
+                          <p>
+                            <span className="text-slate-400">Bairro:</span>{" "}
+                            {hoveredPoint.bairro || "Não informado"}
+                          </p>
+                          {hoveredPoint.dependencia_administrativa ? (
+                            <p>
+                              <span className="text-slate-400">Dependência:</span>{" "}
+                              {hoveredPoint.dependencia_administrativa}
+                            </p>
+                          ) : null}
+                          {hoveredPoint.localizacao ? (
+                            <p>
+                              <span className="text-slate-400">Localização:</span>{" "}
+                              {hoveredPoint.localizacao}
+                            </p>
+                          ) : null}
+                          {hoveredEnrollments != null ? (
+                            <p>
+                              <span className="text-slate-400">Matrículas:</span>{" "}
+                              {integerFormatter.format(hoveredEnrollments)}
+                            </p>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+                  })()
                 ) : null}
               </div>
             ) : null}
@@ -394,13 +415,8 @@ export function TerritorioSection({
             <TableProperties size={16} />
             Tabela por bairro
           </div>
-          <h3 className="mt-4 text-xl font-extrabold text-white">
-            Escolas por bairro em {selectedYear}
-          </h3>
-          <p className="mt-2 text-sm leading-6 text-slate-300">
-            A base atual permite contar escolas por bairro. As matrículas seguem como N/D
-            porque a base final publicada não traz vínculo por escola com segurança.
-          </p>
+          <h3 className="mt-4 text-xl font-extrabold text-white">{neighborhoodTableTitle}</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-300">{neighborhoodTableDescription}</p>
 
           <div className="mt-6 overflow-x-auto">
             <table className="min-w-full text-left text-sm">
@@ -416,9 +432,13 @@ export function TerritorioSection({
                   safeTerritoryData.neighborhoodRows.map((row) => (
                     <tr key={row.bairro}>
                       <td className="py-3 text-slate-100">{row.bairro}</td>
-                      <td className="py-3 font-bold text-white">{integerFormatter.format(row.escolas)}</td>
+                      <td className="py-3 font-bold text-white">
+                        {integerFormatter.format(row.escolas)}
+                      </td>
                       <td className="py-3 text-slate-300">
-                        {row.matriculas === null ? "N/D" : integerFormatter.format(row.matriculas)}
+                        {row.matriculas === null || row.matriculas === undefined
+                          ? "N/D"
+                          : integerFormatter.format(row.matriculas)}
                       </td>
                     </tr>
                   ))

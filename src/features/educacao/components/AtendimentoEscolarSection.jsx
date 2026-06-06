@@ -56,7 +56,7 @@ export function AtendimentoEscolarSection({
         chart={
           <EducacaoChartCard
             title="Evolução das matrículas por etapa"
-            subtitle="Cada ponto representa um ano do Censo Escolar. As linhas mostram como as matrículas evoluíram por etapa de ensino. O ano selecionado ajuda a localizar o recorte atual sem esconder a série histórica."
+            subtitle="Cada ponto representa um ano do Censo Escolar. As linhas mostram como as matrículas evoluíram por etapa de ensino."
           >
             <div className="flex flex-wrap gap-2.5 text-sm">
               {enrollmentHistory.series.map((seriesItem) => (
