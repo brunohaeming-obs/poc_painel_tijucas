@@ -56,39 +56,93 @@ select:focus-visible {
 }
 
 .educacao-shell {
-  background:
-    radial-gradient(circle at top right, rgba(0, 127, 254, 0.16), transparent 28%),
-    radial-gradient(circle at bottom left, rgba(252, 212, 24, 0.09), transparent 24%),
-    linear-gradient(180deg, var(--color-panel-bg) 0%, var(--color-panel-bg-soft) 100%);
+  --axis-primary: #f2a116;
+  --axis-secondary: #fde7c2;
+  --axis-chart-surface: #e9e9de;
+  --axis-text-main: #10213a;
+  --axis-text-muted: #475569;
+  --axis-text-soft: #64748b;
+  --color-panel-bg: #ffffff;
+  --color-panel-bg-soft: #ffffff;
+  --color-panel-card: #fde7c2;
+  --color-panel-card-strong: #fde7c2;
+  --color-panel-border: rgba(242, 161, 22, 0.26);
+  --color-text-main: #10213a;
+  --color-text-muted: #475569;
+  --color-text-soft: #64748b;
+  background: #ffffff;
 }
 
 .educacao-surface {
-  border: 1px solid var(--color-panel-border);
-  background: var(--color-panel-card);
+  border: 1px solid rgba(242, 161, 22, 0.26);
+  background: #fde7c2;
+  box-shadow: 0 10px 24px rgba(16, 33, 58, 0.06);
 }
 
 .educacao-surface-strong {
-  border: 1px solid var(--color-panel-border);
-  background: var(--color-panel-card-strong);
+  border: 1px solid rgba(242, 161, 22, 0.3);
+  background: #fde7c2;
+  box-shadow: 0 12px 28px rgba(16, 33, 58, 0.08);
 }
 
 .educacao-kpi-card {
   min-height: 176px;
+  background: #fde7c2;
 }
 
 .educacao-chart-card {
   min-height: 360px;
+  background: #e9e9de;
+  border-color: rgba(148, 163, 184, 0.25);
 }
 
 .educacao-mini-card {
   min-height: 0;
 }
 
+.educacao-shell .text-white,
+.educacao-shell .text-slate-50,
+.educacao-shell .text-slate-100,
+.educacao-shell .text-slate-200 {
+  color: var(--axis-text-main);
+}
+
+.educacao-shell .text-slate-300,
+.educacao-shell .text-slate-400 {
+  color: var(--axis-text-muted);
+}
+
+.educacao-shell .border-white\/10,
+.educacao-shell .border-white\/12,
+.educacao-shell .border-white\/15 {
+  border-color: rgba(242, 161, 22, 0.26);
+}
+
+.educacao-shell .bg-white\/\[0\.03\],
+.educacao-shell .bg-white\/\[0\.08\],
+.educacao-shell .bg-white\/\[0\.1\],
+.educacao-shell .bg-white\/5,
+.educacao-shell .bg-white\/6,
+.educacao-shell .bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.55);
+}
+
+.educacao-shell .rounded-full.border,
+.educacao-shell .inline-flex.rounded-full.border,
+.educacao-shell .rounded-full[class*="border-"] {
+  background-color: rgba(242, 161, 22, 0.12);
+  border-color: rgba(242, 161, 22, 0.28);
+  color: #10213a;
+}
+
 .educacao-shell select {
   appearance: none;
+  color: #10213a;
+  background-color: rgba(255, 255, 255, 0.72);
+  border-color: rgba(242, 161, 22, 0.42);
   background-image:
-    linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.72) 50%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72) 50%, transparent 50%);
+    linear-gradient(45deg, transparent 50%, #10213a 50%),
+    linear-gradient(135deg, #10213a 50%, transparent 50%);
   background-position:
     calc(100% - 20px) calc(50% - 2px),
     calc(100% - 14px) calc(50% - 2px);
@@ -97,6 +151,11 @@ select:focus-visible {
 }
 
 .educacao-year-select option {
-  background: #04154d;
-  color: #f8fbff;
+  background: #ffffff;
+  color: #10213a;
+}
+
+.educacao-year-select option:checked {
+  background: #f2a116;
+  color: #10213a;
 }

@@ -151,7 +151,7 @@ export function EducacaoSchoolsMapCard({
         />
 
         {status !== "ready" ? (
-          <div className="pointer-events-none absolute inset-0 grid place-items-center rounded-lg bg-[#071845]/70 px-6 text-center text-sm font-bold text-slate-100">
+          <div className="pointer-events-none absolute inset-0 grid place-items-center rounded-lg border border-[#F2A116]/40 bg-[#FDE7C2]/95 px-6 text-center text-sm font-bold text-[#10213A] shadow-[0_14px_28px_rgba(16,33,58,0.10)]">
             {status === "empty"
               ? "Não há escolas com coordenadas válidas para exibir no mapa."
               : "Carregando mapa..."}
