@@ -43,9 +43,9 @@ export function TerritorioSection({
         title="Distribuição territorial da rede escolar"
       />
 
-      <div className="grid gap-8 xl:grid-cols-[1.05fr_0.95fr] xl:items-start">
+      <div className="grid gap-8 xl:grid-cols-[1.05fr_0.95fr] xl:items-stretch">
         <div className="space-y-6">
-          <article className="educacao-surface rounded-[28px] p-6">
+          <article className="educacao-surface h-full rounded-[28px] p-6">
             <div className="flex flex-wrap gap-3 text-sm text-slate-200">
               <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5">
                 {safeTerritoryData.summary.schools} escolas filtradas
@@ -74,9 +74,9 @@ export function TerritorioSection({
               <div className="mt-6">
                 <EducacaoSchoolsMapCard
                   points={safeTerritoryData.points}
-                  title="Escolas georreferenciadas em Tijucas"
-                  subtitle="Pontos das escolas com coordenadas disponíveis no Censo Escolar"
-                  height={430}
+                  title="Escolas no território"
+                  subtitle="Pontos com coordenadas disponíveis na base"
+                  height={380}
                 />
               </div>
             ) : (
@@ -93,18 +93,14 @@ export function TerritorioSection({
 
             <div className="mt-4 space-y-2 text-sm leading-6 text-slate-400">
               <p>
-                O mapa representa a distribuição territorial das unidades da rede de educação
-                básica de Tijucas e não representa desempenho das escolas.
-              </p>
-              <p>
-                Escolas sem latitude/longitude permanecem na tabela, mas não aparecem no mapa. A
-                camada de bairros depende de base geográfica oficial em GeoJSON ou shapefile.
+                O mapa mostra a distribuição territorial das escolas com coordenadas disponíveis.
+                Unidades sem latitude/longitude permanecem na tabela, mas não aparecem no mapa.
               </p>
             </div>
           </article>
         </div>
 
-        <article className="educacao-surface rounded-[28px] p-6">
+        <article className="educacao-surface flex h-full flex-col rounded-[28px] p-6">
           <div className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em] text-slate-300">
             <TableProperties size={16} />
             Tabela por bairro
@@ -112,13 +108,13 @@ export function TerritorioSection({
           <h3 className="mt-4 text-xl font-extrabold text-white">{neighborhoodTableTitle}</h3>
           <p className="mt-2 text-sm leading-6 text-slate-300">{neighborhoodTableDescription}</p>
 
-          <div className="mt-6 overflow-x-auto">
+          <div className="mt-6 min-h-0 flex-1 overflow-auto pr-1">
             <table className="min-w-full text-left text-sm">
               <thead className="text-slate-400">
                 <tr className="border-b border-white/10">
                   <th className="pb-3 font-semibold">Bairro</th>
-                  <th className="pb-3 font-semibold">Escolas</th>
-                  <th className="pb-3 font-semibold">Matrículas</th>
+                  <th className="pb-3 text-right font-semibold">Escolas</th>
+                  <th className="pb-3 text-right font-semibold">Matrículas</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/10">
@@ -126,10 +122,10 @@ export function TerritorioSection({
                   safeTerritoryData.neighborhoodRows.map((row) => (
                     <tr key={row.bairro}>
                       <td className="py-3 text-slate-100">{row.bairro}</td>
-                      <td className="py-3 font-bold text-white">
+                      <td className="py-3 text-right font-bold text-white">
                         {integerFormatter.format(row.escolas)}
                       </td>
-                      <td className="py-3 text-slate-300">
+                      <td className="py-3 text-right text-slate-300">
                         {row.matriculas === null || row.matriculas === undefined
                           ? "N/D"
                           : integerFormatter.format(row.matriculas)}
