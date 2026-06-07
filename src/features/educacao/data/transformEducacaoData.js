@@ -358,6 +358,7 @@ function buildTerritoryData(
   if (!availableYears.map(Number).includes(selectedYearNumber)) {
     return {
       available: false,
+      referenceYear: selectedYearNumber,
       availableYears,
       filteredSchools: [],
       points: [],
@@ -429,6 +430,7 @@ function buildTerritoryData(
 
   return {
     available: true,
+    referenceYear: selectedYearNumber,
     availableYears,
     filteredSchools,
     points,
@@ -457,6 +459,7 @@ export function buildEducacaoViewModel(allData, filters) {
   const selectedYear = availableYears.includes(filters.selectedYear)
     ? filters.selectedYear
     : availableYears[availableYears.length - 1] ?? "";
+  const territoryReferenceYear = 2025;
 
   return {
     selectedYear,
@@ -484,7 +487,7 @@ export function buildEducacaoViewModel(allData, filters) {
       allData.mapaEscolas,
       {
         ...filters,
-        selectedYear,
+        selectedYear: territoryReferenceYear,
       },
       allData.territorioMatriculasBairro2025,
       allData.mapaEscolasComMatriculas2025,

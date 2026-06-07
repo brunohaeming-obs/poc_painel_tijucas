@@ -86,12 +86,12 @@ select:focus-visible {
 }
 
 .educacao-kpi-card {
-  min-height: 176px;
+  min-height: 144px;
   background: #fde7c2;
 }
 
 .educacao-chart-card {
-  min-height: 360px;
+  min-height: 320px;
   background: #e9e9de;
   border-color: rgba(148, 163, 184, 0.25);
 }
