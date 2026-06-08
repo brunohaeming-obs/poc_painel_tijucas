@@ -7,7 +7,6 @@ import {
   GraduationCap,
   HardHat,
   HeartPulse,
-  Leaf,
   UsersRound,
 } from "lucide-react";
 
@@ -17,7 +16,6 @@ export const axisTheme = {
   populacao: { primary: "#8D2A8A", secondary: "#FFEFFE" },
   educacao: { primary: "#F2A116", secondary: "#FDE7C2" },
   saude: { primary: "#EC4137", secondary: "#FFEAE9" },
-  meioAmbiente: { primary: "#71B434", secondary: "#E7F7DA" },
   contasPublicas: { primary: "#000086", secondary: "#EBF4FF" },
   construcaoCivil: { primary: "#000086", secondary: "#EBF4FF" },
 };
@@ -27,7 +25,6 @@ export const themeIcons = {
   saude: HeartPulse,
   educacao: GraduationCap,
   economiaEmpregos: BriefcaseBusiness,
-  meioAmbiente: Leaf,
   populacao: UsersRound,
   construcaoCivil: HardHat || Building2,
 };
@@ -41,8 +38,6 @@ export const axisNarratives = {
     "A educação acompanha acesso, permanência e aprendizagem na rede. O eixo é central para avaliar capacidade escolar, pressão por vagas e resultados que afetam o desenvolvimento de longo prazo.",
   saude:
     "A saúde revela o uso da rede assistencial e os principais pontos de pressão operacional. Monitorar procedimentos, cobertura e linhas de cuidado apoia decisões sobre oferta, equipes e prioridades de atendimento.",
-  meioAmbiente:
-    "O meio ambiente acompanha resíduos, licenciamento, arborização e riscos urbanos. O eixo permite observar sustentabilidade, qualidade de vida e impactos do crescimento sobre o território.",
   contasPublicas:
     "Contas públicas mostram a capacidade de arrecadar, executar o orçamento e financiar entregas. Este eixo é essencial para avaliar sustentabilidade fiscal, investimentos e prioridades de gasto.",
   construcaoCivil:

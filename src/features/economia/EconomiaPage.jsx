@@ -663,7 +663,7 @@ export function EconomiaPage({ theme }) {
   ];
 
   const accessiblePibNarrative = pibMode === "total"
-    ? `PIB é o valor produzido pela economia da cidade. Tijucas aparece em destaque e pode ser comparada com municípios de porte parecido. Em 2025, o PIB projetado é ${formatMoney(tijucas.pib2025)}. Até 2030, a projeção indica crescimento médio de ${decimalFormatter.format(tijucas.cagrPib2025_2030)}% ao ano. A área amarela mostra valores projetados.`
+    ? `PIB é o valor produzido pela economia da cidade. Tijucas aparece em destaque e pode ser comparada com municípios de porte parecido. Em 2025, o PIB projetado é ${formatMoney(tijucas.pib2025)}. Até 2030, a projeção indica crescimento médio de ${decimalFormatter.format(tijucas.cagrPib2025_2030)}% ao ano. A área destacada mostra valores projetados.`
     : `PIB per capita é o PIB dividido pela população. Ele ajuda a comparar cidades de tamanhos diferentes. Tijucas aparece com outros municípios de até 70 mil habitantes. Este número não é a renda de cada pessoa; é uma média econômica por morador.`;
   const accessibleEmploymentNarrative = employmentMode === "monthly"
     ? `O saldo mensal mostra vagas abertas menos vagas fechadas. Em ${employment.latestMonth}, Tijucas teve saldo de ${formatSigned(employment.monthlyBalance)} vagas formais. O setor com maior impacto foi ${formatSectorName(topSector?.name)}, com ${formatSigned(topSector?.saldo ?? 0)} vagas.`
@@ -714,7 +714,7 @@ export function EconomiaPage({ theme }) {
                 <h4 className="text-base font-extrabold text-white">
                   {pibMode === "total" ? "PIB observado e projetado" : "PIB per capita observado e projetado"}
                 </h4>
-                <p className="text-xs font-semibold text-slate-400">Área amarela indica anos projetados.</p>
+                <p className="text-xs font-semibold text-slate-400">Área destacada indica anos projetados.</p>
               </div>
               <div className="h-[430px] w-full">
                 <PibChart data={pibChartData} rows={chartRows} mode={pibMode === "total" ? "total" : "perCapita"} />

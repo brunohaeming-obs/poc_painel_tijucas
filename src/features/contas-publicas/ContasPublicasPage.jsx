@@ -40,6 +40,8 @@ const colors = {
   transfer: "#38BDF8",
   fpm: "#FCD418",
   investment: "#A78BFA",
+  similar: "#38BDF8",
+  mesoregion: "#F2A116",
   functionPalette: ["#007FFE", "#FCD418", "#14B8A6", "#F2A116", "#A78BFA", "#71B434", "#38BDF8", "#FB7185"],
   grid: "rgba(255,255,255,0.14)",
   text: "#CBD5E1",
@@ -122,7 +124,7 @@ function KpiGrid({ items, columns = "xl:grid-cols-3" }) {
   return (
     <div className={`grid gap-4 sm:grid-cols-2 ${columns}`}>
       {items.map((item) => (
-        <article key={item.label} className="educacao-surface rounded-[18px] px-4 py-4 shadow-sm">
+        <article key={item.label} className="educacao-surface contas-publicas-kpi-card rounded-[18px] px-4 py-4 shadow-sm">
           <div className="flex items-center justify-between gap-2">
             <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-400">{item.label}</p>
             <InfoMark text={item.help} />
@@ -142,7 +144,7 @@ function SourceLine({ children }) {
 
 function NarrativeCard({ eyebrow, title, body, caption, source, icon: Icon, restartKey }) {
   return (
-    <aside className="educacao-surface flex h-full flex-col justify-between rounded-[24px] p-6">
+    <aside className="educacao-surface contas-publicas-narrative-card flex h-full flex-col justify-between rounded-[24px] p-6">
       <div>
         <div className="flex items-center gap-3">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-yellow text-brand-navy">
@@ -180,6 +182,19 @@ function FiscalTooltip({ active, payload, label, formatter = formatMoney }) {
   );
 }
 
+function mergeComparisonSeries(data, comparisonRows = []) {
+  const comparisonByYear = new Map(comparisonRows.map((row) => [Number(row.ano), row]));
+
+  return data.map((row) => {
+    const comparison = comparisonByYear.get(Number(row.ano)) ?? {};
+    return {
+      ...row,
+      mediaSimilares: comparison.media_similares ?? null,
+      mediaMesorregiao: comparison.media_mesorregiao ?? null,
+    };
+  });
+}
+
 function RevenueExpenseChart({ data, mode }) {
   const isPerCapita = mode === "perCapita";
   const rows = data.map((row) => ({
@@ -213,43 +228,99 @@ function RevenueExpenseChart({ data, mode }) {
   );
 }
 
-function DependencyChart({ data }) {
-  const rows = data.map((row) => ({
+function DependencyChart({ data, comparisonRows }) {
+  const rows = mergeComparisonSeries(data, comparisonRows).map((row) => ({
     ano: row.ano,
     dependencia: row.fpm_pct_receita_corrente,
+    mediaSimilares: row.mediaSimilares,
+    mediaMesorregiao: row.mediaMesorregiao,
     fpmPorMorador: row.fpm_per_capita,
   }));
 
   return (
-    <div className="h-[320px]">
+    <div className="h-[360px]">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={rows} margin={{ top: 20, right: 24, bottom: 8, left: 18 }}>
+        <LineChart data={rows} margin={{ top: 20, right: 24, bottom: 42, left: 18 }}>
           <CartesianGrid stroke={colors.grid} strokeDasharray="4 4" />
           <XAxis dataKey="ano" tick={{ fill: colors.text, fontSize: 12, fontWeight: 700 }} />
           <YAxis tick={{ fill: colors.text, fontSize: 12 }} tickFormatter={(value) => `${decimalFormatter.format(value)}%`} width={64} />
           <Tooltip content={<FiscalTooltip formatter={formatPercent} />} />
+          <Legend
+            verticalAlign="bottom"
+            align="center"
+            iconType="line"
+            wrapperStyle={{ color: colors.text, fontSize: 12, fontWeight: 800, paddingTop: 16 }}
+          />
           <Line type="monotone" dataKey="dependencia" name="Dependência do FPM" stroke={colors.fpm} strokeWidth={3.4} dot={{ r: 3 }} />
+          <Line
+            type="monotone"
+            dataKey="mediaSimilares"
+            name="Média dos similares"
+            stroke={colors.similar}
+            strokeWidth={2.8}
+            strokeDasharray="6 4"
+            dot={false}
+            connectNulls
+          />
+          <Line
+            type="monotone"
+            dataKey="mediaMesorregiao"
+            name="Média da mesorregião"
+            stroke={colors.mesoregion}
+            strokeWidth={2.8}
+            strokeDasharray="2 5"
+            dot={false}
+            connectNulls
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>
   );
 }
 
-function InvestmentChart({ data }) {
-  const rows = data.map((row) => ({
+function InvestmentChart({ data, comparisonRows }) {
+  const rows = mergeComparisonSeries(data, comparisonRows).map((row) => ({
     ano: row.ano,
     investimento: row.investimento_per_capita,
+    mediaSimilares: row.mediaSimilares,
+    mediaMesorregiao: row.mediaMesorregiao,
   }));
 
   return (
-    <div className="h-[320px]">
+    <div className="h-[360px]">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={rows} margin={{ top: 20, right: 24, bottom: 8, left: 18 }}>
+        <LineChart data={rows} margin={{ top: 20, right: 24, bottom: 42, left: 18 }}>
           <CartesianGrid stroke={colors.grid} strokeDasharray="4 4" />
           <XAxis dataKey="ano" tick={{ fill: colors.text, fontSize: 12, fontWeight: 700 }} />
           <YAxis tick={{ fill: colors.text, fontSize: 12 }} tickFormatter={(value) => `R$ ${compactFormatter.format(value)}`} width={76} />
           <Tooltip content={<FiscalTooltip formatter={formatPerCapita} />} />
+          <Legend
+            verticalAlign="bottom"
+            align="center"
+            iconType="line"
+            wrapperStyle={{ color: colors.text, fontSize: 12, fontWeight: 800, paddingTop: 16 }}
+          />
           <Line type="monotone" dataKey="investimento" name="Investimento por morador" stroke={colors.investment} strokeWidth={3.4} dot={{ r: 3 }} />
+          <Line
+            type="monotone"
+            dataKey="mediaSimilares"
+            name="Média dos similares"
+            stroke={colors.similar}
+            strokeWidth={2.8}
+            strokeDasharray="6 4"
+            dot={false}
+            connectNulls
+          />
+          <Line
+            type="monotone"
+            dataKey="mediaMesorregiao"
+            name="Média da mesorregião"
+            stroke={colors.mesoregion}
+            strokeWidth={2.8}
+            strokeDasharray="2 5"
+            dot={false}
+            connectNulls
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>
@@ -598,7 +669,7 @@ export function ContasPublicasPage() {
           </div>
 
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,0.8fr)]">
-            <article className="educacao-surface rounded-[24px] p-5">
+            <article className="educacao-surface contas-publicas-chart-card rounded-[24px] p-5">
               <div className="mb-4">
                 <h4 className="text-base font-extrabold text-white">Receita, despesa e saldo</h4>
                 <p className="text-xs font-semibold text-slate-400">Valores nominais da DCA. Termos técnicos ficam na metodologia.</p>
@@ -627,12 +698,15 @@ export function ContasPublicasPage() {
           <KpiGrid items={sourceKpis} />
 
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,0.8fr)]">
-            <article className="educacao-surface rounded-[24px] p-5">
+            <article className="educacao-surface contas-publicas-chart-card rounded-[24px] p-5">
               <div className="mb-5">
                 <h4 className="text-base font-extrabold text-white">Participação do FPM na receita</h4>
                 <p className="text-xs font-semibold text-slate-400">FPM dividido pela receita corrente. Quanto maior, maior a dependência federal.</p>
               </div>
-              <DependencyChart data={contasPublicasData.series} />
+              <DependencyChart
+                data={contasPublicasData.series}
+                comparisonRows={contasPublicasData.comparativos_series?.indicadores?.fpm_pct_receita_corrente}
+              />
               <div className="mt-6">
                 <h5 className="mb-3 text-sm font-extrabold text-white">Composição simples da receita corrente em {latest.ano}</h5>
                 <RevenueComposition latest={latest} />
@@ -666,7 +740,7 @@ export function ContasPublicasPage() {
           <KpiGrid items={functionKpis} columns="xl:grid-cols-4" />
 
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,0.8fr)]">
-            <article className="educacao-surface rounded-[24px] p-5">
+            <article className="educacao-surface contas-publicas-chart-card rounded-[24px] p-5">
               <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                 <div>
                   <h4 className="text-base font-extrabold text-white">
@@ -720,12 +794,15 @@ export function ContasPublicasPage() {
           <KpiGrid items={investmentKpis} />
 
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,0.8fr)]">
-            <article className="educacao-surface rounded-[24px] p-5">
+            <article className="educacao-surface contas-publicas-chart-card rounded-[24px] p-5">
               <div className="mb-4">
                 <h4 className="text-base font-extrabold text-white">Investimento por morador</h4>
                 <p className="text-xs font-semibold text-slate-400">Série histórica nominal. Mostra a parcela voltada a melhorias permanentes.</p>
               </div>
-              <InvestmentChart data={contasPublicasData.series} />
+              <InvestmentChart
+                data={contasPublicasData.series}
+                comparisonRows={contasPublicasData.comparativos_series?.indicadores?.investimentos_per_capita}
+              />
               <SourceLine>{dcaSource}</SourceLine>
             </article>
             <NarrativeCard

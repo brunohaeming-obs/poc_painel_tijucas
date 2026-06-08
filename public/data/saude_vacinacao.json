@@ -1,0 +1,800 @@
+{
+  "metadata": {
+    "fonte": "DataSUS/TabNet",
+    "codigoMunicipio": "4218004",
+    "codigoMunicipioBase": "421800",
+    "ultimoAno": 2022,
+    "referenciaCoberturaPct": 95,
+    "observacao": "Coberturas acima de 100% podem ocorrer por diferenças entre registros administrativos e estimativas populacionais.",
+    "geradoEm": "2026-06-08"
+  },
+  "summary": {
+    "ultimoAno": 2022,
+    "vacinasSelecionadas": 8,
+    "vacinasEmAtencao": 5
+  },
+  "latest": [
+    {
+      "vacina": "BCG",
+      "cobertura": 53.36,
+      "status": "atenção"
+    },
+    {
+      "vacina": "Penta",
+      "cobertura": 94.02,
+      "status": "atenção moderada"
+    },
+    {
+      "vacina": "Poliomielite",
+      "cobertura": 94.32,
+      "status": "atenção moderada"
+    },
+    {
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 101.2,
+      "status": "adequada"
+    },
+    {
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 61.73,
+      "status": "atenção"
+    },
+    {
+      "vacina": "Meningococo C",
+      "cobertura": 97.76,
+      "status": "adequada"
+    },
+    {
+      "vacina": "Pneumocócica",
+      "cobertura": 101.49,
+      "status": "adequada"
+    },
+    {
+      "vacina": "dTpa gestante",
+      "cobertura": 19.88,
+      "status": "atenção"
+    }
+  ],
+  "evolution": [
+    {
+      "ano": 1994,
+      "vacina": "BCG",
+      "cobertura": 73.27
+    },
+    {
+      "ano": 1994,
+      "vacina": "Poliomielite",
+      "cobertura": 77.82
+    },
+    {
+      "ano": 1995,
+      "vacina": "BCG",
+      "cobertura": 111.09
+    },
+    {
+      "ano": 1995,
+      "vacina": "Poliomielite",
+      "cobertura": 83.37
+    },
+    {
+      "ano": 1996,
+      "vacina": "BCG",
+      "cobertura": 102.71
+    },
+    {
+      "ano": 1996,
+      "vacina": "Poliomielite",
+      "cobertura": 74.03
+    },
+    {
+      "ano": 1997,
+      "vacina": "BCG",
+      "cobertura": 168.63
+    },
+    {
+      "ano": 1997,
+      "vacina": "Poliomielite",
+      "cobertura": 117.08
+    },
+    {
+      "ano": 1998,
+      "vacina": "BCG",
+      "cobertura": 144.92
+    },
+    {
+      "ano": 1998,
+      "vacina": "Poliomielite",
+      "cobertura": 103.08
+    },
+    {
+      "ano": 1999,
+      "vacina": "BCG",
+      "cobertura": 118.6
+    },
+    {
+      "ano": 1999,
+      "vacina": "Poliomielite",
+      "cobertura": 101.22
+    },
+    {
+      "ano": 1999,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 0
+    },
+    {
+      "ano": 2000,
+      "vacina": "BCG",
+      "cobertura": 107.1
+    },
+    {
+      "ano": 2000,
+      "vacina": "Poliomielite",
+      "cobertura": 79.33
+    },
+    {
+      "ano": 2000,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 65.14
+    },
+    {
+      "ano": 2001,
+      "vacina": "BCG",
+      "cobertura": 98.48
+    },
+    {
+      "ano": 2001,
+      "vacina": "Poliomielite",
+      "cobertura": 85.71
+    },
+    {
+      "ano": 2001,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 71.61
+    },
+    {
+      "ano": 2002,
+      "vacina": "BCG",
+      "cobertura": 93.49
+    },
+    {
+      "ano": 2002,
+      "vacina": "Poliomielite",
+      "cobertura": 94.14
+    },
+    {
+      "ano": 2002,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 0
+    },
+    {
+      "ano": 2003,
+      "vacina": "BCG",
+      "cobertura": 92.8
+    },
+    {
+      "ano": 2003,
+      "vacina": "Poliomielite",
+      "cobertura": 97.46
+    },
+    {
+      "ano": 2003,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 118.44
+    },
+    {
+      "ano": 2004,
+      "vacina": "BCG",
+      "cobertura": 104.91
+    },
+    {
+      "ano": 2004,
+      "vacina": "Poliomielite",
+      "cobertura": 85.89
+    },
+    {
+      "ano": 2004,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 104.91
+    },
+    {
+      "ano": 2005,
+      "vacina": "BCG",
+      "cobertura": 97.87
+    },
+    {
+      "ano": 2005,
+      "vacina": "Poliomielite",
+      "cobertura": 97.01
+    },
+    {
+      "ano": 2005,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 99.15
+    },
+    {
+      "ano": 2006,
+      "vacina": "BCG",
+      "cobertura": 104.05
+    },
+    {
+      "ano": 2006,
+      "vacina": "Poliomielite",
+      "cobertura": 99.57
+    },
+    {
+      "ano": 2006,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 125.8
+    },
+    {
+      "ano": 2007,
+      "vacina": "BCG",
+      "cobertura": 88.94
+    },
+    {
+      "ano": 2007,
+      "vacina": "Poliomielite",
+      "cobertura": 107.29
+    },
+    {
+      "ano": 2007,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 129.18
+    },
+    {
+      "ano": 2008,
+      "vacina": "BCG",
+      "cobertura": 81.39
+    },
+    {
+      "ano": 2008,
+      "vacina": "Poliomielite",
+      "cobertura": 95.24
+    },
+    {
+      "ano": 2008,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 92.21
+    },
+    {
+      "ano": 2009,
+      "vacina": "BCG",
+      "cobertura": 83.18
+    },
+    {
+      "ano": 2009,
+      "vacina": "Poliomielite",
+      "cobertura": 97.73
+    },
+    {
+      "ano": 2009,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 108.41
+    },
+    {
+      "ano": 2010,
+      "vacina": "BCG",
+      "cobertura": 84.55
+    },
+    {
+      "ano": 2010,
+      "vacina": "Meningococo C",
+      "cobertura": 4.09
+    },
+    {
+      "ano": 2010,
+      "vacina": "Pneumocócica",
+      "cobertura": 61.82
+    },
+    {
+      "ano": 2010,
+      "vacina": "Poliomielite",
+      "cobertura": 79.32
+    },
+    {
+      "ano": 2010,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 106.59
+    },
+    {
+      "ano": 2011,
+      "vacina": "BCG",
+      "cobertura": 86.14
+    },
+    {
+      "ano": 2011,
+      "vacina": "Meningococo C",
+      "cobertura": 118.41
+    },
+    {
+      "ano": 2011,
+      "vacina": "Pneumocócica",
+      "cobertura": 103.86
+    },
+    {
+      "ano": 2011,
+      "vacina": "Poliomielite",
+      "cobertura": 101.82
+    },
+    {
+      "ano": 2011,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 112.05
+    },
+    {
+      "ano": 2012,
+      "vacina": "BCG",
+      "cobertura": 89.32
+    },
+    {
+      "ano": 2012,
+      "vacina": "Meningococo C",
+      "cobertura": 112.95
+    },
+    {
+      "ano": 2012,
+      "vacina": "Penta",
+      "cobertura": 40
+    },
+    {
+      "ano": 2012,
+      "vacina": "Pneumocócica",
+      "cobertura": 105.68
+    },
+    {
+      "ano": 2012,
+      "vacina": "Poliomielite",
+      "cobertura": 101.82
+    },
+    {
+      "ano": 2012,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 120
+    },
+    {
+      "ano": 2013,
+      "vacina": "BCG",
+      "cobertura": 78.27
+    },
+    {
+      "ano": 2013,
+      "vacina": "Meningococo C",
+      "cobertura": 110.34
+    },
+    {
+      "ano": 2013,
+      "vacina": "Penta",
+      "cobertura": 102.95
+    },
+    {
+      "ano": 2013,
+      "vacina": "Pneumocócica",
+      "cobertura": 100.84
+    },
+    {
+      "ano": 2013,
+      "vacina": "Poliomielite",
+      "cobertura": 105.27
+    },
+    {
+      "ano": 2013,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 122.57
+    },
+    {
+      "ano": 2013,
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 33.76
+    },
+    {
+      "ano": 2014,
+      "vacina": "BCG",
+      "cobertura": 76.59
+    },
+    {
+      "ano": 2014,
+      "vacina": "Meningococo C",
+      "cobertura": 120.6
+    },
+    {
+      "ano": 2014,
+      "vacina": "Penta",
+      "cobertura": 125.84
+    },
+    {
+      "ano": 2014,
+      "vacina": "Pneumocócica",
+      "cobertura": 110.67
+    },
+    {
+      "ano": 2014,
+      "vacina": "Poliomielite",
+      "cobertura": 125.28
+    },
+    {
+      "ano": 2014,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 130.9
+    },
+    {
+      "ano": 2014,
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 100.56
+    },
+    {
+      "ano": 2014,
+      "vacina": "dTpa gestante",
+      "cobertura": 6.55
+    },
+    {
+      "ano": 2015,
+      "vacina": "BCG",
+      "cobertura": 160.41
+    },
+    {
+      "ano": 2015,
+      "vacina": "Meningococo C",
+      "cobertura": 157.41
+    },
+    {
+      "ano": 2015,
+      "vacina": "Penta",
+      "cobertura": 157.04
+    },
+    {
+      "ano": 2015,
+      "vacina": "Pneumocócica",
+      "cobertura": 146.15
+    },
+    {
+      "ano": 2015,
+      "vacina": "Poliomielite",
+      "cobertura": 153.28
+    },
+    {
+      "ano": 2015,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 153.47
+    },
+    {
+      "ano": 2015,
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 107.5
+    },
+    {
+      "ano": 2015,
+      "vacina": "dTpa gestante",
+      "cobertura": 52.16
+    },
+    {
+      "ano": 2016,
+      "vacina": "BCG",
+      "cobertura": 74.65
+    },
+    {
+      "ano": 2016,
+      "vacina": "Meningococo C",
+      "cobertura": 95.39
+    },
+    {
+      "ano": 2016,
+      "vacina": "Penta",
+      "cobertura": 94.15
+    },
+    {
+      "ano": 2016,
+      "vacina": "Pneumocócica",
+      "cobertura": 103.01
+    },
+    {
+      "ano": 2016,
+      "vacina": "Poliomielite",
+      "cobertura": 77.66
+    },
+    {
+      "ano": 2016,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 94.5
+    },
+    {
+      "ano": 2016,
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 98.58
+    },
+    {
+      "ano": 2016,
+      "vacina": "dTpa gestante",
+      "cobertura": 10.82
+    },
+    {
+      "ano": 2017,
+      "vacina": "BCG",
+      "cobertura": 57.09
+    },
+    {
+      "ano": 2017,
+      "vacina": "Meningococo C",
+      "cobertura": 93.26
+    },
+    {
+      "ano": 2017,
+      "vacina": "Penta",
+      "cobertura": 87.41
+    },
+    {
+      "ano": 2017,
+      "vacina": "Pneumocócica",
+      "cobertura": 98.4
+    },
+    {
+      "ano": 2017,
+      "vacina": "Poliomielite",
+      "cobertura": 85.99
+    },
+    {
+      "ano": 2017,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 85.82
+    },
+    {
+      "ano": 2017,
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 75.71
+    },
+    {
+      "ano": 2017,
+      "vacina": "dTpa gestante",
+      "cobertura": 4.08
+    },
+    {
+      "ano": 2018,
+      "vacina": "BCG",
+      "cobertura": 60.63
+    },
+    {
+      "ano": 2018,
+      "vacina": "Meningococo C",
+      "cobertura": 103.16
+    },
+    {
+      "ano": 2018,
+      "vacina": "Penta",
+      "cobertura": 101.76
+    },
+    {
+      "ano": 2018,
+      "vacina": "Pneumocócica",
+      "cobertura": 108.44
+    },
+    {
+      "ano": 2018,
+      "vacina": "Poliomielite",
+      "cobertura": 99.82
+    },
+    {
+      "ano": 2018,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 98.59
+    },
+    {
+      "ano": 2018,
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 59.58
+    },
+    {
+      "ano": 2018,
+      "vacina": "dTpa gestante",
+      "cobertura": 6.56
+    },
+    {
+      "ano": 2019,
+      "vacina": "BCG",
+      "cobertura": 62.48
+    },
+    {
+      "ano": 2019,
+      "vacina": "Meningococo C",
+      "cobertura": 94.32
+    },
+    {
+      "ano": 2019,
+      "vacina": "Penta",
+      "cobertura": 68.16
+    },
+    {
+      "ano": 2019,
+      "vacina": "Pneumocócica",
+      "cobertura": 93.87
+    },
+    {
+      "ano": 2019,
+      "vacina": "Poliomielite",
+      "cobertura": 88.34
+    },
+    {
+      "ano": 2019,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 90.88
+    },
+    {
+      "ano": 2019,
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 14.65
+    },
+    {
+      "ano": 2019,
+      "vacina": "dTpa gestante",
+      "cobertura": 12.41
+    },
+    {
+      "ano": 2020,
+      "vacina": "BCG",
+      "cobertura": 66.67
+    },
+    {
+      "ano": 2020,
+      "vacina": "Meningococo C",
+      "cobertura": 101.79
+    },
+    {
+      "ano": 2020,
+      "vacina": "Penta",
+      "cobertura": 84.75
+    },
+    {
+      "ano": 2020,
+      "vacina": "Pneumocócica",
+      "cobertura": 98.95
+    },
+    {
+      "ano": 2020,
+      "vacina": "Poliomielite",
+      "cobertura": 98.65
+    },
+    {
+      "ano": 2020,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 58.74
+    },
+    {
+      "ano": 2020,
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 129.9
+    },
+    {
+      "ano": 2020,
+      "vacina": "dTpa gestante",
+      "cobertura": 54.26
+    },
+    {
+      "ano": 2021,
+      "vacina": "BCG",
+      "cobertura": 37.97
+    },
+    {
+      "ano": 2021,
+      "vacina": "Meningococo C",
+      "cobertura": 87.68
+    },
+    {
+      "ano": 2021,
+      "vacina": "Penta",
+      "cobertura": 88.25
+    },
+    {
+      "ano": 2021,
+      "vacina": "Pneumocócica",
+      "cobertura": 94.41
+    },
+    {
+      "ano": 2021,
+      "vacina": "Poliomielite",
+      "cobertura": 86.39
+    },
+    {
+      "ano": 2021,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 66.76
+    },
+    {
+      "ano": 2021,
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 65.76
+    },
+    {
+      "ano": 2021,
+      "vacina": "dTpa gestante",
+      "cobertura": 11.6
+    },
+    {
+      "ano": 2022,
+      "vacina": "BCG",
+      "cobertura": 53.36
+    },
+    {
+      "ano": 2022,
+      "vacina": "Meningococo C",
+      "cobertura": 97.76
+    },
+    {
+      "ano": 2022,
+      "vacina": "Penta",
+      "cobertura": 94.02
+    },
+    {
+      "ano": 2022,
+      "vacina": "Pneumocócica",
+      "cobertura": 101.49
+    },
+    {
+      "ano": 2022,
+      "vacina": "Poliomielite",
+      "cobertura": 94.32
+    },
+    {
+      "ano": 2022,
+      "vacina": "Tríplice Viral  D1",
+      "cobertura": 101.2
+    },
+    {
+      "ano": 2022,
+      "vacina": "Tríplice Viral  D2",
+      "cobertura": 61.73
+    },
+    {
+      "ano": 2022,
+      "vacina": "dTpa gestante",
+      "cobertura": 19.88
+    }
+  ],
+  "comparisonSc": [
+    {
+      "vacina": "BCG",
+      "tijucas": 53.36,
+      "mediaSc": 94.28,
+      "status": "atenção"
+    },
+    {
+      "vacina": "Penta",
+      "tijucas": 94.02,
+      "mediaSc": 99.69,
+      "status": "atenção moderada"
+    },
+    {
+      "vacina": "Poliomielite",
+      "tijucas": 94.32,
+      "mediaSc": 99.77,
+      "status": "atenção moderada"
+    },
+    {
+      "vacina": "Tríplice Viral  D1",
+      "tijucas": 101.2,
+      "mediaSc": 111.88,
+      "status": "adequada"
+    },
+    {
+      "vacina": "Tríplice Viral  D2",
+      "tijucas": 61.73,
+      "mediaSc": 69.12,
+      "status": "atenção"
+    },
+    {
+      "vacina": "Meningococo C",
+      "tijucas": 97.76,
+      "mediaSc": 102.14,
+      "status": "adequada"
+    },
+    {
+      "vacina": "Pneumocócica",
+      "tijucas": 101.49,
+      "mediaSc": 104.8,
+      "status": "adequada"
+    },
+    {
+      "vacina": "dTpa gestante",
+      "tijucas": 19.88,
+      "mediaSc": 65.16,
+      "status": "atenção"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+campo,valor
+fonte,"DATASUS/TabNet, Imunizacoes desde 1994, Cobertura"
+url_formulario,https://tabnet.datasus.gov.br/cgi/dhdat.exe?bd_pni/cpnibr.def
+url_consulta,https://tabnet.datasus.gov.br/cgi/webtabx.exe?bd_pni/cpnibr.def
+data_coleta,2026-06-08
+anos,1994-2022
+vacinas,BCG; Hepatite B idade <= 30 dias; Rotavírus Humano; Meningococo C; Hepatite B; Penta; Pneumocócica; Poliomielite; Poliomielite 4 anos; Febre Amarela; Hepatite A; Pneumocócica(1º ref); Meningococo C (1º ref); Poliomielite(1º ref); Tríplice Viral  D1; Tríplice Viral  D2; Tetra Viral(SRC+VZ); DTP; DTP REF (4 e 6 anos); Tríplice Bacte(DTP)(1º ref); Sarampo; Haemophilus influenzae b; Dupla adulto e dTpa gestante; dTpa gestante; Tetravalente(DTP/Hib)(TETRA); Varicela
+observacao,Dados de cobertura vacinal do DATASUS estao sujeitos a revisoes retroativas.

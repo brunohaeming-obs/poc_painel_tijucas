@@ -27,4 +27,10 @@ data/raw/MTE - Saldo empregos municipais SC (databricks).csv
 data/raw/PIB mesos long.xlsx
 data/raw/PIB municipios long.xlsx
 data/raw/SICONFI*.csv
+data/raw/datasus_pni_cobertura/
+data/raw/datasus_pni_cobertura_form.html
+data/raw/relatorioaps_cobertura/
+data/raw/relatorioaps_main.js
+data/processed/datasus_cobertura_vacinal_municipios_brasil.csv
+data/processed/relatorioaps_cobertura_municipios_brasil.csv
 data/processed/*.parquet

@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "titulo": "Saúde em Tijucas",
+    "subtitulo": "Entenda como a rede pública atende a população, amplia a cobertura da atenção básica e protege por meio da vacinação.",
+    "ultimaAtualizacao": "mar/26",
+    "geradoEm": "2026-06-08"
+  },
+  "cards": [
+    {
+      "id": "procedimentos",
+      "label": "Procedimentos ambulatoriais",
+      "value": 56247,
+      "unit": "procedimentos",
+      "note": "mar/26",
+      "source": "DataSUS/SIA"
+    },
+    {
+      "id": "coberturaAps",
+      "label": "Cobertura APS",
+      "value": 107.33,
+      "unit": "%",
+      "note": "03/2026",
+      "source": "Relatórios Públicos da APS"
+    },
+    {
+      "id": "coberturaAcs",
+      "label": "Cobertura ACS",
+      "value": 90.13,
+      "unit": "%",
+      "note": "03/2026",
+      "source": "Relatórios Públicos da APS"
+    },
+    {
+      "id": "saudeBucal",
+      "label": "Saúde Bucal APS",
+      "value": 59.63,
+      "unit": "%",
+      "note": "03/2026",
+      "source": "Relatórios Públicos da APS"
+    },
+    {
+      "id": "vacinasAtencao",
+      "label": "Vacinas em atenção",
+      "value": 5,
+      "unit": "vacinas",
+      "note": "2022",
+      "source": "DataSUS/TabNet"
+    }
+  ]
+}

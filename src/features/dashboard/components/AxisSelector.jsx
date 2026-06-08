@@ -49,7 +49,7 @@ function AxisThemeButton({ theme, active, onClick }) {
 
 export function AxisSelector({ themes, activeThemeId, onSelect }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-7">
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
       {themes.map((theme) => (
         <AxisThemeButton
           key={theme.id}

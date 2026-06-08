@@ -1,0 +1,7 @@
+campo,valor
+fonte,Relatorios Publicos da APS / SAPS-MS
+api_base_url,https://relatorioaps-prd.saude.gov.br
+data_coleta,2026-06-08
+unidade_geografica,MUNICIPIO
+relatorios,acs:/cobertura/acs; aps:/cobertura/aps; pns:/cobertura/pns; sb:/cobertura/sb/v2
+observacao,"Dados agregados mensais de cobertura da APS, sujeitos a revisoes retroativas."

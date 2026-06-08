@@ -110,8 +110,8 @@
     {
       "ano": 2014,
       "populacao": 34628,
-      "receita_total_realizada": 99920513.0,
-      "receita_total": 99920513.0,
+      "receita_total_realizada": 99920513,
+      "receita_total": 99920513,
       "receita_corrente": 98996762.59,
       "despesa_empenhada_total": 87872077.2,
       "despesa_total": 87872077.2,
@@ -328,7 +328,7 @@
       "receita_propria_pct_receita_corrente": 34.548004610198205,
       "receita_tributaria": 28799577.45,
       "receita_tributaria_per_capita": 765.0306136273077,
-      "transferencias_correntes": 103908847.0,
+      "transferencias_correntes": 103908847,
       "transferencias_correntes_pct_receita_corrente": 65.45199538980181,
       "participacao_transferencias": 65.45199538980181,
       "fpm": 19722716.24,
@@ -582,7 +582,7 @@
     },
     {
       "funcao": "Assistência Social",
-      "valor": 10036685.0,
+      "valor": 10036685,
       "participacao_pct": 2.9714608419266746,
       "per_capita": 202.86786999231919
     },
@@ -723,7 +723,7 @@
     {
       "ano": 2015,
       "funcao": "Saúde",
-      "valor": 19598376.0,
+      "valor": 19598376,
       "participacao_pct": 19.590437576598514,
       "per_capita": 565.9690423934388
     },
@@ -1024,7 +1024,7 @@
     {
       "ano": 2019,
       "funcao": "Segurança Pública",
-      "valor": 2580130.0,
+      "valor": 2580130,
       "participacao_pct": 1.6476406341531036,
       "per_capita": 68.53845132155665
     },
@@ -1318,7 +1318,7 @@
     {
       "ano": 2024,
       "funcao": "Assistência Social",
-      "valor": 10036685.0,
+      "valor": 10036685,
       "participacao_pct": 2.9714608419266746,
       "per_capita": 202.86786999231919
     },
@@ -1361,7 +1361,7 @@
       "diferenca_percentual_mediana": 11.920595254730651,
       "ranking_tijucas": 9,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 60.0,
+      "percentil_tijucas": 60,
       "classificacao": "bom desempenho relativo",
       "texto": "Este indicador mostra quanto a prefeitura arrecada para cada morador. Em relacao aos municipios similares, Tijucas esta classificada como: bom desempenho relativo."
     },
@@ -1374,7 +1374,7 @@
       "diferenca_percentual_mediana": 14.946074333599398,
       "ranking_tijucas": 9,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 60.0,
+      "percentil_tijucas": 60,
       "classificacao": "bom desempenho relativo",
       "texto": "Receita propria per capita mostra a capacidade local de arrecadacao sem depender diretamente de transferencias. Em relacao aos municipios similares, Tijucas esta classificada como: bom desempenho relativo."
     },
@@ -1387,7 +1387,7 @@
       "diferenca_percentual_mediana": -1.6198486856874812,
       "ranking_tijucas": 12,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 45.0,
+      "percentil_tijucas": 45,
       "classificacao": "proximo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: proximo da mediana."
     },
@@ -1400,7 +1400,7 @@
       "diferenca_percentual_mediana": -4.376105482683616,
       "ranking_tijucas": 12,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 45.0,
+      "percentil_tijucas": 45,
       "classificacao": "proximo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: proximo da mediana."
     },
@@ -1426,7 +1426,7 @@
       "diferenca_percentual_mediana": 11.48034450905729,
       "ranking_tijucas": 18,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 85.0,
+      "percentil_tijucas": 85,
       "classificacao": "ponto de atencao",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: ponto de atencao."
     },
@@ -1439,7 +1439,7 @@
       "diferenca_percentual_mediana": 4.488152963475888,
       "ranking_tijucas": 13,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 60.0,
+      "percentil_tijucas": 60,
       "classificacao": "proximo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: proximo da mediana."
     },
@@ -1452,7 +1452,7 @@
       "diferenca_percentual_mediana": 4.890381717688619,
       "ranking_tijucas": 14,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 65.0,
+      "percentil_tijucas": 65,
       "classificacao": "proximo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: proximo da mediana."
     },
@@ -1465,7 +1465,7 @@
       "diferenca_percentual_mediana": 10.336338438275188,
       "ranking_tijucas": 14,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 65.0,
+      "percentil_tijucas": 65,
       "classificacao": "ponto de atencao",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: ponto de atencao."
     },
@@ -1478,7 +1478,7 @@
       "diferenca_percentual_mediana": -6.330578818460948,
       "ranking_tijucas": 14,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 35.0,
+      "percentil_tijucas": 35,
       "classificacao": "ponto de atencao",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: ponto de atencao."
     },
@@ -1491,7 +1491,7 @@
       "diferenca_percentual_mediana": 18.00383579629157,
       "ranking_tijucas": 9,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 60.0,
+      "percentil_tijucas": 60,
       "classificacao": "bom desempenho relativo",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: bom desempenho relativo."
     },
@@ -1504,7 +1504,7 @@
       "diferenca_percentual_mediana": 30.116312016212582,
       "ranking_tijucas": 8,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 65.0,
+      "percentil_tijucas": 65,
       "classificacao": "bom desempenho relativo",
       "texto": "Investimento per capita mostra quanto do orcamento e direcionado para obras, equipamentos e melhorias permanentes. Em relacao aos municipios similares, Tijucas esta classificada como: bom desempenho relativo."
     },
@@ -1517,7 +1517,7 @@
       "diferenca_percentual_mediana": 3.962043940815648,
       "ranking_tijucas": 16,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 75.0,
+      "percentil_tijucas": 75,
       "classificacao": "proximo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: proximo da mediana."
     },
@@ -1530,7 +1530,7 @@
       "diferenca_percentual_mediana": -0.9467455282111295,
       "ranking_tijucas": 10,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 45.0,
+      "percentil_tijucas": 45,
       "classificacao": "proximo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: proximo da mediana."
     },
@@ -1543,7 +1543,7 @@
       "diferenca_percentual_mediana": -2.6329825850797537,
       "ranking_tijucas": 16,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 25.0,
+      "percentil_tijucas": 25,
       "classificacao": "proximo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: proximo da mediana."
     },
@@ -1556,7 +1556,7 @@
       "diferenca_percentual_mediana": -3.9520885521498816,
       "ranking_tijucas": 20,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 5.0,
+      "percentil_tijucas": 5,
       "classificacao": "proximo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: proximo da mediana."
     },
@@ -1569,7 +1569,7 @@
       "diferenca_percentual_mediana": 96.83757079952146,
       "ranking_tijucas": 18,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 85.0,
+      "percentil_tijucas": 85,
       "classificacao": "ponto de atencao",
       "texto": "Restos a pagar elevados podem indicar pressao sobre o orcamento do ano seguinte. Em relacao aos municipios similares, Tijucas esta classificada como: ponto de atencao."
     },
@@ -1582,7 +1582,7 @@
       "diferenca_percentual_mediana": -10.713213143801088,
       "ranking_tijucas": 15,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 30.0,
+      "percentil_tijucas": 30,
       "classificacao": "abaixo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: abaixo da mediana."
     },
@@ -1621,7 +1621,7 @@
       "diferenca_percentual_mediana": -26.90899400944624,
       "ranking_tijucas": 6,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 25.0,
+      "percentil_tijucas": 25,
       "classificacao": "bom desempenho relativo",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: bom desempenho relativo."
     },
@@ -1634,7 +1634,7 @@
       "diferenca_percentual_mediana": 4.373159800059845,
       "ranking_tijucas": 8,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 65.0,
+      "percentil_tijucas": 65,
       "classificacao": "proximo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: proximo da mediana."
     },
@@ -1660,7 +1660,7 @@
       "diferenca_percentual_mediana": 10.408369872426862,
       "ranking_tijucas": 8,
       "total_municipios_comparados": 14,
-      "percentil_tijucas": 50.0,
+      "percentil_tijucas": 50,
       "classificacao": "acima da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: acima da mediana."
     },
@@ -1699,7 +1699,7 @@
       "diferenca_percentual_mediana": -2.186172082615103,
       "ranking_tijucas": 12,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 45.0,
+      "percentil_tijucas": 45,
       "classificacao": "proximo da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: proximo da mediana."
     },
@@ -1712,7 +1712,7 @@
       "diferenca_percentual_mediana": 12.053350699930007,
       "ranking_tijucas": 8,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 65.0,
+      "percentil_tijucas": 65,
       "classificacao": "acima da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: acima da mediana."
     },
@@ -1738,7 +1738,7 @@
       "diferenca_percentual_mediana": -16.566949675727532,
       "ranking_tijucas": 7,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 30.0,
+      "percentil_tijucas": 30,
       "classificacao": "bom desempenho relativo",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: bom desempenho relativo."
     },
@@ -1751,7 +1751,7 @@
       "diferenca_percentual_mediana": 22.04624806089786,
       "ranking_tijucas": 9,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 60.0,
+      "percentil_tijucas": 60,
       "classificacao": "acima da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: acima da mediana."
     },
@@ -1777,7 +1777,7 @@
       "diferenca_percentual_mediana": 28.199419334849544,
       "ranking_tijucas": 8,
       "total_municipios_comparados": 14,
-      "percentil_tijucas": 50.0,
+      "percentil_tijucas": 50,
       "classificacao": "acima da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: acima da mediana."
     },
@@ -1790,7 +1790,7 @@
       "diferenca_percentual_mediana": 12.141956956472129,
       "ranking_tijucas": 9,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 60.0,
+      "percentil_tijucas": 60,
       "classificacao": "acima da mediana",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: acima da mediana."
     },
@@ -1803,7 +1803,7 @@
       "diferenca_percentual_mediana": -10.585546964510636,
       "ranking_tijucas": 8,
       "total_municipios_comparados": 14,
-      "percentil_tijucas": 50.0,
+      "percentil_tijucas": 50,
       "classificacao": "bom desempenho relativo",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: bom desempenho relativo."
     },
@@ -1816,7 +1816,7 @@
       "diferenca_percentual_mediana": 10.855375697838827,
       "ranking_tijucas": 5,
       "total_municipios_comparados": 20,
-      "percentil_tijucas": 80.0,
+      "percentil_tijucas": 80,
       "classificacao": "bom desempenho relativo",
       "texto": "Este indicador ajuda a comparar Tijucas com municipios catarinenses de porte semelhante. Em relacao aos municipios similares, Tijucas esta classificada como: bom desempenho relativo."
     }
@@ -1902,7 +1902,7 @@
     },
     {
       "indicador": "juros_encargos_divida",
-      "valor": 1831377.0,
+      "valor": 1831377,
       "status": "disponivel",
       "motivo_indisponibilidade": null
     },
@@ -1956,7 +1956,7 @@
     },
     {
       "indicador": "despesa_funcao_assistencia_social",
-      "valor": 10036685.0,
+      "valor": 10036685,
       "status": "disponivel",
       "motivo_indisponibilidade": null
     },
@@ -2508,19 +2508,19 @@
     },
     {
       "indicador": "subindice_arrecadacao",
-      "valor": 45.0,
+      "valor": 45,
       "status": "disponivel",
       "motivo_indisponibilidade": null
     },
     {
       "indicador": "subindice_equilibrio",
-      "valor": 35.0,
+      "valor": 35,
       "status": "disponivel",
       "motivo_indisponibilidade": null
     },
     {
       "indicador": "subindice_rigidez",
-      "valor": 40.0,
+      "valor": 40,
       "status": "disponivel",
       "motivo_indisponibilidade": null
     },
@@ -2532,7 +2532,7 @@
     },
     {
       "indicador": "subindice_execucao",
-      "valor": 10.0,
+      "valor": 10,
       "status": "disponivel",
       "motivo_indisponibilidade": null
     },
@@ -2547,8 +2547,8 @@
     {
       "cd_ibge": "4218004",
       "ano": 2013,
-      "subindice_arrecadacao": 55.0,
-      "subindice_equilibrio": 60.0,
+      "subindice_arrecadacao": 55,
+      "subindice_equilibrio": 60,
       "subindice_rigidez": 62.5,
       "subindice_investimento": 77.5,
       "subindice_execucao": 57.5,
@@ -2568,19 +2568,19 @@
       "cd_ibge": "4218004",
       "ano": 2015,
       "subindice_arrecadacao": 72.5,
-      "subindice_equilibrio": 90.0,
-      "subindice_rigidez": 80.0,
+      "subindice_equilibrio": 90,
+      "subindice_rigidez": 80,
       "subindice_investimento": 97.5,
-      "subindice_execucao": 55.0,
+      "subindice_execucao": 55,
       "indice_saude_fiscal_municipal": 80.75
     },
     {
       "cd_ibge": "4218004",
       "ano": 2016,
-      "subindice_arrecadacao": 55.0,
-      "subindice_equilibrio": 60.0,
-      "subindice_rigidez": 55.0,
-      "subindice_investimento": 65.0,
+      "subindice_arrecadacao": 55,
+      "subindice_equilibrio": 60,
+      "subindice_rigidez": 55,
+      "subindice_investimento": 65,
       "subindice_execucao": 42.5,
       "indice_saude_fiscal_municipal": 56.375
     },
@@ -2588,28 +2588,28 @@
       "cd_ibge": "4218004",
       "ano": 2017,
       "subindice_arrecadacao": 52.5,
-      "subindice_equilibrio": 90.0,
-      "subindice_rigidez": 45.0,
-      "subindice_investimento": 25.0,
+      "subindice_equilibrio": 90,
+      "subindice_rigidez": 45,
+      "subindice_investimento": 25,
       "subindice_execucao": 32.5,
       "indice_saude_fiscal_municipal": 51.875
     },
     {
       "cd_ibge": "4218004",
       "ano": 2018,
-      "subindice_arrecadacao": 60.0,
+      "subindice_arrecadacao": 60,
       "subindice_equilibrio": 55.00000000000001,
-      "subindice_rigidez": 60.0,
+      "subindice_rigidez": 60,
       "subindice_investimento": 72.5,
-      "subindice_execucao": 35.0,
+      "subindice_execucao": 35,
       "indice_saude_fiscal_municipal": 57.5
     },
     {
       "cd_ibge": "4218004",
       "ano": 2019,
-      "subindice_arrecadacao": 60.0,
-      "subindice_equilibrio": 30.0,
-      "subindice_rigidez": 55.0,
+      "subindice_arrecadacao": 60,
+      "subindice_equilibrio": 30,
+      "subindice_rigidez": 55,
       "subindice_investimento": 72.5,
       "subindice_execucao": 37.5,
       "indice_saude_fiscal_municipal": 50.625
@@ -2618,9 +2618,9 @@
       "cd_ibge": "4218004",
       "ano": 2020,
       "subindice_arrecadacao": 55.00000000000001,
-      "subindice_equilibrio": 65.0,
+      "subindice_equilibrio": 65,
       "subindice_rigidez": 37.5,
-      "subindice_investimento": 35.0,
+      "subindice_investimento": 35,
       "subindice_execucao": 37.5,
       "indice_saude_fiscal_municipal": 47.375
     },
@@ -2628,7 +2628,7 @@
       "cd_ibge": "4218004",
       "ano": 2021,
       "subindice_arrecadacao": 57.5,
-      "subindice_equilibrio": 30.0,
+      "subindice_equilibrio": 30,
       "subindice_rigidez": 37.5,
       "subindice_investimento": 42.5,
       "subindice_execucao": 32.5,
@@ -2637,31 +2637,31 @@
     {
       "cd_ibge": "4218004",
       "ano": 2022,
-      "subindice_arrecadacao": 50.0,
-      "subindice_equilibrio": 20.0,
+      "subindice_arrecadacao": 50,
+      "subindice_equilibrio": 20,
       "subindice_rigidez": 17.5,
-      "subindice_investimento": 35.0,
-      "subindice_execucao": 20.0,
+      "subindice_investimento": 35,
+      "subindice_execucao": 20,
       "indice_saude_fiscal_municipal": 28.5
     },
     {
       "cd_ibge": "4218004",
       "ano": 2023,
       "subindice_arrecadacao": 55.00000000000001,
-      "subindice_equilibrio": 70.0,
+      "subindice_equilibrio": 70,
       "subindice_rigidez": 24.999999999999996,
       "subindice_investimento": 22.5,
-      "subindice_execucao": 40.0,
-      "indice_saude_fiscal_municipal": 44.0
+      "subindice_execucao": 40,
+      "indice_saude_fiscal_municipal": 44
     },
     {
       "cd_ibge": "4218004",
       "ano": 2024,
-      "subindice_arrecadacao": 45.0,
-      "subindice_equilibrio": 35.0,
-      "subindice_rigidez": 40.0,
+      "subindice_arrecadacao": 45,
+      "subindice_equilibrio": 35,
+      "subindice_rigidez": 40,
       "subindice_investimento": 62.5,
-      "subindice_execucao": 10.0,
+      "subindice_execucao": 10,
       "indice_saude_fiscal_municipal": 39.75
     }
   ],
@@ -2786,5 +2786,160 @@
       "uf": "SC",
       "populacao": 78623
     }
-  ]
+  ],
+  "comparativos_series": {
+    "criterio_similares": "Municipios de SC com populacao entre 40000 e 80000 habitantes em 2024, excluindo Tijucas.",
+    "mesorregiao": "Grande Florianópolis",
+    "criterio_mesorregiao": "Municípios da mesorregião Grande Florianópolis, excluindo Tijucas.",
+    "indicadores": {
+      "fpm_pct_receita_corrente": [
+        {
+          "ano": 2013,
+          "media_similares": 13.643174431838514,
+          "media_mesorregiao": 25.490416462152382,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2014,
+          "media_similares": 13.31740098032257,
+          "media_mesorregiao": 23.269357879853732,
+          "n_mesorregiao": 16
+        },
+        {
+          "ano": 2015,
+          "media_similares": 13.891029926014761,
+          "media_mesorregiao": 24.46585651483855,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2016,
+          "media_similares": 14.421991324973018,
+          "media_mesorregiao": 25.399898803260903,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2017,
+          "media_similares": 12.998785369466408,
+          "media_mesorregiao": 23.45262038975379,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2018,
+          "media_similares": 12.775211226154351,
+          "media_mesorregiao": 23.511139497007445,
+          "n_mesorregiao": 17
+        },
+        {
+          "ano": 2019,
+          "media_similares": 12.259061427655622,
+          "media_mesorregiao": 22.18383869725104,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2020,
+          "media_similares": 16.01547416749013,
+          "media_mesorregiao": 20.077118065386045,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2021,
+          "media_similares": 12.820486367901992,
+          "media_mesorregiao": 23.564004433471883,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2022,
+          "media_similares": 12.940549310588215,
+          "media_mesorregiao": 21.981118406694698,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2023,
+          "media_similares": 12.184380955262899,
+          "media_mesorregiao": 20.58970104455696,
+          "n_mesorregiao": 17
+        },
+        {
+          "ano": 2024,
+          "media_similares": 12.816707406242097,
+          "media_mesorregiao": 21.666560174304777,
+          "n_mesorregiao": 18
+        }
+      ],
+      "investimentos_per_capita": [
+        {
+          "ano": 2013,
+          "media_similares": 212.54689809892375,
+          "media_mesorregiao": 209.0826985774155,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2014,
+          "media_similares": 294.03944966820217,
+          "media_mesorregiao": 388.8600179163448,
+          "n_mesorregiao": 16
+        },
+        {
+          "ano": 2015,
+          "media_similares": 245.20420555691717,
+          "media_mesorregiao": 347.8638457560836,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2016,
+          "media_similares": 261.25756986854026,
+          "media_mesorregiao": 355.30960318531646,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2017,
+          "media_similares": 215.18444561045098,
+          "media_mesorregiao": 246.6019616851074,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2018,
+          "media_similares": 269.05643648213606,
+          "media_mesorregiao": 253.8264382531249,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2019,
+          "media_similares": 443.7949391274815,
+          "media_mesorregiao": 452.412125407501,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2020,
+          "media_similares": 511.2640443258132,
+          "media_mesorregiao": 686.7852543455858,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2021,
+          "media_similares": 518.9322731402428,
+          "media_mesorregiao": 846.4439217057219,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2022,
+          "media_similares": 870.8491890579562,
+          "media_mesorregiao": 1791.6914516624765,
+          "n_mesorregiao": 18
+        },
+        {
+          "ano": 2023,
+          "media_similares": 843.9220366557896,
+          "media_mesorregiao": 1140.0861098631285,
+          "n_mesorregiao": 17
+        },
+        {
+          "ano": 2024,
+          "media_similares": 883.9568463470392,
+          "media_mesorregiao": 1420.5615864283272,
+          "n_mesorregiao": 18
+        }
+      ]
+    }
+  }
 }

@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { EconomiaPage } from "../economia/EconomiaPage.jsx";
 import { EducacaoPage } from "../educacao/EducacaoPage.jsx";
 import { ContasPublicasPage } from "../contas-publicas/ContasPublicasPage.jsx";
+import SaudePage from "../../pages/SaudePage";
 import { AxisSelector } from "./components/AxisSelector.jsx";
 import { AxisPanel } from "./components/AxisPanel.jsx";
 import { THEME_SELECT_EVENT } from "./config/axes.js";
@@ -23,8 +24,9 @@ export function ThematicDashboard({ themes }) {
     }
 
     function syncThemeWithHash() {
-      if (window.location.hash === "#educacao" && themes.educacao) {
-        setActiveThemeId("educacao");
+      const hashThemeId = window.location.hash.replace("#", "");
+      if (hashThemeId && themes[hashThemeId]) {
+        setActiveThemeId(hashThemeId);
       }
     }
 
@@ -62,6 +64,10 @@ export function ThematicDashboard({ themes }) {
       ) : activeTheme.id === "contasPublicas" ? (
         <div className="rounded-[32px] shadow-soft">
           <ContasPublicasPage />
+        </div>
+      ) : activeTheme.id === "saude" ? (
+        <div className="rounded-[32px] shadow-soft">
+          <SaudePage />
         </div>
       ) : (
         <AxisPanel theme={activeTheme} />
