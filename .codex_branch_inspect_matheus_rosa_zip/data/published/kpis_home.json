@@ -1,0 +1,26 @@
+[
+  {
+    "label": "Famílias no BF",
+    "value": "1.703",
+    "variation": "+4,7% vs. mês anterior",
+    "tone": "social"
+  },
+  {
+    "label": "Repasse BF",
+    "value": "R$ 1,19 mi",
+    "variation": "ticket médio R$ 700,95",
+    "tone": "social"
+  },
+  {
+    "label": "Saldo de empregos",
+    "value": "+71",
+    "variation": "+957 no acumulado 12 meses",
+    "tone": "economy"
+  },
+  {
+    "label": "Proc. ambulatoriais",
+    "value": "56.247",
+    "variation": "+22,7% vs. mês anterior",
+    "tone": "health"
+  }
+]

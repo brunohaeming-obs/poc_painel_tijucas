@@ -1,0 +1,68 @@
+indicadores:
+  familias_bolsa_familia:
+    fonte: bolsa_familia
+    descricao: Familias beneficiarias do Bolsa Familia.
+    unidade: familias
+    periodicidade: mensal
+    escopos:
+      - Santa Catarina
+      - Tijucas
+      - municipios_sc
+
+  valor_repassado_bolsa_familia:
+    fonte: bolsa_familia
+    descricao: Valor total repassado pelo Bolsa Familia.
+    unidade: BRL
+    periodicidade: mensal
+    escopos:
+      - Santa Catarina
+      - Tijucas
+      - municipios_sc
+
+  saldo_empregos_formais:
+    fonte: mte_caged
+    descricao: Saldo mensal de empregos formais.
+    unidade: vinculos
+    periodicidade: mensal
+    escopos:
+      - Santa Catarina
+      - Tijucas
+      - municipios_sc
+
+  procedimentos_ambulatoriais:
+    fonte: datasus_ambulatorial
+    descricao: Quantidade aprovada de procedimentos ambulatoriais.
+    unidade: procedimentos
+    periodicidade: mensal
+    escopos:
+      - Santa Catarina
+      - Tijucas
+      - municipios_sc
+
+  fpm:
+    fonte: tesouro_fpm
+    descricao: Repasses do Fundo de Participacao dos Municipios.
+    unidade: BRL
+    periodicidade: mensal
+    status: previsto
+
+  exportacoes_importacoes:
+    fonte: comexstat
+    descricao: Fluxo de comercio exterior por municipio.
+    unidade: USD
+    periodicidade: mensal
+    status: previsto
+
+  contratacoes_publicas:
+    fonte: pncp
+    descricao: Compras e contratos publicos.
+    unidade: registros
+    periodicidade: continua
+    status: previsto
+
+  geracao_distribuida:
+    fonte: aneel_gd
+    descricao: Unidades e potencia instalada de geracao distribuida.
+    unidade: kW
+    periodicidade: mensal
+    status: previsto

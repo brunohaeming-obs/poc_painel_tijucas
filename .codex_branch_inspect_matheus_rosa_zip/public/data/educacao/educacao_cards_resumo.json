@@ -1,0 +1,55 @@
+{
+  "cards": [
+    {
+      "ano": "2025",
+      "tema": "Rede escolar",
+      "indicador": "Escolas em funcionamento",
+      "valor": 40,
+      "unidade": "escolas",
+      "fonte": "Censo Escolar/INEP",
+      "observacao": "Usa escolas filtradas de Tijucas/SC. Em 2025 a comparabilidade depende da estrutura multi-tabela.",
+      "comparabilidade_2014_2025": "comparável com adaptação"
+    },
+    {
+      "ano": "2025",
+      "tema": "Atendimento escolar",
+      "indicador": "Matrículas totais da educação básica",
+      "valor": 13855,
+      "unidade": "matrículas",
+      "fonte": "Censo Escolar/INEP",
+      "observacao": "Soma das matrículas filtradas para escolas de Tijucas/SC.",
+      "comparabilidade_2014_2025": "comparável com adaptação"
+    },
+    {
+      "ano": "2025",
+      "tema": "Docentes e turmas",
+      "indicador": "Docentes totais",
+      "valor": 899,
+      "unidade": "docentes",
+      "fonte": "Censo Escolar/INEP",
+      "observacao": "Soma de docentes filtrados para escolas de Tijucas/SC.",
+      "comparabilidade_2014_2025": "comparável com adaptação"
+    },
+    {
+      "ano": "2025",
+      "tema": "Docentes e turmas",
+      "indicador": "Turmas totais",
+      "valor": 772,
+      "unidade": "turmas",
+      "fonte": "Censo Escolar/INEP",
+      "observacao": "Soma de turmas filtradas para escolas de Tijucas/SC.",
+      "comparabilidade_2014_2025": "comparável com adaptação"
+    },
+    {
+      "ano": "2025",
+      "tema": "Tecnologia e acessibilidade",
+      "indicador": "Percentual de escolas com internet",
+      "valor": 100,
+      "unidade": "%",
+      "fonte": "Censo Escolar/INEP",
+      "observacao": "Percentual de escolas ativas com internet declarada.",
+      "comparabilidade_2014_2025": "comparável com adaptação"
+    }
+  ],
+  "observacao": "Cards resumem o último ano disponível da base agregada."
+}
