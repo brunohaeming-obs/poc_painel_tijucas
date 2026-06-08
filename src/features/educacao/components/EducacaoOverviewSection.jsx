@@ -4,7 +4,7 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { EducacaoKpiGrid } from "./EducacaoKpiGrid.jsx";
 import { EducacaoNarrativeText } from "./EducacaoNarrativeText.jsx";
 import { EducacaoSectionHeader } from "./EducacaoSectionHeader.jsx";
-import { TypewriterText } from "./TypewriterText.jsx";
+import { TypewriterText } from "../../../shared/components/TypewriterText.jsx";
 
 const percentFormatter = new Intl.NumberFormat("pt-BR", {
   maximumFractionDigits: 1,

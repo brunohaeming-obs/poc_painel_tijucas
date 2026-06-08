@@ -1,6 +1,6 @@
-import { Header } from "./components/Header.jsx";
-import { ThematicDashboard } from "./components/ThematicDashboard.jsx";
-import { thematicDashboardData } from "./data/thematicDashboardData.js";
+import { Header } from "./shared/layout/Header.jsx";
+import { ThematicDashboard } from "./features/dashboard/ThematicDashboard.jsx";
+import { thematicDashboardData } from "./features/dashboard/data/thematicDashboardData.js";
 
 export default function App() {
   return (

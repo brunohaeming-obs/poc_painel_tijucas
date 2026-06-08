@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { MapPinned, TableProperties } from "lucide-react";
-import tijucasRegionGeojsonRaw from "../../../data/ibgeTijucasRegion.geojson?raw";
+import tijucasRegionGeojsonRaw from "../../../data/geo/ibgeTijucasRegion.geojson?raw";
 import { territoryModes } from "../config/educacaoIndicators.js";
 import { EducacaoNarrativeText } from "./EducacaoNarrativeText.jsx";
 import { EducacaoSectionHeader } from "./EducacaoSectionHeader.jsx";
