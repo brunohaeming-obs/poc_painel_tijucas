@@ -1,0 +1,111 @@
+{
+  "ano": 2025,
+  "fonte": "Censo Escolar/INEP",
+  "observacao_metodologica": "Matrículas agregadas por bairro a partir do vínculo entre escola, bairro e CO_ENTIDADE. Usa QT_MAT_BAS como total de matrículas da educação básica.",
+  "bairros": [
+    {
+      "bairro": "PRAÇA",
+      "escolas": 6,
+      "matriculas_total_educacao_basica": 3837,
+      "matriculas_educacao_infantil": 193,
+      "matriculas_ensino_fundamental": 2277,
+      "matriculas_ensino_medio": 1346
+    },
+    {
+      "bairro": "CENTRO",
+      "escolas": 14,
+      "matriculas_total_educacao_basica": 3569,
+      "matriculas_educacao_infantil": 1892,
+      "matriculas_ensino_fundamental": 1062,
+      "matriculas_ensino_medio": 295
+    },
+    {
+      "bairro": "UNIVERSITÁRIO",
+      "escolas": 4,
+      "matriculas_total_educacao_basica": 1999,
+      "matriculas_educacao_infantil": 127,
+      "matriculas_ensino_fundamental": 1588,
+      "matriculas_ensino_medio": 149
+    },
+    {
+      "bairro": "XV DE NOVEMBRO",
+      "escolas": 3,
+      "matriculas_total_educacao_basica": 1674,
+      "matriculas_educacao_infantil": 134,
+      "matriculas_ensino_fundamental": 1434,
+      "matriculas_ensino_medio": 92
+    },
+    {
+      "bairro": "JOÁIA",
+      "escolas": 3,
+      "matriculas_total_educacao_basica": 911,
+      "matriculas_educacao_infantil": 433,
+      "matriculas_ensino_fundamental": 478,
+      "matriculas_ensino_medio": 0
+    },
+    {
+      "bairro": "NOVA DESCOBERTA",
+      "escolas": 3,
+      "matriculas_total_educacao_basica": 760,
+      "matriculas_educacao_infantil": 117,
+      "matriculas_ensino_fundamental": 497,
+      "matriculas_ensino_medio": 146
+    },
+    {
+      "bairro": "AREIAS",
+      "escolas": 2,
+      "matriculas_total_educacao_basica": 547,
+      "matriculas_educacao_infantil": 214,
+      "matriculas_ensino_fundamental": 333,
+      "matriculas_ensino_medio": 0
+    },
+    {
+      "bairro": "ITINGA",
+      "escolas": 2,
+      "matriculas_total_educacao_basica": 180,
+      "matriculas_educacao_infantil": 0,
+      "matriculas_ensino_fundamental": 62,
+      "matriculas_ensino_medio": 0
+    },
+    {
+      "bairro": "TIMBE",
+      "escolas": 1,
+      "matriculas_total_educacao_basica": 151,
+      "matriculas_educacao_infantil": 55,
+      "matriculas_ensino_fundamental": 96,
+      "matriculas_ensino_medio": 0
+    },
+    {
+      "bairro": "AREA RURAL DE TIJUCAS",
+      "escolas": 2,
+      "matriculas_total_educacao_basica": 119,
+      "matriculas_educacao_infantil": 30,
+      "matriculas_ensino_fundamental": 89,
+      "matriculas_ensino_medio": 0
+    },
+    {
+      "bairro": "MORRETES",
+      "escolas": 1,
+      "matriculas_total_educacao_basica": 50,
+      "matriculas_educacao_infantil": 16,
+      "matriculas_ensino_fundamental": 34,
+      "matriculas_ensino_medio": 0
+    },
+    {
+      "bairro": "SUL DO RIO",
+      "escolas": 1,
+      "matriculas_total_educacao_basica": 37,
+      "matriculas_educacao_infantil": 37,
+      "matriculas_ensino_fundamental": 0,
+      "matriculas_ensino_medio": 0
+    },
+    {
+      "bairro": "PORTO DO ITINGA",
+      "escolas": 1,
+      "matriculas_total_educacao_basica": 21,
+      "matriculas_educacao_infantil": 21,
+      "matriculas_ensino_fundamental": 0,
+      "matriculas_ensino_medio": 0
+    }
+  ]
+}

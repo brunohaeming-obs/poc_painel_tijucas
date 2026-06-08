@@ -18,27 +18,6 @@ const percentFormatter = new Intl.NumberFormat("pt-BR", {
   maximumFractionDigits: 1,
 });
 
-function renderBarTooltip({ active, payload, label }) {
-  if (!active || !payload?.length) return null;
-
-  return (
-    <div className="rounded-2xl border border-white/10 bg-[#071845] px-4 py-3 text-sm text-white shadow-lg">
-      <strong>{label}</strong>
-      <div className="mt-2 grid gap-1">
-        {payload.map((item) => (
-          <div key={item.dataKey} className="flex items-center justify-between gap-4">
-            <span className="flex items-center gap-2 text-slate-300">
-              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.fill }} />
-              {item.name}
-            </span>
-            <span>{percentFormatter.format(item.value)}%</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 const methodologyText = `Como ler este indicador
 
 Os percentuais mostram a proporção de escolas que declararam possuir cada recurso no Censo Escolar.
@@ -49,6 +28,31 @@ Esses indicadores ajudam a observar condições materiais da rede, mas não mede
 
 No caso de acessibilidade, o painel usa banheiro acessível como aproximação. Esse dado não representa todas as dimensões de acessibilidade escolar.`;
 
+function renderBarTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null;
+
+  return (
+    <div className="rounded-2xl border border-[rgba(16,33,58,0.10)] bg-white px-4 py-3 text-sm text-[#10213A] shadow-[0_14px_34px_rgba(16,33,58,0.12)]">
+      <strong className="text-[#10213A]">{label}</strong>
+      <div className="mt-2 grid gap-1.5">
+        {payload.map((item) => (
+          <div key={item.dataKey} className="flex items-center justify-between gap-5">
+            <span className="flex items-center gap-2 text-[#5C6773]">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.fill }} />
+              {item.name}
+            </span>
+            <span className="font-semibold text-[#10213A]">
+              {item.value === null || item.value === undefined || Number.isNaN(item.value)
+                ? "N/D"
+                : `${percentFormatter.format(item.value)}%`}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function InfraestruturaSection({
   selectedYear,
   infrastructureKpis,
@@ -57,7 +61,7 @@ export function InfraestruturaSection({
 }) {
   const [showMethodology, setShowMethodology] = useState(false);
   const hasComparativo = Boolean(infrastructureChart?.hasReference);
-  const chartYear = infrastructureChart?.year ?? 2024;
+  const chartItems = infrastructureChart?.items ?? [];
 
   return (
     <section className="grid gap-8" aria-labelledby="educacao-infra-title">
@@ -68,10 +72,10 @@ export function InfraestruturaSection({
           title="Condições essenciais de funcionamento"
         />
 
-        <div className="relative mt-3 flex items-start justify-start">
+        <div className="relative isolate mt-3 flex items-start justify-start">
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#F2A116]"
+            className="inline-flex items-center gap-2 rounded-full border border-[rgba(242,161,22,0.28)] bg-[#FDE7C2] px-3 py-1.5 text-xs font-semibold text-[#10213A] transition hover:border-[rgba(242,161,22,0.4)] hover:bg-[#F8DCA7] focus:outline-none focus:ring-2 focus:ring-[#F2A116]"
             onMouseEnter={() => setShowMethodology(true)}
             onMouseLeave={() => setShowMethodology(false)}
             onFocus={() => setShowMethodology(true)}
@@ -80,7 +84,7 @@ export function InfraestruturaSection({
             aria-expanded={showMethodology}
             aria-label="Como ler este indicador"
           >
-            <span className="grid h-5 w-5 place-items-center rounded-full bg-[#F2A116] text-[11px] font-bold text-[#10213A]">
+            <span className="grid h-5 w-5 place-items-center rounded-full border border-[rgba(242,161,22,0.35)] bg-white text-[11px] font-bold text-[#F2A116]">
               <Info size={12} strokeWidth={2.4} />
             </span>
             Como ler este indicador
@@ -88,12 +92,15 @@ export function InfraestruturaSection({
 
           {showMethodology ? (
             <div
-              className="absolute left-0 top-full z-20 mt-3 w-full max-w-[520px] rounded-3xl border border-white/12 bg-[#071845] p-5 text-sm leading-7 text-slate-200 shadow-2xl"
+              className="absolute left-0 top-full z-50 mt-3 w-full max-w-[520px] rounded-3xl border border-[#F2A116] bg-[#FDE7C2] p-5 text-sm leading-7 text-[#10213A] shadow-[0_18px_40px_rgba(16,33,58,0.18)]"
               onMouseEnter={() => setShowMethodology(true)}
               onMouseLeave={() => setShowMethodology(false)}
             >
               {methodologyText.split("\n\n").map((paragraph, index) => (
-                <p key={index} className={index === 0 ? "font-semibold text-white" : "mt-3"}>
+                <p
+                  key={index}
+                  className={index === 0 ? "font-semibold text-[#10213A]" : "mt-3 text-[#10213A]"}
+                >
                   {paragraph}
                 </p>
               ))}
@@ -111,53 +118,92 @@ export function InfraestruturaSection({
           className="xl:pt-4"
           icon={Sparkles}
         />
-        <EducacaoKpiGrid items={infrastructureKpis} />
+          <EducacaoKpiGrid items={infrastructureKpis} variant="overview" />
       </div>
 
       <EducacaoChartCard
-        title="Recursos comparáveis com Santa Catarina"
-        subtitle="Comparação de Tijucas com a média estadual em indicadores selecionados de infraestrutura escolar."
+        title="Recursos das escolas: Tijucas x Santa Catarina"
+        subtitle="Percentual de escolas que declararam possuir cada recurso em 2024."
       >
-        <div className="h-[340px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={infrastructureChart.items}
-              layout="vertical"
-              margin={{ top: 8, right: 24, bottom: 8, left: 24 }}
-              barGap={10}
-            >
-              <CartesianGrid stroke="rgba(255,255,255,0.08)" strokeDasharray="4 4" />
-              <XAxis
-                type="number"
-                stroke="#A8B6D8"
-                domain={[0, 100]}
-                tickFormatter={(value) => `${value}%`}
-              />
-              <YAxis type="category" dataKey="label" width={210} stroke="#A8B6D8" />
-              <Tooltip content={renderBarTooltip} />
-              <Bar dataKey="tijucas" name="Tijucas" fill="#007FFE" radius={[0, 10, 10, 0]} />
-              {hasComparativo ? (
-                <Bar
-                  dataKey="reference"
-                  name="Santa Catarina"
-                  fill="#FCD418"
-                  radius={[0, 10, 10, 0]}
-                />
-              ) : null}
-            </BarChart>
-          </ResponsiveContainer>
+        <div className="rounded-[24px] bg-[#E9E9DE] p-5">
+          <div className="mb-4 flex flex-wrap items-center gap-5 text-sm text-[#10213A]">
+            <span className="inline-flex items-center gap-2">
+              <span className="h-3 w-3 rounded-full bg-[#F2A116]" />
+              Tijucas
+            </span>
+            {hasComparativo ? (
+              <span className="inline-flex items-center gap-2">
+                <span className="h-3 w-3 rounded-full bg-[#4DA3FF]" />
+                Santa Catarina
+              </span>
+            ) : null}
+          </div>
+
+          {chartItems.length ? (
+            <div style={{ width: "100%", height: 380 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={chartItems}
+                  layout="vertical"
+                  margin={{ top: 12, right: 28, bottom: 10, left: 24 }}
+                  barGap={10}
+                  barCategoryGap={18}
+                >
+                  <CartesianGrid
+                    stroke="rgba(16,33,58,0.12)"
+                    strokeDasharray="4 4"
+                    horizontal={false}
+                  />
+                  <XAxis
+                    type="number"
+                    stroke="#10213A"
+                    domain={[0, 100]}
+                    ticks={[0, 25, 50, 75, 100]}
+                    tickFormatter={(value) => `${value}%`}
+                    tick={{ fill: "#10213A", fontSize: 12, fontFamily: "Inter, sans-serif" }}
+                    axisLine={{ stroke: "rgba(16,33,58,0.16)" }}
+                    tickLine={{ stroke: "rgba(16,33,58,0.16)" }}
+                  />
+                  <YAxis
+                    type="category"
+                    dataKey="label"
+                    width={230}
+                    stroke="#10213A"
+                    tick={{ fill: "#10213A", fontSize: 12, fontFamily: "Inter, sans-serif" }}
+                    axisLine={false}
+                    tickLine={false}
+                  />
+                  <Tooltip content={renderBarTooltip} cursor={{ fill: "rgba(16,33,58,0.04)" }} />
+                  <Bar
+                    dataKey="tijucas"
+                    name="Tijucas"
+                    fill="#F2A116"
+                    radius={[0, 9, 9, 0]}
+                    barSize={16}
+                  />
+                  {hasComparativo ? (
+                    <Bar
+                      dataKey="reference"
+                      name="Santa Catarina"
+                      fill="#4DA3FF"
+                      radius={[0, 9, 9, 0]}
+                      barSize={16}
+                    />
+                  ) : null}
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            <p className="text-sm leading-6 text-[#10213A]">
+              Dados comparativos indisponíveis para o gráfico.
+            </p>
+          )}
         </div>
 
         <p className="mt-5 text-sm leading-6 text-slate-300">
-          {hasComparativo
-            ? infrastructureChart.note
-            : "Comparativo estadual indisponível nos arquivos atuais."}
-        </p>
-
-        <p className="mt-2 text-xs leading-6 text-slate-400">
-          {hasComparativo
-            ? `Fotografia principal usada no gráfico: ${chartYear}.`
-            : `O gráfico segue exibindo apenas Tijucas no recorte disponível de ${selectedYear}.`}
+          Comparação com base no Censo Escolar 2024. Os percentuais representam escolas que
+          declararam possuir cada recurso. Banheiro acessível é usado como aproximação parcial de
+          acessibilidade.
         </p>
       </EducacaoChartCard>
     </section>

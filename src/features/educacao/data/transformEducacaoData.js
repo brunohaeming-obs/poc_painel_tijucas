@@ -328,14 +328,37 @@ function buildInfrastructureChart(indicadoresLong, selectedYear, comparativoSc20
   };
 }
 
-function buildTerritoryData(mapaEscolas, filters) {
-  const availableYears = getMapAvailableYears(mapaEscolas);
+function buildTerritoryData(
+  mapaEscolas,
+  filters,
+  territorioMatriculasBairro2025 = null,
+  mapaEscolasComMatriculas2025 = null,
+) {
   const selectedYear = filters.selectedYear;
-  const yearRows = (mapaEscolas?.registros ?? []).filter((row) => row.ano === selectedYear);
+  const selectedYearNumber = Number(selectedYear);
+  const availableYears = [...getMapAvailableYears(mapaEscolas)];
+  const has2025SchoolsWithEnrollments =
+    selectedYearNumber === 2025 &&
+    Array.isArray(mapaEscolasComMatriculas2025) &&
+    mapaEscolasComMatriculas2025.length > 0;
 
-  if (!availableYears.includes(selectedYear)) {
+  if (
+    Array.isArray(mapaEscolasComMatriculas2025) &&
+    mapaEscolasComMatriculas2025.length > 0 &&
+    !availableYears.includes(2025)
+  ) {
+    availableYears.push(2025);
+    availableYears.sort((first, second) => first - second);
+  }
+
+  const yearRows = has2025SchoolsWithEnrollments
+    ? mapaEscolasComMatriculas2025.filter((row) => Number(row.ano) === selectedYearNumber)
+    : (mapaEscolas?.registros ?? []).filter((row) => Number(row.ano) === selectedYearNumber);
+
+  if (!availableYears.map(Number).includes(selectedYearNumber)) {
     return {
       available: false,
+      referenceYear: selectedYearNumber,
       availableYears,
       filteredSchools: [],
       points: [],
@@ -346,31 +369,55 @@ function buildTerritoryData(mapaEscolas, filters) {
         withCoordinates: 0,
         urban: 0,
         rural: 0,
+        enrollments: 0,
+        hasEnrollmentsByNeighborhood: false,
       },
     };
   }
 
   const filteredSchools = yearRows;
+  const hasNeighborhoodEnrollments =
+    selectedYearNumber === 2025 && Array.isArray(territorioMatriculasBairro2025?.bairros);
 
-  const groupedByNeighborhood = new Map();
-  for (const row of filteredSchools) {
-    const key = normalizeText(row.bairro || "Sem bairro");
-    if (!groupedByNeighborhood.has(key)) {
-      groupedByNeighborhood.set(key, {
-        bairro: formatTitleCase(row.bairro || "Sem bairro"),
-        escolas: 0,
-        matriculas: null,
-      });
-    }
-    groupedByNeighborhood.get(key).escolas += 1;
-  }
+  const neighborhoodRows = hasNeighborhoodEnrollments
+    ? [...territorioMatriculasBairro2025.bairros]
+        .map((row) => ({
+          bairro: formatTitleCase(row.bairro || "Sem bairro"),
+          escolas: row.escolas ?? 0,
+          matriculas: row.matriculas_total_educacao_basica ?? null,
+          matriculasEducacaoInfantil: row.matriculas_educacao_infantil ?? null,
+          matriculasEnsinoFundamental: row.matriculas_ensino_fundamental ?? null,
+          matriculasEnsinoMedio: row.matriculas_ensino_medio ?? null,
+        }))
+        .sort((first, second) => {
+          const secondValue = second.matriculas ?? -1;
+          const firstValue = first.matriculas ?? -1;
+          if (secondValue !== firstValue) {
+            return secondValue - firstValue;
+          }
+          return first.bairro.localeCompare(second.bairro, "pt-BR");
+        })
+    : (() => {
+        const groupedByNeighborhood = new Map();
+        for (const row of filteredSchools) {
+          const key = normalizeText(row.bairro || "Sem bairro");
+          if (!groupedByNeighborhood.has(key)) {
+            groupedByNeighborhood.set(key, {
+              bairro: formatTitleCase(row.bairro || "Sem bairro"),
+              escolas: 0,
+              matriculas: null,
+            });
+          }
+          groupedByNeighborhood.get(key).escolas += 1;
+        }
 
-  const neighborhoodRows = [...groupedByNeighborhood.values()].sort((first, second) => {
-    if (first.escolas !== second.escolas) {
-      return second.escolas - first.escolas;
-    }
-    return first.bairro.localeCompare(second.bairro, "pt-BR");
-  });
+        return [...groupedByNeighborhood.values()].sort((first, second) => {
+          if (first.escolas !== second.escolas) {
+            return second.escolas - first.escolas;
+          }
+          return first.bairro.localeCompare(second.bairro, "pt-BR");
+        });
+      })();
 
   const points = filteredSchools
     .filter((row) => row.latitude && row.longitude)
@@ -383,6 +430,7 @@ function buildTerritoryData(mapaEscolas, filters) {
 
   return {
     available: true,
+    referenceYear: selectedYearNumber,
     availableYears,
     filteredSchools,
     points,
@@ -393,6 +441,11 @@ function buildTerritoryData(mapaEscolas, filters) {
       withCoordinates: points.length,
       urban: filteredSchools.filter((row) => normalizeText(row.localizacao) === "urbana").length,
       rural: filteredSchools.filter((row) => normalizeText(row.localizacao) === "rural").length,
+      enrollments: filteredSchools.reduce((sum, row) => {
+        const value = Number(row.matriculas_total_educacao_basica);
+        return Number.isFinite(value) ? sum + value : sum;
+      }, 0),
+      hasEnrollmentsByNeighborhood: hasNeighborhoodEnrollments,
     },
   };
 }
@@ -406,6 +459,7 @@ export function buildEducacaoViewModel(allData, filters) {
   const selectedYear = availableYears.includes(filters.selectedYear)
     ? filters.selectedYear
     : availableYears[availableYears.length - 1] ?? "";
+  const territoryReferenceYear = 2025;
 
   return {
     selectedYear,
@@ -429,10 +483,15 @@ export function buildEducacaoViewModel(allData, filters) {
       selectedYear,
       allData.comparativoSc2024,
     ),
-    territoryData: buildTerritoryData(allData.mapaEscolas, {
-      ...filters,
-      selectedYear,
-    }),
+    territoryData: buildTerritoryData(
+      allData.mapaEscolas,
+      {
+        ...filters,
+        selectedYear: territoryReferenceYear,
+      },
+      allData.territorioMatriculasBairro2025,
+      allData.mapaEscolasComMatriculas2025,
+    ),
   };
 }
 

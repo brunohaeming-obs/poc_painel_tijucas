@@ -84,7 +84,7 @@ export function EducacaoPage() {
       aria-labelledby="educacao-title"
       className="educacao-shell relative overflow-hidden rounded-[32px] font-sans shadow-[0_24px_80px_rgba(3,10,34,0.24)]"
     >
-      <div className="relative flex flex-col gap-14 p-6 md:p-8 xl:p-10">
+      <div className="relative flex flex-col gap-10 p-5 md:p-6 xl:p-8">
         <EducacaoHeader
           selectedYear={filters.selectedYear}
           availableYears={availableYears}
@@ -127,7 +127,7 @@ export function EducacaoPage() {
             />
 
             <TerritorioSection
-              selectedYear={viewModel.selectedYear}
+              selectedYear={viewModel.territoryData?.referenceYear ?? 2025}
               territoryData={viewModel.territoryData}
               territoryMode={territoryMode}
               onModeChange={setTerritoryMode}

@@ -116,19 +116,19 @@ export function EducacaoKpiCard({
     <article
       className={`educacao-kpi-card rounded-[24px] ${
         isOverview
-          ? "flex h-full min-h-[214px] flex-col justify-between border border-[rgba(242,161,22,0.2)] bg-[#FDE7C2] p-6 shadow-[0_14px_32px_rgba(15,34,58,0.06)]"
+          ? "flex h-full min-h-[172px] flex-col justify-between border border-[rgba(242,161,22,0.28)] bg-[#FDE7C2] p-4 shadow-[0_14px_32px_rgba(15,34,58,0.06)]"
           : "educacao-surface p-5"
       }`}
     >
-      <div className={`flex items-start justify-between gap-4 ${isOverview ? "min-h-[58px]" : ""}`}>
+      <div className={`flex items-start justify-between gap-3 ${isOverview ? "min-h-[56px]" : ""}`}>
         <div
           className={`grid place-items-center rounded-2xl ${
             isOverview
-              ? "h-14 w-14 border border-[rgba(242,161,22,0.22)] bg-white text-[#F2A116]"
+              ? "h-11 w-11 border border-[rgba(242,161,22,0.22)] bg-white text-[#F2A116]"
               : "h-12 w-12 bg-white/[0.08] text-white"
           }`}
         >
-          <Icon size={isOverview ? 28 : 24} strokeWidth={2.1} />
+          <Icon size={isOverview ? 22 : 24} strokeWidth={2.1} />
         </div>
         <span
           className={`inline-flex max-w-[190px] items-center gap-2 rounded-2xl px-3 py-2 text-left text-[11px] font-bold uppercase tracking-[0.08em] ${getVariationClasses(item.variation.direction, isOverview)}`}
@@ -139,7 +139,7 @@ export function EducacaoKpiCard({
         </span>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-3">
         <p
           className={
             isOverview ? "text-sm font-semibold text-[#10213A]" : "text-sm font-semibold text-slate-300"
@@ -149,7 +149,7 @@ export function EducacaoKpiCard({
         </p>
         <strong
           className={`mt-2 block font-extrabold leading-none tracking-tight ${
-            isOverview ? "text-[1.85rem] text-[#10213A]" : "text-[1.95rem] text-white"
+            isOverview ? "text-[1.7rem] text-[#10213A]" : "text-[1.95rem] text-white"
           }`}
         >
           {isOverview ? (
@@ -166,7 +166,7 @@ export function EducacaoKpiCard({
         </strong>
       </div>
 
-      <div className={isOverview ? "mt-4 space-y-2" : "mt-3"}>
+      <div className={isOverview ? "mt-2 space-y-2" : "mt-3"}>
         <p className={isOverview ? "text-xs leading-6 text-slate-700" : "text-xs leading-6 text-slate-400"}>
           {item.note}
         </p>

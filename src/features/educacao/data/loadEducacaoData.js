@@ -58,6 +58,14 @@ export async function loadEducacaoRendimento() {
   return fetchOptionalEducacaoJson("/data/educacao/educacao_rendimento.json");
 }
 
+export async function loadEducacaoTerritorioMatriculasBairro2025() {
+  return fetchOptionalEducacaoJson("/data/educacao/educacao_territorio_matriculas_bairro_2025.json");
+}
+
+export async function loadEducacaoMapaEscolasComMatriculas2025() {
+  return fetchOptionalEducacaoJson("/data/educacao/educacao_mapa_escolas_com_matriculas_2025.json");
+}
+
 export async function loadAllEducacaoData() {
   try {
     const [
@@ -70,6 +78,8 @@ export async function loadAllEducacaoData() {
       comparativoSc2024,
       indicadoresApenasTijucas,
       rendimento,
+      territorioMatriculasBairro2025,
+      mapaEscolasComMatriculas2025,
     ] = await Promise.all([
       loadEducacaoIndicadoresLong(),
       loadEducacaoSeriesTemporais(),
@@ -80,6 +90,8 @@ export async function loadAllEducacaoData() {
       loadEducacaoComparativoSc2024(),
       loadEducacaoIndicadoresApenasTijucas(),
       loadEducacaoRendimento(),
+      loadEducacaoTerritorioMatriculasBairro2025(),
+      loadEducacaoMapaEscolasComMatriculas2025(),
     ]);
 
     return {
@@ -92,6 +104,8 @@ export async function loadAllEducacaoData() {
       comparativoSc2024,
       indicadoresApenasTijucas,
       rendimento,
+      territorioMatriculasBairro2025,
+      mapaEscolasComMatriculas2025,
     };
   } catch (error) {
     console.error("Dados de educação não encontrados.", error);
