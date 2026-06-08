@@ -162,7 +162,7 @@ export function EducacaoSchoolsMapCard({
       <p className="mt-4 text-xs leading-6 text-slate-300">
         Cada ponto representa uma escola com coordenadas disponíveis na base. Escolas sem
         latitude/longitude permanecem na tabela, mas não aparecem no mapa. Fonte: Censo
-        Escolar/INEP.
+        Escolar/INEP. Coleta/consulta em 2026.
       </p>
     </article>
   );

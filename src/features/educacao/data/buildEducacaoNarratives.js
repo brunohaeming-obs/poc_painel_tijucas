@@ -130,7 +130,7 @@ export function buildEducacaoNarratives({
   const overview = [
     overviewIntro,
     rendimentoSentence,
-    `Fonte: Censo Escolar/INEP e Taxas de Rendimento Escolar/INEP. Matrículas e escolas: ${selectedYear}; aprovação e abandono: ${rendimentoYear ?? "último dado disponível"}.`,
+    `Fonte: Censo Escolar/INEP e Taxas de Rendimento Escolar/INEP. Matrículas e escolas: ${selectedYear}; aprovação e abandono: ${rendimentoYear ?? "último dado disponível"}. Coleta/consulta em 2026.`,
   ].join(" ");
 
   const compositionLeader = enrollmentComposition.largestItem;

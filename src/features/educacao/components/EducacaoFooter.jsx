@@ -47,7 +47,7 @@ export function EducacaoFooter({ metadata }) {
         </div>
         <div className="mt-3 grid gap-1.5 text-xs leading-6 text-slate-200">
           <p>
-            Fonte principal: <strong>Censo Escolar/INEP</strong>.
+            Fonte principal: <strong>Censo Escolar/INEP</strong>. Coleta/consulta em 2026.
           </p>
           <p>Município: Tijucas/SC.</p>
           <p>Última publicação local: {metadata.gerado_em}.</p>

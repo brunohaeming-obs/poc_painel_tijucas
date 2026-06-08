@@ -145,6 +145,11 @@ select:focus-visible {
   color: #000086;
 }
 
+.economia-shell .bg-brand-blue.text-white,
+.economia-shell .bg-brand-blue .text-white {
+  color: #ffffff;
+}
+
 .educacao-surface {
   border: 1px solid rgba(var(--axis-primary-rgb), 0.26);
   background: var(--axis-secondary);

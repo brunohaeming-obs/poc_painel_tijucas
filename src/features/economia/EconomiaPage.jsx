@@ -25,7 +25,11 @@ const colors = {
   positive: "#71B434",
   negative: "#F2A116",
   grid: "rgba(255,255,255,0.14)",
-  text: "#CBD5E1",
+  text: "#475569",
+  title: "#10213A",
+  tooltipBg: "#FFFFFF",
+  tooltipBorder: "#93C5FD",
+  tooltipMuted: "#64748B",
   projected: "rgba(0,127,254,0.09)",
 };
 
@@ -115,11 +119,11 @@ function PibRankingBox({ ranking, mode, average, onClose }) {
       key={`${item.rank}-${item.municipio}`}
       className={`flex items-start gap-3 rounded-2xl border p-3 ${
         item.municipio === "Tijucas"
-          ? "border-brand-yellow/60 bg-brand-yellow/[0.12]"
+          ? "border-brand-blue bg-brand-blue/[0.12]"
           : "border-white/10 bg-white/[0.04]"
       }`}
     >
-      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-yellow text-sm font-extrabold text-brand-navy">
+      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-blue text-sm font-extrabold text-white">
         {item.rank}
       </span>
       <div>
@@ -133,7 +137,7 @@ function PibRankingBox({ ranking, mode, average, onClose }) {
     <aside className="educacao-surface rounded-[24px] p-5">
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-yellow">Ranking do recorte comparável</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-blue">Ranking do recorte comparável</p>
           <h4 className="mt-2 text-xl font-extrabold text-white">
             Top municípios por {mode === "perCapita" ? "PIB per capita projetado" : "PIB projetado"}
           </h4>
@@ -154,12 +158,12 @@ function PibRankingBox({ ranking, mode, average, onClose }) {
         {topItems.map(renderItem)}
       </ol>
       {showTijucasPosition ? (
-        <div className="mt-4 rounded-2xl border border-brand-yellow/45 bg-brand-yellow/[0.10] p-4">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-yellow">Posição de Tijucas</p>
+        <div className="mt-4 rounded-2xl border border-brand-blue/45 bg-brand-blue/[0.10] p-4">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-blue">Posição de Tijucas</p>
           <div className="mt-3">{renderItem(tijucasItem)}</div>
         </div>
       ) : null}
-      <SourceLine>PIB municipal do projeto; IBGE Censo 2022; projeções 2025-2030.</SourceLine>
+      <SourceLine>PIB observado: IBGE; projeções: Observatório FIESC (2026). Coleta/consulta em 2026.</SourceLine>
     </aside>
   );
 }
@@ -169,7 +173,7 @@ function SectorImpactBox({ monthlySectors, annualSectors, monthLabel, annualLabe
     <ol className="mt-4 grid gap-3">
       {items.map((sector, index) => (
         <li key={`${sector.name}-${sector.saldo}`} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-3">
-          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-yellow text-sm font-extrabold text-brand-navy">
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-blue text-sm font-extrabold text-white">
             {index + 1}
           </span>
           <div>
@@ -185,7 +189,7 @@ function SectorImpactBox({ monthlySectors, annualSectors, monthLabel, annualLabe
     <aside className="educacao-surface rounded-[24px] p-5">
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-yellow">Setores com maior impacto</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-blue">Setores com maior impacto</p>
           <h4 className="mt-2 text-xl font-extrabold text-white">Top 5 setores que mais geraram vagas</h4>
           <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-300">
             Saldo significa admissões menos desligamentos. Valores positivos indicam setores que mais contribuíram para criação líquida de empregos formais.
@@ -209,7 +213,7 @@ function SectorImpactBox({ monthlySectors, annualSectors, monthLabel, annualLabe
           {renderList(annualSectors)}
         </section>
       </div>
-      <SourceLine>MTE/Novo Caged, dados de emprego formal atualizados em 2026.</SourceLine>
+      <SourceLine>MTE/Novo Caged, dados de emprego formal. Coleta/consulta em 2026.</SourceLine>
     </aside>
   );
 }
@@ -222,7 +226,7 @@ function ModeButton({ active, onClick, children, icon: Icon }) {
       onClick={onClick}
       className={`inline-flex h-10 items-center gap-2 rounded-xl border px-3 text-sm font-extrabold transition ${
         active
-          ? "border-brand-yellow bg-brand-yellow text-brand-navy"
+          ? "border-brand-blue bg-brand-blue text-white"
           : "border-white/15 bg-white/[0.04] text-slate-100 hover:bg-white/10"
       }`}
     >
@@ -238,14 +242,14 @@ function InfoMark({ text }) {
   return (
     <span
       tabIndex={0}
-      className="group relative inline-grid h-5 w-5 shrink-0 place-items-center rounded-full border border-white/20 bg-white/10 text-slate-200 outline-none transition hover:border-brand-yellow hover:text-brand-yellow focus:border-brand-yellow focus:text-brand-yellow"
+      className="group relative inline-grid h-5 w-5 shrink-0 place-items-center rounded-full border border-brand-blue/35 bg-brand-blue/[0.08] text-brand-blue outline-none transition hover:border-brand-blue hover:bg-brand-blue hover:text-white focus:border-brand-blue focus:bg-brand-blue focus:text-white"
       aria-label="Mais informações"
     >
       <Info size={12} strokeWidth={2.6} />
-      <span className="pointer-events-none absolute right-0 top-7 z-30 hidden w-[420px] max-w-[calc(100vw-32px)] rounded-2xl border border-brand-yellow/35 bg-[#071845] p-5 text-left text-sm font-semibold leading-6 text-slate-100 shadow-2xl ring-1 ring-white/10 group-hover:block group-focus:block">
-        <span className="mb-3 block text-xs font-extrabold uppercase tracking-[0.18em] text-brand-yellow">Como ler este indicador</span>
+      <span className="pointer-events-none absolute right-0 top-7 z-30 hidden w-[420px] max-w-[calc(100vw-32px)] rounded-2xl border border-brand-blue/35 bg-white p-5 text-left text-sm font-semibold leading-6 text-slate-700 shadow-2xl ring-1 ring-brand-blue/10 group-hover:block group-focus:block">
+        <span className="mb-3 block text-xs font-extrabold uppercase tracking-[0.18em] text-brand-blue">Como ler este indicador</span>
         {paragraphs.map((paragraph) => (
-          <span key={paragraph} className="mt-3 block border-l-2 border-brand-yellow/40 pl-3">
+          <span key={paragraph} className="mt-3 block border-l-2 border-brand-blue/40 pl-3">
             {paragraph}
           </span>
         ))}
@@ -275,10 +279,10 @@ function KpiGrid({ items }) {
               type="button"
               onClick={item.onClick}
               aria-expanded={item.expanded}
-              className={`rounded-[18px] px-4 py-4 text-left shadow-sm transition focus:outline-none focus:ring-2 focus:ring-brand-yellow/70 ${
+              className={`rounded-[18px] px-4 py-4 text-left shadow-sm transition focus:outline-none focus:ring-2 focus:ring-brand-blue/70 ${
                 item.expanded
-                  ? "border border-brand-yellow bg-brand-yellow/18"
-                  : "border border-brand-yellow/55 bg-brand-yellow/[0.10] hover:bg-brand-yellow/[0.16]"
+                  ? "border border-brand-blue bg-brand-blue/18"
+                  : "border border-brand-blue/55 bg-brand-blue/[0.10] hover:bg-brand-blue/[0.16]"
               }`}
             >
               {content}
@@ -305,7 +309,7 @@ function NarrativeCard({ eyebrow, title, body, caption, source, icon: Icon, rest
     <aside className="educacao-surface flex h-full flex-col justify-between rounded-[24px] p-6">
       <div>
         <div className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-yellow text-brand-navy">
+          <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-blue text-white">
             <Icon size={20} strokeWidth={2.4} />
           </span>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">{eyebrow}</p>
@@ -330,8 +334,8 @@ function NarrativeCard({ eyebrow, title, body, caption, source, icon: Icon, rest
 function ChartTooltip({ active, payload, label, formatter = numberFormatter.format }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-xl border border-white/10 bg-[#071845] px-3 py-2 text-xs text-slate-100 shadow-lg">
-      <strong className="text-white">{label}</strong>
+    <div className="rounded-xl border px-3 py-2 text-xs shadow-lg" style={{ backgroundColor: colors.tooltipBg, borderColor: colors.tooltipBorder, color: colors.text }}>
+      <strong style={{ color: colors.title }}>{label}</strong>
       <div className="mt-2 grid gap-1">
         {payload.map((item) => (
           <span key={item.dataKey}>
@@ -346,9 +350,9 @@ function ChartTooltip({ active, payload, label, formatter = numberFormatter.form
 
 function PibChart({ data, rows, mode }) {
   const formatter = mode === "perCapita" ? formatPerCapita : formatMoney;
-  const width = 920;
-  const height = 360;
-  const padding = { top: 28, right: 18, bottom: 74, left: 86 };
+  const width = 1020;
+  const height = 430;
+  const padding = { top: 22, right: 12, bottom: 78, left: 54 };
   const values = data.flatMap((item) => rows.map((row) => item[row.municipio]).filter((value) => Number.isFinite(value)));
   const rawMin = Math.min(...values);
   const rawMax = Math.max(...values);
@@ -396,7 +400,7 @@ function PibChart({ data, rows, mode }) {
           return (
             <g key={tick}>
               <line x1={padding.left} x2={width - padding.right} y1={y} y2={y} stroke={colors.grid} strokeDasharray="4 4" />
-              <text x={padding.left - 12} y={y + 4} textAnchor="end" className="fill-slate-300 text-[12px] font-semibold">
+              <text x={padding.left - 12} y={y + 4} textAnchor="end" className="text-[12px] font-semibold" fill={colors.text}>
                 {mode === "perCapita" ? compactFormatter.format(tick) : formatter(tick)}
               </text>
             </g>
@@ -406,7 +410,7 @@ function PibChart({ data, rows, mode }) {
           <g key={item.ano}>
             <line x1={xFor(index)} x2={xFor(index)} y1={padding.top} y2={height - padding.bottom} stroke="rgba(255,255,255,0.08)" />
             {index % labelEvery === 0 || index === data.length - 1 ? (
-              <text x={xFor(index)} y={height - 18} textAnchor="middle" className="fill-slate-300 text-[12px] font-bold">
+              <text x={xFor(index)} y={height - 18} textAnchor="middle" className="text-[12px] font-bold" fill={colors.text}>
                 {item.ano}
               </text>
             ) : null}
@@ -452,7 +456,7 @@ function PibChart({ data, rows, mode }) {
                 ) : (
                   <line x1="0" x2="24" y1="8" y2="8" stroke={item.color} strokeWidth={item.name === "Tijucas" ? 5 : 3.2} />
                 )}
-                <text x="32" y="12" className="fill-slate-200 text-[12px] font-bold">{item.name}</text>
+                <text x="32" y="12" className="text-[12px] font-bold" fill={colors.text}>{item.name}</text>
               </g>
             );
           })}
@@ -464,12 +468,23 @@ function PibChart({ data, rows, mode }) {
 
 function EmploymentChart({ data, mode }) {
   return (
-    <div className="h-[340px]">
+    <div className="h-[430px]">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data} margin={{ top: 16, right: 20, bottom: 8, left: 0 }}>
+        <BarChart data={data} margin={{ top: 20, right: 12, bottom: 10, left: -10 }}>
           <CartesianGrid stroke={colors.grid} strokeDasharray="4 4" />
-          <XAxis dataKey="periodo" tick={{ fill: colors.text, fontSize: 12 }} />
-          <YAxis tick={{ fill: colors.text, fontSize: 12 }} tickFormatter={compactFormatter.format} width={58} />
+          <XAxis
+            dataKey="periodo"
+            tick={{ fill: colors.text, fontSize: 12 }}
+            axisLine={{ stroke: colors.text }}
+            tickLine={{ stroke: colors.text }}
+          />
+          <YAxis
+            tick={{ fill: colors.text, fontSize: 12 }}
+            tickFormatter={compactFormatter.format}
+            axisLine={{ stroke: colors.text }}
+            tickLine={{ stroke: colors.text }}
+            width={48}
+          />
           <Tooltip content={<ChartTooltip formatter={numberFormatter.format} />} />
           <Bar dataKey="saldo" name={mode === "monthly" ? "Saldo mensal" : "Acumulado"} radius={[8, 8, 0, 0]}>
             {data.map((row) => (
@@ -495,18 +510,18 @@ function MultiMunicipalityPicker({ selected, onChange, options, label = "Municí
         <span>{label}: {selected.length}</span>
         <span aria-hidden="true">v</span>
       </summary>
-      <div className="absolute right-0 z-20 mt-2 grid max-h-[310px] w-[320px] gap-1 overflow-auto rounded-xl border border-white/10 bg-[#071845] p-2 shadow-xl">
+      <div className="absolute right-0 z-20 mt-2 grid max-h-[310px] w-[320px] gap-1 overflow-auto rounded-xl border border-brand-blue/25 bg-white p-2 shadow-xl">
         {options.map((name) => (
           <label
             key={name}
-            className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-sm font-semibold text-slate-100 hover:bg-white/10"
+            className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-sm font-semibold text-slate-700 hover:bg-brand-blue/[0.08]"
           >
             <input
               type="checkbox"
               checked={selected.includes(name)}
               disabled={name === "Tijucas"}
               onChange={() => toggle(name)}
-              className="h-4 w-4 rounded border-slate-300 accent-brand-yellow"
+              className="h-4 w-4 rounded border-slate-300 accent-brand-blue"
             />
             {name}
           </label>
@@ -544,8 +559,8 @@ export function EconomiaPage({ theme }) {
   const pibPerCapitaAverageMultiplier = calculateShare(tijucas.pibPerCapita2025, peerAveragePibPc2025) / 100;
   const economyPeerHelp = `Comparação feita com municípios de Santa Catarina com população de até ${numberFormatter.format(pibCitizenData.metadata.populationLimit)} habitantes, usando população de referência do ${pibCitizenData.metadata.populationSource}.`;
   const mesoregionHelp = `Ranking feito entre os ${mesoregionMunicipalities.length} municípios da mesorregião ${tijucas?.mesorregiao}, usando PIB per capita projetado de 2025 e população de referência do ${pibCitizenData.metadata.populationSource}.`;
-  const pibSourceHelp = "Fonte: base de PIB municipal do projeto, com série observada até 2023 e projeções de 2025 a 2030. PIB é o valor total produzido pela economia do município.";
-  const employmentSourceHelp = "Fonte: base de empregos formais do projeto, derivada do Novo Caged/MTE. Saldo significa admissões menos desligamentos no período.";
+  const pibSourceHelp = "Fonte: PIB observado pelo IBGE e projeções 2025-2030 do Observatório FIESC (2026), com coleta/consulta em 2026. PIB é o valor total produzido pela economia do município.";
+  const employmentSourceHelp = "Fonte: base de empregos formais do projeto, derivada do Novo Caged/MTE, com coleta/consulta em 2026. Saldo significa admissões menos desligamentos no período.";
 
   const pibKpis = pibMode === "total"
     ? [
@@ -581,7 +596,7 @@ export function EconomiaPage({ theme }) {
           label: "PIB per capita 2025",
           value: formatPerCapita(tijucas.pibPerCapita2025),
           note: "Tijucas.",
-          help: `PIB per capita é o PIB dividido pela população. Fonte: base de PIB per capita do projeto; população de referência: ${pibCitizenData.metadata.populationSource}.`,
+          help: `PIB per capita é o PIB dividido pela população. Fonte: PIB observado pelo IBGE e projeções do Observatório FIESC (2026), com coleta/consulta em 2026; população de referência: ${pibCitizenData.metadata.populationSource}.`,
         },
         {
           label: "Crescimento até 2030",
@@ -653,8 +668,8 @@ export function EconomiaPage({ theme }) {
   const accessibleEmploymentNarrative = employmentMode === "monthly"
     ? `O saldo mensal mostra vagas abertas menos vagas fechadas. Em ${employment.latestMonth}, Tijucas teve saldo de ${formatSigned(employment.monthlyBalance)} vagas formais. O setor com maior impacto foi ${formatSectorName(topSector?.name)}, com ${formatSigned(topSector?.saldo ?? 0)} vagas.`
     : `O acumulado soma os saldos de 12 meses e mostra melhor a tendência do emprego. No período, Tijucas soma ${formatSigned(employment.annualBalance)} vagas formais. O setor com maior impacto foi ${formatSectorName(topSector?.name)}, com ${formatSigned(topSector?.saldo ?? 0)} vagas.`;
-  const pibSource = "PIB municipal do projeto; IBGE Censo 2022; projeções 2025-2030.";
-  const employmentSource = "MTE/Novo Caged, dados de emprego formal atualizados em 2026.";
+  const pibSource = "PIB observado: IBGE; projeções: Observatório FIESC (2026). Coleta/consulta em 2026.";
+  const employmentSource = "MTE/Novo Caged, dados de emprego formal. Coleta/consulta em 2026.";
   return (
     <section
       id="economia"
@@ -701,7 +716,7 @@ export function EconomiaPage({ theme }) {
                 </h4>
                 <p className="text-xs font-semibold text-slate-400">Área amarela indica anos projetados.</p>
               </div>
-              <div className="h-[360px] w-full">
+              <div className="h-[430px] w-full">
                 <PibChart data={pibChartData} rows={chartRows} mode={pibMode === "total" ? "total" : "perCapita"} />
               </div>
               <SourceLine>{pibSource}</SourceLine>

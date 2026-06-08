@@ -270,7 +270,7 @@ export function ObrasMapCard({
         Cada bola é um setor censitário com obras; o tamanho representa a{" "}
         {metric === "area" ? "metragem total" : "quantidade de obras"}. O tooltip
         mostra contagem e metragem. Use a rodinha do mouse para o zoom. Fonte: CNO
-        / IBGE.
+        / IBGE. Coleta/consulta em 2026.
       </p>
     </article>
   );

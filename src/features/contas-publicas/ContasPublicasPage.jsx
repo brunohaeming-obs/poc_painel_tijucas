@@ -433,9 +433,9 @@ export function ContasPublicasPage() {
   const adminRow = functionRows.find((row) => row.funcao === "Administração");
   const healthRow = functionRows.find((row) => row.funcao === "Saúde");
   const educationRow = functionRows.find((row) => row.funcao === "Educação");
-  const fiscalSourceHelp = "Fonte: DCA/SICONFI 2013-2024, código IBGE 4218004 para Tijucas/SC.";
+  const fiscalSourceHelp = "Fonte: DCA/SICONFI 2013-2024, código IBGE 4218004 para Tijucas/SC, com coleta/consulta em 2026.";
   const fiscalPeerHelp = `Comparação feita com ${contasPublicasData.metadata.grupo_similar.quantidade} municípios de Santa Catarina com população entre 40 mil e 80 mil habitantes em 2024, excluindo Tijucas.`;
-  const fpmSourceHelp = "Fonte do FPM: API de Transferências Constitucionais do Tesouro Transparente, validada pelo código IBGE 4218004.";
+  const fpmSourceHelp = "Fonte do FPM: API de Transferências Constitucionais do Tesouro Transparente, validada pelo código IBGE 4218004, com coleta/consulta em 2026.";
 
   const mainKpis = [
     {
@@ -562,9 +562,9 @@ export function ContasPublicasPage() {
   const investmentNarrative = `Em ${latest.ano}, Tijucas investiu ${formatPerCapita(latest.investimento_per_capita)} por morador, acima da mediana dos municípios semelhantes. O investimento representou ${formatPercent(latest.investimento_pct_despesa)} da despesa total. Isso sugere boa capacidade de transformar parte do orçamento em obras, equipamentos e melhorias permanentes, não apenas manter os serviços do dia a dia.`;
 
   const openingNarrative = `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}, fechando o ano com ${buildSaldoText(latest, resultBenchmark)}. A cidade tem boa receita própria por morador, mas a maior parte da receita corrente ainda vem de transferências. O investimento por morador ficou acima da mediana dos municípios catarinenses semelhantes.`;
-  const dcaSource = "DCA/SICONFI, contas anuais municipais 2013-2024.";
-  const fpmSource = "STN/Tesouro Transparente, API de Transferências Constitucionais/FPM 2026; DCA/SICONFI 2013-2024.";
-  const functionSource = "DCA/SICONFI, despesa por função 2013-2024.";
+  const dcaSource = "DCA/SICONFI, contas anuais municipais 2013-2024. Coleta/consulta em 2026.";
+  const fpmSource = "STN/Tesouro Transparente, API de Transferências Constitucionais/FPM 2026; DCA/SICONFI 2013-2024. Coleta/consulta em 2026.";
+  const functionSource = "DCA/SICONFI, despesa por função 2013-2024. Coleta/consulta em 2026.";
 
   return (
     <section
