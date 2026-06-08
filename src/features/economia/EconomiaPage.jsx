@@ -20,13 +20,13 @@ import {
 } from "../../shared/lib/formatters.js";
 
 const colors = {
-  tijucas: "#FCD418",
+  tijucas: "#007FFE",
   comparison: ["#71B434", "#F2A116", "#14B8A6", "#8B5CF6", "#F97316", "#94A3B8", "#0EA5E9"],
   positive: "#71B434",
   negative: "#F2A116",
   grid: "rgba(255,255,255,0.14)",
   text: "#CBD5E1",
-  projected: "rgba(252,212,24,0.09)",
+  projected: "rgba(0,127,254,0.09)",
 };
 
 function formatMoney(value) {
@@ -448,7 +448,7 @@ function PibChart({ data, rows, mode }) {
             return (
               <g key={item.name} transform={`translate(${x}, ${y})`}>
                 {item.projected ? (
-                  <rect x="0" y="2" width="24" height="11" fill={colors.projected} stroke="rgba(252,212,24,0.35)" />
+                  <rect x="0" y="2" width="24" height="11" fill={colors.projected} stroke="rgba(0,127,254,0.35)" />
                 ) : (
                   <line x1="0" x2="24" y1="8" y2="8" stroke={item.color} strokeWidth={item.name === "Tijucas" ? 5 : 3.2} />
                 )}
@@ -659,7 +659,7 @@ export function EconomiaPage({ theme }) {
     <section
       id="economia"
       aria-labelledby="economia-title"
-      className="educacao-shell relative overflow-hidden rounded-[32px] font-sans shadow-[0_24px_80px_rgba(3,10,34,0.24)]"
+      className="educacao-shell economia-shell relative overflow-hidden rounded-[32px] font-sans shadow-[0_24px_80px_rgba(3,10,34,0.24)]"
     >
       <div className="relative flex flex-col gap-10 p-6 md:p-8 xl:p-10">
         <header className="grid gap-2">

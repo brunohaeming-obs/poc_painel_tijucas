@@ -59,6 +59,7 @@ select:focus-visible {
   --axis-primary: #f2a116;
   --axis-secondary: #fde7c2;
   --axis-chart-surface: #e9e9de;
+  --axis-primary-rgb: 242, 161, 22;
   --axis-text-main: #10213a;
   --axis-text-muted: #475569;
   --axis-text-soft: #64748b;
@@ -73,26 +74,97 @@ select:focus-visible {
   background: #ffffff;
 }
 
+.economia-shell {
+  --axis-primary: #007ffe;
+  --axis-secondary: #eff6ff;
+  --axis-chart-surface: #eff6ff;
+  --axis-primary-rgb: 0, 127, 254;
+}
+
+.contas-publicas-shell {
+  --axis-primary: #000086;
+  --axis-secondary: #000086;
+  --axis-chart-surface: #000086;
+  --axis-primary-rgb: 0, 0, 134;
+  --axis-text-main: #ffffff;
+  --axis-text-muted: #c8d4ec;
+  --axis-text-soft: #93a6c7;
+  background: #000086;
+}
+
+.contas-publicas-shell .educacao-surface,
+.contas-publicas-shell .educacao-surface-strong,
+.contas-publicas-shell .educacao-chart-card,
+.contas-publicas-shell .educacao-kpi-card {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: #000086;
+  box-shadow: 0 18px 44px rgba(0, 0, 70, 0.28);
+}
+
+.contas-publicas-shell .border-white\/10,
+.contas-publicas-shell .border-white\/12,
+.contas-publicas-shell .border-white\/15 {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.contas-publicas-shell .bg-white\/\[0\.03\],
+.contas-publicas-shell .bg-white\/\[0\.08\],
+.contas-publicas-shell .bg-white\/\[0\.1\],
+.contas-publicas-shell .bg-white\/5,
+.contas-publicas-shell .bg-white\/6,
+.contas-publicas-shell .bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.contas-publicas-shell .rounded-full.border,
+.contas-publicas-shell .inline-flex.rounded-full.border,
+.contas-publicas-shell .rounded-full[class*="border-"] {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.contas-publicas-shell .text-brand-yellow {
+  color: #ffffff;
+}
+
+.contas-publicas-shell .border-brand-yellow,
+.contas-publicas-shell .border-brand-yellow\/35,
+.contas-publicas-shell .border-brand-yellow\/40,
+.contas-publicas-shell .border-brand-yellow\/45,
+.contas-publicas-shell .border-brand-yellow\/55,
+.contas-publicas-shell .border-brand-yellow\/60 {
+  border-color: rgba(255, 255, 255, 0.46);
+}
+
+.contas-publicas-shell .bg-brand-yellow {
+  background-color: #ffffff;
+}
+
+.contas-publicas-shell .bg-brand-yellow.text-brand-navy {
+  color: #000086;
+}
+
 .educacao-surface {
-  border: 1px solid rgba(242, 161, 22, 0.26);
-  background: #fde7c2;
+  border: 1px solid rgba(var(--axis-primary-rgb), 0.26);
+  background: var(--axis-secondary);
   box-shadow: 0 10px 24px rgba(16, 33, 58, 0.06);
 }
 
 .educacao-surface-strong {
-  border: 1px solid rgba(242, 161, 22, 0.3);
-  background: #fde7c2;
+  border: 1px solid rgba(var(--axis-primary-rgb), 0.3);
+  background: var(--axis-secondary);
   box-shadow: 0 12px 28px rgba(16, 33, 58, 0.08);
 }
 
 .educacao-kpi-card {
   min-height: 144px;
-  background: #fde7c2;
+  background: var(--axis-secondary);
 }
 
 .educacao-chart-card {
   min-height: 320px;
-  background: #e9e9de;
+  background: var(--axis-chart-surface);
   border-color: rgba(148, 163, 184, 0.25);
 }
 
@@ -115,7 +187,7 @@ select:focus-visible {
 .educacao-shell .border-white\/10,
 .educacao-shell .border-white\/12,
 .educacao-shell .border-white\/15 {
-  border-color: rgba(242, 161, 22, 0.26);
+  border-color: rgba(var(--axis-primary-rgb), 0.26);
 }
 
 .educacao-shell .bg-white\/\[0\.03\],
@@ -130,16 +202,61 @@ select:focus-visible {
 .educacao-shell .rounded-full.border,
 .educacao-shell .inline-flex.rounded-full.border,
 .educacao-shell .rounded-full[class*="border-"] {
-  background-color: rgba(242, 161, 22, 0.12);
-  border-color: rgba(242, 161, 22, 0.28);
+  background-color: rgba(var(--axis-primary-rgb), 0.12);
+  border-color: rgba(var(--axis-primary-rgb), 0.28);
   color: #10213a;
+}
+
+.educacao-shell .text-brand-yellow {
+  color: var(--axis-primary);
+}
+
+.educacao-shell .border-brand-yellow,
+.educacao-shell .border-brand-yellow\/35,
+.educacao-shell .border-brand-yellow\/40,
+.educacao-shell .border-brand-yellow\/45,
+.educacao-shell .border-brand-yellow\/55,
+.educacao-shell .border-brand-yellow\/60 {
+  border-color: rgba(var(--axis-primary-rgb), 0.5);
+}
+
+.educacao-shell .bg-brand-yellow {
+  background-color: var(--axis-primary);
+}
+
+.educacao-shell .bg-brand-yellow\/18 {
+  background-color: rgba(var(--axis-primary-rgb), 0.18);
+}
+
+.educacao-shell .bg-brand-yellow\/\[0\.10\] {
+  background-color: rgba(var(--axis-primary-rgb), 0.1);
+}
+
+.educacao-shell .bg-brand-yellow\/\[0\.12\] {
+  background-color: rgba(var(--axis-primary-rgb), 0.12);
+}
+
+.educacao-shell .bg-brand-yellow\/\[0\.16\] {
+  background-color: rgba(var(--axis-primary-rgb), 0.16);
+}
+
+.educacao-shell .hover\:border-brand-yellow\/60:hover {
+  border-color: rgba(var(--axis-primary-rgb), 0.6);
+}
+
+.educacao-shell .focus\:ring-brand-yellow\/70:focus {
+  --tw-ring-color: rgba(var(--axis-primary-rgb), 0.7);
+}
+
+.educacao-shell .bg-brand-yellow.text-brand-navy {
+  color: #ffffff;
 }
 
 .educacao-shell select {
   appearance: none;
   color: #10213a;
   background-color: rgba(255, 255, 255, 0.72);
-  border-color: rgba(242, 161, 22, 0.42);
+  border-color: rgba(var(--axis-primary-rgb), 0.42);
   background-image:
     linear-gradient(45deg, transparent 50%, #10213a 50%),
     linear-gradient(135deg, #10213a 50%, transparent 50%);
@@ -156,6 +273,6 @@ select:focus-visible {
 }
 
 .educacao-year-select option:checked {
-  background: #f2a116;
-  color: #10213a;
+  background: var(--axis-primary);
+  color: #ffffff;
 }

@@ -570,7 +570,7 @@ export function ContasPublicasPage() {
     <section
       id="contas-publicas"
       aria-labelledby="contas-publicas-title"
-      className="educacao-shell relative overflow-hidden rounded-[32px] font-sans shadow-[0_24px_80px_rgba(3,10,34,0.24)]"
+      className="educacao-shell contas-publicas-shell relative overflow-hidden rounded-[32px] font-sans shadow-[0_24px_80px_rgba(3,10,34,0.24)]"
     >
       <div className="relative flex flex-col gap-10 p-6 md:p-8 xl:p-10">
         <header className="grid gap-2">
