@@ -12,14 +12,12 @@ import {
 import { useMemo, useState } from "react";
 import { pibCitizenData } from "../../data/pibCitizenData.js";
 import { realIndicators } from "../../data/realIndicators.js";
-import { TypewriterText } from "../educacao/components/TypewriterText.jsx";
-
-const numberFormatter = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 0 });
-const decimalFormatter = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
-const compactFormatter = new Intl.NumberFormat("pt-BR", {
-  notation: "compact",
-  maximumFractionDigits: 1,
-});
+import { TypewriterText } from "../../shared/components/TypewriterText.jsx";
+import {
+  brInteger as numberFormatter,
+  decimalNumber as decimalFormatter,
+  compactNumber as compactFormatter,
+} from "../../shared/lib/formatters.js";
 
 const colors = {
   tijucas: "#FCD418",

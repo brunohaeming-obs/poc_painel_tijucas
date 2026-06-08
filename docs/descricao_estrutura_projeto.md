@@ -1,19 +1,19 @@
-# Descricao da estrutura do projeto
+# Descrição da estrutura do projeto
 
-Atualizado em 2026-05-28.
+Atualizado em 2026-06-08.
 
-Este projeto organiza um painel web de indicadores para Tijucas/SC, combinando bases locais, scripts de tratamento, artefatos publicados e uma aplicacao React/Vite.
+Este projeto organiza um painel web de indicadores para Tijucas/SC, combinando bases locais, scripts de tratamento, artefatos publicados e uma aplicação React/Vite.
 
-## Visao geral
+## Visão geral
 
-O projeto esta dividido em quatro blocos principais:
+O projeto está dividido em quatro blocos principais:
 
 | Bloco | Papel |
 | --- | --- |
-| Dados | Armazena bases brutas, intermediarias, tratadas e publicadas. |
-| Scripts | Automatiza coleta, processamento e publicacao dos dados. |
-| Aplicacao web | Implementa o painel em React, com componentes, estilos e dados embarcados. |
-| Documentacao e referencias | Descreve metodologia, inventario, catalogo de fontes e indicadores. |
+| Dados | Armazena bases brutas, intermediárias, tratadas e publicadas. |
+| Scripts | Automatiza coleta, processamento e publicação dos dados. |
+| Aplicação web | Implementa o painel em React, organizado por features (eixos temáticos). |
+| Documentação e referências | Descreve metodologia, inventário, catálogo de fontes e indicadores. |
 
 ## Estrutura principal
 
@@ -40,74 +40,78 @@ O projeto esta dividido em quatro blocos principais:
 |   |-- data_processing/
 |   `-- data_publish/
 `-- src/
-    |-- components/
-    `-- data/
+    |-- shared/
+    |-- features/
+    |-- data/
+    `-- _legacy/
 ```
 
 ## Dados
 
 ### `data/raw/`
 
-Guarda os arquivos de origem, sem edicao manual. Hoje contem:
+Guarda os arquivos de origem, sem edição manual. Hoje contém:
 
-- Bolsa Familia mensal por municipio de Santa Catarina.
+- Bolsa Família mensal por município de Santa Catarina.
 - Procedimentos ambulatoriais do DataSUS para Santa Catarina.
-- Versao longa/normalizada dos procedimentos ambulatoriais.
-- Base MTE/CAGED com saldo de empregos formais por municipio e setor.
+- Versão longa/normalizada dos procedimentos ambulatoriais.
+- Base MTE/CAGED com saldo de empregos formais por município e setor.
 
 ### `data/interim/`
 
-Reservado para dados intermediarios de tratamento. No estado atual, esta praticamente vazio.
+Reservado para dados intermediários de tratamento. No estado atual, está praticamente vazio.
 
 ### `data/processed/`
 
-Guarda bases tratadas e prontas para analise. Os principais conteudos sao:
+Guarda bases tratadas e prontas para análise. Os principais conteúdos são:
 
-- Bolsa Familia tratado por municipio.
-- Bolsa Familia total mensal em Santa Catarina.
+- Bolsa Família tratado por município.
+- Bolsa Família total mensal em Santa Catarina.
 - Procedimentos ambulatoriais mensais para Tijucas e Santa Catarina.
 - Saldo mensal de empregos para Tijucas e Santa Catarina.
-- Matriz municipal de Santa Catarina para graficos comparativos.
-- Exportacao XLSX da base longa do DataSUS.
+- Matriz municipal de Santa Catarina para gráficos comparativos.
+- Exportação XLSX da base longa do DataSUS.
 
 ### `data/published/`
 
-Guarda artefatos prontos para publicacao, antes de serem copiados para `public/`. Contem:
+Guarda artefatos prontos para publicação, antes de serem copiados para `public/`. Contém:
 
-- JSONs para consumo estatico pelo painel.
-- Copias dos arquivos de download em `data/published/downloads/`.
+- JSONs para consumo estático pelo painel.
+- Cópias dos arquivos de download em `data/published/downloads/`.
 
-## Publicacao estatica
+## Publicação estática
 
 ### `public/assets/`
 
-Contem imagens servidas diretamente pelo app:
+Contém imagens servidas diretamente pelo app:
 
-- Brasao de Tijucas.
+- Brasão de Tijucas.
 - Fotos e logos de turismo.
 - Imagem do dinossauro usada no painel.
 
 ### `public/data/`
 
-Contem JSONs publicados para consumo estatico:
+Contém JSONs publicados para consumo estático (carregados via fetch em runtime):
 
 - `kpis_home.json`: KPIs principais.
-- `indicadores_mensais.json`: series mensais de emprego, saude e Bolsa Familia.
-- `series_home.json`: series usadas na pagina inicial.
-- `scatter_municipios.json`: matriz municipal para visualizacoes comparativas.
-- `metadata_fontes.json`: metadados de fontes e datas de atualizacao.
+- `indicadores_mensais.json`: séries mensais de emprego, saúde e Bolsa Família.
+- `series_home.json`: séries usadas na página inicial.
+- `scatter_municipios.json`: matriz municipal para visualizações comparativas.
+- `metadata_fontes.json`: metadados de fontes e datas de atualização.
+- `educacao/`: bases do eixo de educação consumidas pela feature `educacao`.
+- `construcao/`: GeoJSON e séries de obras consumidos pela feature `construcao-civil`.
 
 ### `public/downloads/`
 
-Contem arquivos CSV/XLSX expostos para download no painel. Sao copias publicas de arquivos tratados.
+Contém arquivos CSV/XLSX expostos para download no painel. São cópias públicas de arquivos tratados.
 
 ## Scripts
 
 ### `scripts/data_collection/`
 
-Agrupa pontos de entrada para coleta de dados. A estrutura ja existe para:
+Agrupa pontos de entrada para coleta de dados. A estrutura já existe para:
 
-- Bolsa Familia.
+- Bolsa Família.
 - DataSUS ambulatorial.
 - MTE/CAGED.
 - Tesouro/FPM.
@@ -116,11 +120,11 @@ Agrupa pontos de entrada para coleta de dados. A estrutura ja existe para:
 - ANEEL/GD.
 - RFB/empresas.
 
-Parte desses scripts ainda esta como esqueleto, aguardando definicao das consultas ou fontes exatas.
+Parte desses scripts ainda está como esqueleto, aguardando definição das consultas ou fontes exatas.
 
 ### `scripts/data_processing/`
 
-Agrupa rotinas de tratamento e construcao de bases analiticas:
+Agrupa rotinas de tratamento e construção de bases analíticas:
 
 - `process_bolsa_familia.py`
 - `process_datasus_ambulatorial.py`
@@ -128,87 +132,115 @@ Agrupa rotinas de tratamento e construcao de bases analiticas:
 - `build_indicadores_mensais.py`
 - `build_scatter_municipios.py`
 
-Esses scripts leem arquivos em `data/raw/` ou `data/processed/` e geram saidas em `data/processed/` ou `data/published/`.
+Esses scripts leem arquivos em `data/raw/` ou `data/processed/` e geram saídas em `data/processed/` ou `data/published/`.
 
 ### `scripts/data_publish/`
 
-Agrupa rotinas de publicacao:
+Agrupa rotinas de publicação:
 
 - `publish_public_json.py`: copia JSONs de `data/published/` para `public/data/`.
 - `publish_downloads.py`: copia arquivos tratados para `data/published/downloads/` e `public/downloads/`.
+- `publish_educacao.py`: publica as bases do eixo de educação.
+- `build_obras_geojson.py`: gera o GeoJSON de obras da construção civil.
 
-## Aplicacao web
+## Aplicação web
 
-### `src/`
+A aplicação React/Vite segue uma organização **feature-based**: cada eixo temático é uma
+feature autocontida, e o código reutilizável entre features fica em `shared/`.
 
-Contem a aplicacao React/Vite.
+### Arquivos raiz de `src/`
 
-Arquivos principais:
-
-- `src/App.jsx`: composicao principal da aplicacao.
 - `src/main.jsx`: ponto de entrada React.
-- `src/styles.css`: estilos globais.
+- `src/App.jsx`: composição principal (Header + ThematicDashboard).
+- `src/styles/index.css`: estilos globais (Tailwind + CSS custom).
 
-### `src/components/`
+### `src/shared/`
 
-Contem os componentes visuais do painel:
+Código reutilizável entre todas as features:
 
-- Cards de KPI.
-- Graficos de linha e barra.
-- Secoes tematicas.
-- Mapa.
-- Header, hero e footer.
-- Tabela de indicadores mensais.
-- Componentes especificos para Bolsa Familia e boletins.
+- `lib/formatters.js`: formatadores numéricos pt-BR (inteiro, moeda, compacto, decimal).
+- `charts/EChartCard.jsx`: wrapper de gráfico ECharts.
+- `charts/palette.js`: paleta de cores institucional.
+- `charts/echartsOptions.js`: construtores de opções de gráfico (linha, barra, pizza).
+- `components/TypewriterText.jsx`: efeito de digitação usado em narrativas.
+- `layout/Header.jsx`: cabeçalho do portal.
+
+### `src/features/`
+
+Uma pasta por eixo temático:
+
+- `dashboard/`: orquestrador dos painéis. Contém `ThematicDashboard.jsx` (seletor de eixos
+  e roteamento), `components/` (`AxisSelector`, `AxisPanel`), `axisCardBuilders.js` (cards
+  dos eixos sem página dedicada), `config/axes.js` (cores, ícones e narrativas) e
+  `data/thematicDashboardData.js`.
+- `economia/`: página do eixo de economia (PIB e emprego formal).
+- `educacao/`: feature mais completa, usada como padrão de referência — `EducacaoPage.jsx`
+  com `components/`, `config/` e `data/` próprios.
+- `contas-publicas/`: página de contas públicas, com `data/` própria.
+- `construcao-civil/`: componentes de obras (`ObrasMapCard`, `ObrasSeriesCharts`).
+
+Os eixos economia, educação e contas públicas têm páginas dedicadas; saúde, população,
+meio ambiente e construção civil são renderizados pelo painel padrão (`AxisPanel`).
 
 ### `src/data/`
 
-Contem dados ainda importados diretamente pelo frontend:
+Datasets compartilhados entre features, ainda importados diretamente pelo frontend:
 
-- Indicadores reais derivados das bases locais.
-- Dados simulados/configurados para paineis tematicos.
-- GeoJSONs do IBGE para mapas.
-- Dicionario de nomes de municipios de SC.
+- Indicadores reais derivados das bases locais (`realIndicators.js`).
+- Dados de PIB, emprego e finanças públicas para os painéis.
+- `geo/`: GeoJSONs do IBGE para mapas.
 
-Uma parte desses dados ja foi tambem publicada em JSON dentro de `public/data/`.
+Dados de uso exclusivo de uma feature ficam dentro da própria feature.
 
-## Referencias e documentacao
+### `src/_legacy/`
+
+Componentes e dados que não eram importados por nenhuma parte da aplicação no momento da
+reestruturação. Foram preservados aqui (fora do build) como scaffolding reaproveitável.
+O Vite só empacota o que é alcançável a partir de `src/main.jsx`, então nada em `_legacy/`
+entra no bundle.
+
+## Referências e documentação
 
 ### `references/`
 
-Contem catalogos estruturados:
+Contém catálogos estruturados:
 
-- `fontes_indicadores.yml`: fontes, orgaos, granularidade e caminhos locais.
+- `fontes_indicadores.yml`: fontes, órgãos, granularidade e caminhos locais.
 - `indicadores_catalogo.yml`: indicadores, unidades, periodicidade e status.
 
 ### `docs/`
 
-Contem documentacao do projeto:
+Contém documentação do projeto:
 
-- `inventario_dados.md`: inventario tecnico das bases e artefatos.
-- `descricao_estrutura_projeto.md`: esta descricao geral da estrutura.
-- `metodologia_indicadores_prefeito_tijucas.docx`: documento metodologico existente.
+- `inventario_dados.md`: inventário técnico das bases e artefatos.
+- `descricao_estrutura_projeto.md`: esta descrição geral da estrutura.
+- `metodologia_indicadores_prefeito_tijucas.docx`: documento metodológico existente.
 
 ### `notebooks/`, `reports/` e `references/`
 
-`notebooks/` e `reports/figures/` estao preparados para analises exploratorias e saidas analiticas, mas ainda nao possuem conteudo relevante alem dos marcadores de pasta.
+`notebooks/` e `reports/figures/` estão preparados para análises exploratórias e saídas
+analíticas, mas ainda não possuem conteúdo relevante além dos marcadores de pasta.
 
-## Principais pontos de atencao
+## Principais pontos de atenção
 
-- As bases reais consolidadas hoje cobrem Bolsa Familia, DataSUS ambulatorial e MTE/CAGED.
-- Parte dos indicadores exibidos no frontend ainda e simulada ou configurada manualmente.
-- `src/data/realIndicators.js` ainda e uma fonte importante para o app, embora parte do conteudo ja exista em `public/data/`.
-- A raiz ainda possui `tratamento.py` com caminhos absolutos; a rotina reprodutivel equivalente esta em `scripts/data_processing/process_datasus_ambulatorial.py`.
-- A estrutura atual ja separa bem origem, tratamento e publicacao, mas ainda falta automatizar de ponta a ponta algumas coletas.
+- As bases reais consolidadas hoje cobrem Bolsa Família, DataSUS ambulatorial e MTE/CAGED.
+- Parte dos indicadores exibidos no frontend ainda é simulada ou configurada manualmente
+  (eixos de população, meio ambiente e partes de saúde).
+- `src/data/realIndicators.js` ainda é uma fonte importante para o app, embora parte do
+  conteúdo já exista em `public/data/`.
+- A raiz ainda possui `tratamento.py` com caminhos absolutos; a rotina reprodutível
+  equivalente está em `scripts/data_processing/process_datasus_ambulatorial.py`.
+- A estrutura atual já separa bem origem, tratamento e publicação, mas ainda falta
+  automatizar de ponta a ponta algumas coletas.
 
 ## Fluxo recomendado
 
 ```text
 coleta -> data/raw
 tratamento -> data/processed
-construcao/publicacao -> data/published
-exposicao estatica -> public/data e public/downloads
-consumo -> src/app React
+construção/publicação -> data/published
+exposição estática -> public/data e public/downloads
+consumo -> src/ (app React)
 ```
 
-Essa separacao evita misturar fonte original, dado tratado e arquivo servido ao usuario final.
+Essa separação evita misturar fonte original, dado tratado e arquivo servido ao usuário final.
