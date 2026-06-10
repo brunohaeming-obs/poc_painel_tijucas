@@ -1,4 +1,4 @@
-export const pibCitizenData = {
+{
   "metadata": {
     "populationLimit": 70000,
     "observedYear": 2023,
@@ -41618,4 +41618,4 @@ export const pibCitizenData = {
     "Videira",
     "Guaramirim"
   ]
-};
+}

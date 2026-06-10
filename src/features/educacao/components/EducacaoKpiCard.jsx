@@ -106,8 +106,14 @@ export function EducacaoKpiCard({
   animateKey = "",
 }) {
   const Icon = iconMap[item.key] ?? School;
-  const VariationIcon = getVariationIcon(item.variation.direction);
   const isOverview = variant === "overview";
+
+  const rawDirection = item.variation?.direction ?? "neutral";
+  const effectiveDirection = item.lowerIsBetter
+    ? rawDirection === "up" ? "down" : rawDirection === "down" ? "up" : "neutral"
+    : rawDirection;
+
+  const VariationIcon = getVariationIcon(effectiveDirection);
   const variationText = isOverview
     ? buildOverviewVariationText(item.variation)
     : buildDefaultVariationText(item.variation);
@@ -131,7 +137,7 @@ export function EducacaoKpiCard({
           <Icon size={isOverview ? 22 : 24} strokeWidth={2.1} />
         </div>
         <span
-          className={`inline-flex max-w-[190px] items-center gap-2 rounded-2xl px-3 py-2 text-left text-[11px] font-bold uppercase tracking-[0.08em] ${getVariationClasses(item.variation.direction, isOverview)}`}
+          className={`inline-flex max-w-[190px] items-center gap-2 rounded-2xl px-3 py-2 text-left text-[11px] font-bold uppercase tracking-[0.08em] ${getVariationClasses(effectiveDirection, isOverview)}`}
           title={variationText}
         >
           {VariationIcon ? <VariationIcon size={14} strokeWidth={2.2} /> : null}

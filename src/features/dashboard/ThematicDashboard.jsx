@@ -55,7 +55,7 @@ export function ThematicDashboard({ themes }) {
 
       {activeTheme.id === "economiaEmpregos" ? (
         <div className="rounded-[32px] shadow-soft">
-          <EconomiaPage theme={activeTheme} />
+          <EconomiaPage />
         </div>
       ) : activeTheme.id === "educacao" ? (
         <div className="rounded-[32px] shadow-soft">
@@ -68,6 +68,13 @@ export function ThematicDashboard({ themes }) {
       ) : activeTheme.id === "saude" ? (
         <div className="rounded-[32px] shadow-soft">
           <SaudePage />
+        </div>
+      ) : activeTheme.id === "populacao" ? (
+        <div className="relative flex min-h-[340px] items-center justify-center rounded-[32px] bg-brand-navy shadow-soft">
+          <p className="text-5xl font-extrabold text-white/20 md:text-7xl">Em construção</p>
+          <span className="absolute bottom-4 right-5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold text-white/40">
+            Dados ilustrativos · não refletem valores reais
+          </span>
         </div>
       ) : (
         <AxisPanel theme={activeTheme} />

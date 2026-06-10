@@ -82,115 +82,52 @@ select:focus-visible {
 }
 
 .contas-publicas-shell {
-  --axis-primary: #000086;
-  --axis-secondary: #000086;
-  --axis-chart-surface: #000086;
-  --axis-primary-rgb: 0, 0, 134;
-  --axis-text-main: #ffffff;
-  --axis-text-muted: #c8d4ec;
-  --axis-text-soft: #93a6c7;
-  background: #000086;
+  --axis-primary: #fcd418;
+  --axis-secondary: #fdf5c7;
+  --axis-chart-surface: #fffef0;
+  --axis-primary-rgb: 252, 212, 24;
+  --axis-text-main: #10213a;
+  --axis-text-muted: #475569;
+  --axis-text-soft: #64748b;
+  background: #ffffff;
 }
 
 .contas-publicas-shell .educacao-surface,
 .contas-publicas-shell .educacao-surface-strong,
 .contas-publicas-shell .educacao-chart-card,
 .contas-publicas-shell .educacao-kpi-card {
-  border-color: rgba(125, 170, 255, 0.36);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035)),
-    #000086;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 18px 44px rgba(0, 0, 70, 0.38);
+  border-color: rgba(252, 212, 24, 0.4);
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(16, 33, 58, 0.06);
 }
 
 .contas-publicas-shell .contas-publicas-chart-card {
-  border-color: rgba(140, 190, 255, 0.5);
-  background:
-    linear-gradient(180deg, rgba(80, 150, 255, 0.14), rgba(20, 42, 166, 0.18)),
-    #02028f;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
-    0 24px 56px rgba(0, 0, 60, 0.45);
+  border-color: rgba(252, 212, 24, 0.55);
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(200, 160, 0, 0.07);
 }
 
 .contas-publicas-shell .contas-publicas-kpi-card {
-  border-color: rgba(125, 170, 255, 0.44);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(75, 121, 255, 0.12)),
-    #050592;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    0 14px 34px rgba(0, 0, 64, 0.34);
+  border-color: rgba(252, 212, 24, 0.75);
+  background: #fdf5c7;
+  box-shadow: 0 14px 34px rgba(200, 160, 0, 0.10);
 }
 
 .contas-publicas-shell .contas-publicas-narrative-card {
-  border-color: rgba(252, 212, 24, 0.36);
-  background:
-    linear-gradient(180deg, rgba(252, 212, 24, 0.085), rgba(255, 255, 255, 0.04)),
-    #03038c;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 22px 48px rgba(0, 0, 64, 0.4);
+  border-color: rgba(252, 212, 24, 0.85);
+  background: #fdf5c7;
+  box-shadow: 0 22px 48px rgba(200, 160, 0, 0.12);
 }
 
-.contas-publicas-shell .border-white\/10,
-.contas-publicas-shell .border-white\/12,
-.contas-publicas-shell .border-white\/15 {
-  border-color: rgba(174, 205, 255, 0.28);
+.contas-publicas-shell .rounded-full[class*="border-"]:hover,
+.contas-publicas-shell .rounded-full[class*="border-"]:focus {
+  background-color: #fcd418;
+  border-color: #fcd418;
+  color: #10213a;
 }
 
-.contas-publicas-shell .bg-white\/\[0\.03\],
-.contas-publicas-shell .bg-white\/\[0\.08\],
-.contas-publicas-shell .bg-white\/\[0\.1\],
-.contas-publicas-shell .bg-white\/5,
-.contas-publicas-shell .bg-white\/6,
-.contas-publicas-shell .bg-white\/10 {
-  background-color: rgba(255, 255, 255, 0.12);
-}
-
-.contas-publicas-shell .rounded-full.border,
-.contas-publicas-shell .inline-flex.rounded-full.border,
-.contas-publicas-shell .rounded-full[class*="border-"] {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.18);
-  color: #ffffff;
-}
-
-.contas-publicas-shell .text-brand-yellow {
-  color: #ffffff;
-}
-
-.contas-publicas-shell .text-slate-300 {
-  color: #dbe7ff;
-}
-
-.contas-publicas-shell .text-slate-400 {
-  color: #b8c8ea;
-}
-
-.contas-publicas-shell .contas-publicas-kpi-card .text-slate-400,
-.contas-publicas-shell .contas-publicas-narrative-card .text-slate-400 {
-  color: #c8d8f4;
-}
-
-.contas-publicas-shell .border-brand-yellow,
-.contas-publicas-shell .border-brand-yellow\/35,
-.contas-publicas-shell .border-brand-yellow\/40,
-.contas-publicas-shell .border-brand-yellow\/45,
-.contas-publicas-shell .border-brand-yellow\/55,
-.contas-publicas-shell .border-brand-yellow\/60 {
-  border-color: rgba(255, 255, 255, 0.46);
-}
-
-.contas-publicas-shell .bg-brand-yellow {
-  background-color: #ffffff;
-}
-
-.contas-publicas-shell .bg-brand-yellow.text-brand-navy {
-  color: #000086;
+.educacao-shell.contas-publicas-shell .bg-brand-yellow.text-brand-navy {
+  color: #10213a;
 }
 
 .economia-shell .bg-brand-blue.text-white,

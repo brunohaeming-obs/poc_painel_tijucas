@@ -4,13 +4,14 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  Line,
+  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 import { EducacaoChartCard } from "./EducacaoChartCard.jsx";
-import { EducacaoKpiGrid } from "./EducacaoKpiGrid.jsx";
 import { EducacaoNarrativeText } from "./EducacaoNarrativeText.jsx";
 import { EducacaoSectionHeader } from "./EducacaoSectionHeader.jsx";
 
@@ -53,15 +54,47 @@ function renderBarTooltip({ active, payload, label }) {
   );
 }
 
+function renderHistoryTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null;
+
+  return (
+    <div className="rounded-2xl border border-[rgba(16,33,58,0.10)] bg-white px-4 py-3 text-sm text-[#10213A] shadow-[0_14px_34px_rgba(16,33,58,0.12)]">
+      <strong className="text-[#10213A]">{label}</strong>
+      <div className="mt-2 grid gap-1.5">
+        {payload.map((item) => (
+          <div key={item.dataKey} className="flex items-center justify-between gap-5">
+            <span className="flex items-center gap-2 text-[#5C6773]">
+              <span
+                className="h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: item.stroke }}
+              />
+              {item.name}
+            </span>
+            <span className="font-semibold text-[#10213A]">
+              {item.value === null || item.value === undefined || Number.isNaN(item.value)
+                ? "N/D"
+                : `${percentFormatter.format(item.value)}%`}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function InfraestruturaSection({
   selectedYear,
-  infrastructureKpis,
   infrastructureChart,
+  infrastructureHistory,
   narratives,
 }) {
   const [showMethodology, setShowMethodology] = useState(false);
+  const [activeHistoryKey, setActiveHistoryKey] = useState("internet");
+
   const hasComparativo = Boolean(infrastructureChart?.hasReference);
   const chartItems = infrastructureChart?.items ?? [];
+  const historyItems = infrastructureHistory ?? [];
+  const activeSeries = historyItems.find((s) => s.key === activeHistoryKey) ?? null;
 
   return (
     <section className="grid gap-8" aria-labelledby="educacao-infra-title">
@@ -118,9 +151,122 @@ export function InfraestruturaSection({
           className="xl:pt-4"
           icon={Sparkles}
         />
-          <EducacaoKpiGrid items={infrastructureKpis} variant="overview" />
+
+        {historyItems.length ? (
+          <EducacaoChartCard
+            title={
+              activeSeries
+                ? `Série histórica: ${activeSeries.label}`
+                : "Série histórica de infraestrutura"
+            }
+            subtitle={
+              activeSeries?.hasSc
+                ? "Tijucas comparada com a média de Santa Catarina. Fonte: Censo Escolar/INEP."
+                : "Dados de Tijucas. Comparação estadual não disponível para este indicador."
+            }
+          >
+            <div className="flex flex-wrap gap-2">
+              {historyItems.map((series) => (
+                <button
+                  key={series.key}
+                  type="button"
+                  onClick={() => setActiveHistoryKey(series.key)}
+                  className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition ${
+                    activeHistoryKey === series.key
+                      ? "border-[#F2A116] bg-[#F2A116] text-white"
+                      : "border-[rgba(16,33,58,0.14)] bg-white text-[#10213A] hover:border-[#F2A116] hover:text-[#F2A116]"
+                  }`}
+                >
+                  {series.label}
+                </button>
+              ))}
+            </div>
+
+            {activeSeries?.chartData?.length ? (
+              <div className="mt-5 rounded-[24px] bg-[#E9E9DE] p-5">
+                <div className="mb-4 flex flex-wrap items-center gap-5 text-sm text-[#10213A]">
+                  <span className="inline-flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-full bg-[#F2A116]" />
+                    Tijucas
+                  </span>
+                  {activeSeries.hasSc ? (
+                    <span className="inline-flex items-center gap-2">
+                      <span
+                        className="inline-block h-0.5 w-5 rounded-full"
+                        style={{
+                          background:
+                            "repeating-linear-gradient(to right,#4DA3FF 0,#4DA3FF 5px,transparent 5px,transparent 8px)",
+                        }}
+                      />
+                      Santa Catarina
+                    </span>
+                  ) : null}
+                </div>
+
+                <div style={{ width: "100%", height: 260 }}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                      data={activeSeries.chartData}
+                      margin={{ top: 8, right: 16, bottom: 4, left: 0 }}
+                    >
+                      <CartesianGrid stroke="rgba(16,33,58,0.10)" strokeDasharray="4 4" />
+                      <XAxis
+                        dataKey="year"
+                        tick={{ fill: "#10213A", fontSize: 12, fontFamily: "Inter, sans-serif" }}
+                        axisLine={{ stroke: "rgba(16,33,58,0.16)" }}
+                        tickLine={false}
+                      />
+                      <YAxis
+                        domain={[0, 100]}
+                        tickFormatter={(v) => `${v}%`}
+                        tick={{ fill: "#10213A", fontSize: 12, fontFamily: "Inter, sans-serif" }}
+                        axisLine={false}
+                        tickLine={false}
+                        width={44}
+                      />
+                      <Tooltip content={renderHistoryTooltip} />
+                      <Line
+                        type="monotone"
+                        dataKey="tijucas"
+                        name="Tijucas"
+                        stroke="#F2A116"
+                        strokeWidth={2.5}
+                        dot={{ r: 4, fill: "#F2A116", strokeWidth: 0 }}
+                        activeDot={{ r: 6 }}
+                        connectNulls
+                      />
+                      {activeSeries.hasSc ? (
+                        <Line
+                          type="monotone"
+                          dataKey="sc"
+                          name="Santa Catarina"
+                          stroke="#4DA3FF"
+                          strokeWidth={2.5}
+                          strokeDasharray="5 3"
+                          dot={{ r: 4, fill: "#4DA3FF", strokeWidth: 0 }}
+                          activeDot={{ r: 6 }}
+                          connectNulls
+                        />
+                      ) : null}
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            ) : (
+              <p className="mt-4 text-sm text-slate-400">Dados históricos não disponíveis.</p>
+            )}
+
+            <p className="mt-5 text-sm leading-6 text-slate-300">
+              {activeSeries?.hasSc
+                ? "Série 2019–2024. Comparativo estadual restrito ao período com estrutura comparável."
+                : "Série 2014–2025 para Tijucas. Comparativo estadual não disponível para este indicador."}
+            </p>
+          </EducacaoChartCard>
+        ) : null}
       </div>
 
+
+      <div className="grid gap-8 xl:grid-cols-[minmax(0,1.28fr)_minmax(280px,0.72fr)] xl:items-start">
       <EducacaoChartCard
         title="Recursos das escolas: Tijucas x Santa Catarina"
         subtitle="Percentual de escolas que declararam possuir cada recurso em 2024."
@@ -206,6 +352,16 @@ export function InfraestruturaSection({
           acessibilidade.
         </p>
       </EducacaoChartCard>
+
+      <EducacaoNarrativeText
+        eyebrow="Condições materiais"
+        title="Conectividade universal, mas brechas em esporte e tecnologia"
+        body="Tijucas universalizou o acesso à internet nas escolas e tem índice de refeitório acima de 80% — base sólida para continuidade das aulas. Laboratórios de informática e quadras esportivas ficam abaixo da média catarinense: recursos que ampliam o repertório prático dos alunos e o tempo de aprendizagem ativa. O indicador de banheiro acessível supera o estado, embora represente apenas uma dimensão da acessibilidade física escolar."
+        caption="Fonte: Censo Escolar / INEP 2024. Declaração pelas escolas — sujeita a variação na atualização cadastral."
+        icon={Sparkles}
+        className="xl:pt-4"
+      />
+      </div>
     </section>
   );
 }

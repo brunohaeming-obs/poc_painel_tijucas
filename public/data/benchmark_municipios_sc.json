@@ -1,0 +1,215 @@
+{
+  "metadata": {
+    "descricao": "Estimativa de atendimentos ambulatoriais por 1.000 hab./mes para municipios SC com 50-80k habitantes.",
+    "metodologia": "Per-capita SC real (DataSUS/SIA / IBGE) x fator 0.46 (cobertura relativa de municipios de medio porte sem hospital de referencia regional) + sazonalidade mensal historica do SIA/SC.",
+    "fonte": "IBGE Estimativas Populacionais 2021/2024/2025 + DataSUS/SIA (serie agregada SC)",
+    "geradoEm": "2026-06-09",
+    "municipiosGrupo": [
+      "Canoinhas",
+      "Imbituba",
+      "Mafra",
+      "Araranguá",
+      "Rio do Sul",
+      "Indaial",
+      "Biguaçu"
+    ]
+  },
+  "populacoesIBGE": {
+    "Canoinhas": {
+      "2021": 54558,
+      "2024": 56721,
+      "2025": 56948,
+      "2022": 55279,
+      "2023": 56000
+    },
+    "Imbituba": {
+      "2021": 45711,
+      "2024": 56107,
+      "2025": 57256,
+      "2022": 49176,
+      "2023": 52641
+    },
+    "Mafra": {
+      "2021": 56825,
+      "2024": 57023,
+      "2025": 57262,
+      "2022": 56891,
+      "2023": 56957
+    },
+    "Araranguá": {
+      "2021": 69493,
+      "2024": 75597,
+      "2025": 76611,
+      "2022": 71527,
+      "2023": 73562
+    },
+    "Rio do Sul": {
+      "2021": 72931,
+      "2024": 76390,
+      "2025": 77451,
+      "2022": 74084,
+      "2023": 75237
+    },
+    "Indaial": {
+      "2021": 72346,
+      "2024": 76333,
+      "2025": 77888,
+      "2022": 73675,
+      "2023": 75004
+    },
+    "Biguaçu": {
+      "2021": 70471,
+      "2024": 82028,
+      "2025": 83756,
+      "2022": 74323,
+      "2023": 78175
+    }
+  },
+  "valorAtualRef": 1283.8,
+  "serie": [
+    {
+      "periodo": "abr/23",
+      "medianaGrupo": 1194.0
+    },
+    {
+      "periodo": "mai/23",
+      "medianaGrupo": 1172.7
+    },
+    {
+      "periodo": "jun/23",
+      "medianaGrupo": 938.2
+    },
+    {
+      "periodo": "jul/23",
+      "medianaGrupo": 1012.8
+    },
+    {
+      "periodo": "ago/23",
+      "medianaGrupo": 1044.8
+    },
+    {
+      "periodo": "set/23",
+      "medianaGrupo": 1108.7
+    },
+    {
+      "periodo": "out/23",
+      "medianaGrupo": 1130.0
+    },
+    {
+      "periodo": "nov/23",
+      "medianaGrupo": 1044.8
+    },
+    {
+      "periodo": "dez/23",
+      "medianaGrupo": 970.1
+    },
+    {
+      "periodo": "jan/24",
+      "medianaGrupo": 1067.7
+    },
+    {
+      "periodo": "fev/24",
+      "medianaGrupo": 1113.6
+    },
+    {
+      "periodo": "mar/24",
+      "medianaGrupo": 1239.9
+    },
+    {
+      "periodo": "abr/24",
+      "medianaGrupo": 1285.8
+    },
+    {
+      "periodo": "mai/24",
+      "medianaGrupo": 1262.8
+    },
+    {
+      "periodo": "jun/24",
+      "medianaGrupo": 1010.3
+    },
+    {
+      "periodo": "jul/24",
+      "medianaGrupo": 1090.6
+    },
+    {
+      "periodo": "ago/24",
+      "medianaGrupo": 1125.1
+    },
+    {
+      "periodo": "set/24",
+      "medianaGrupo": 1194.0
+    },
+    {
+      "periodo": "out/24",
+      "medianaGrupo": 1216.9
+    },
+    {
+      "periodo": "nov/24",
+      "medianaGrupo": 1125.1
+    },
+    {
+      "periodo": "dez/24",
+      "medianaGrupo": 1044.7
+    },
+    {
+      "periodo": "jan/25",
+      "medianaGrupo": 1150.2
+    },
+    {
+      "periodo": "fev/25",
+      "medianaGrupo": 1199.7
+    },
+    {
+      "periodo": "mar/25",
+      "medianaGrupo": 1335.7
+    },
+    {
+      "periodo": "abr/25",
+      "medianaGrupo": 1385.2
+    },
+    {
+      "periodo": "mai/25",
+      "medianaGrupo": 1360.4
+    },
+    {
+      "periodo": "jun/25",
+      "medianaGrupo": 1088.4
+    },
+    {
+      "periodo": "jul/25",
+      "medianaGrupo": 1174.9
+    },
+    {
+      "periodo": "ago/25",
+      "medianaGrupo": 1212.0
+    },
+    {
+      "periodo": "set/25",
+      "medianaGrupo": 1286.2
+    },
+    {
+      "periodo": "out/25",
+      "medianaGrupo": 1311.0
+    },
+    {
+      "periodo": "nov/25",
+      "medianaGrupo": 1212.0
+    },
+    {
+      "periodo": "dez/25",
+      "medianaGrupo": 1125.5
+    },
+    {
+      "periodo": "jan/26",
+      "medianaGrupo": 1105.5
+    },
+    {
+      "periodo": "fev/26",
+      "medianaGrupo": 1153.1
+    },
+    {
+      "periodo": "mar/26",
+      "medianaGrupo": 1283.8
+    }
+  ]
+}

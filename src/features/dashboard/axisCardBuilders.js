@@ -1,45 +1,7 @@
 // Monta a lista de cards de cada eixo renderizado pelo painel escuro (AxisPanel).
-// Os eixos economiaEmpregos, educacao e contasPublicas NÃO passam por aqui —
+// Os eixos economiaEmpregos, educacao, contasPublicas e saude NÃO passam por aqui —
 // eles têm páginas próprias em features/ e são roteados no ThematicDashboard.
 import { barOption, lineOption, pieOption } from "../../shared/charts/echartsOptions.js";
-
-function saudeCards(theme) {
-  return [
-    {
-      kind: "chart",
-      title: "Procedimentos ambulatoriais",
-      subtitle: "DataSUS, Tijucas e SC",
-      option: lineOption({
-        labels: theme.procedures.map((row) => row.periodo),
-        series: [
-          { name: "Tijucas", data: theme.procedures.map((row) => row.procedimentosTijucas) },
-          { name: "SC", data: theme.procedures.map((row) => row.procedimentosSc) },
-        ],
-      }),
-    },
-    {
-      kind: "chart",
-      title: "Linhas de cuidado",
-      subtitle: "Produção recente por tipo de atendimento",
-      option: barOption({
-        labels: theme.careLines.map((row) => row.name),
-        series: [{ name: "Procedimentos", data: theme.careLines.map((row) => row.value) }],
-        horizontal: true,
-      }),
-    },
-    {
-      kind: "chart",
-      title: "Cobertura APS",
-      subtitle: "Série simulada",
-      option: lineOption({
-        labels: theme.coverage.map((row) => row.periodo),
-        series: [{ name: "Cobertura", data: theme.coverage.map((row) => row.valor) }],
-        yFormatter: (value) => `${value}%`,
-      }),
-    },
-    { kind: "table", title: "Pressões assistenciais", subtitle: "Atendimentos selecionados", rows: theme.table },
-  ];
-}
 
 function populacaoCards(theme) {
   return [
@@ -113,7 +75,6 @@ function construcaoCivilCards() {
 }
 
 const builders = {
-  saude: saudeCards,
   populacao: populacaoCards,
   meioAmbiente: meioAmbienteCards,
   construcaoCivil: construcaoCivilCards,

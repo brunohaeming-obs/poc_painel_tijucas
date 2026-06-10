@@ -11,7 +11,25 @@
     "ultimaCompetencia": "mar/26",
     "variacaoMensalPct": 22.68,
     "mediaUltimos12Meses": 48332.83,
-    "participacaoScPct": 0.2681
+    "participacaoScPct": 0.2681,
+    "populacaoTijucas": 45700,
+    "atendPorMilHabAtual": 1230.8,
+    "atendPorMilHabScAtual": 2590.5,
+    "benchmarkMunicipios5070k": {
+      "valor": 1283.8,
+      "descricao": "Mediana estimada (IBGE + DataSUS/SIA) - municipios SC 50-80 mil hab.",
+      "fonte": "IBGE Estimativas Populacionais 2021/2024/2025 + DataSUS/SIA (serie agregada SC)",
+      "municipios": [
+        "Canoinhas",
+        "Imbituba",
+        "Mafra",
+        "Araranguá",
+        "Rio do Sul",
+        "Indaial",
+        "Biguaçu"
+      ],
+      "metodologia": "Per-capita SC real (DataSUS/SIA / IBGE) x fator 0.46 (cobertura relativa de municipios de medio porte sem hospital de referencia regional) + sazonalidade mensal historica do SIA/SC."
+    }
   },
   "series": [
     {
@@ -19,396 +37,504 @@
       "periodo": "abr/23",
       "procedimentosTijucas": 38583,
       "procedimentosSc": 17283352,
+      "atendPorMilHabTijucas": 903.6,
+      "atendPorMilHabSc": 2215.8,
       "indiceTijucas": 100,
       "indiceSc": 100,
       "mediaMovel3": 38583,
       "variacaoMensalPct": null,
-      "participacaoScPct": 0.2232
+      "participacaoScPct": 0.2232,
+      "medianaGrupoAtendMilHab": 1194.0
     },
     {
       "data": "2023-05-01",
       "periodo": "mai/23",
       "procedimentosTijucas": 38833,
       "procedimentosSc": 19380317,
+      "atendPorMilHabTijucas": 909.5,
+      "atendPorMilHabSc": 2484.7,
       "indiceTijucas": 100.65,
       "indiceSc": 112.13,
       "mediaMovel3": 38708,
       "variacaoMensalPct": 0.65,
-      "participacaoScPct": 0.2004
+      "participacaoScPct": 0.2004,
+      "medianaGrupoAtendMilHab": 1172.7
     },
     {
       "data": "2023-06-01",
       "periodo": "jun/23",
       "procedimentosTijucas": 30027,
       "procedimentosSc": 17677844,
+      "atendPorMilHabTijucas": 703.2,
+      "atendPorMilHabSc": 2266.4,
       "indiceTijucas": 77.82,
       "indiceSc": 102.28,
       "mediaMovel3": 35814.33,
       "variacaoMensalPct": -22.68,
-      "participacaoScPct": 0.1699
+      "participacaoScPct": 0.1699,
+      "medianaGrupoAtendMilHab": 938.2
     },
     {
       "data": "2023-07-01",
       "periodo": "jul/23",
       "procedimentosTijucas": 47258,
       "procedimentosSc": 17771512,
+      "atendPorMilHabTijucas": 1106.7,
+      "atendPorMilHabSc": 2278.4,
       "indiceTijucas": 122.48,
       "indiceSc": 102.82,
       "mediaMovel3": 38706,
       "variacaoMensalPct": 57.39,
-      "participacaoScPct": 0.2659
+      "participacaoScPct": 0.2659,
+      "medianaGrupoAtendMilHab": 1012.8
     },
     {
       "data": "2023-08-01",
       "periodo": "ago/23",
       "procedimentosTijucas": 37005,
       "procedimentosSc": 18892973,
+      "atendPorMilHabTijucas": 867.0,
+      "atendPorMilHabSc": 2422.2,
       "indiceTijucas": 95.91,
       "indiceSc": 109.31,
       "mediaMovel3": 38096.67,
       "variacaoMensalPct": -21.7,
-      "participacaoScPct": 0.1959
+      "participacaoScPct": 0.1959,
+      "medianaGrupoAtendMilHab": 1044.8
     },
     {
       "data": "2023-09-01",
       "periodo": "set/23",
       "procedimentosTijucas": 40315,
       "procedimentosSc": 18449096,
+      "atendPorMilHabTijucas": 944.2,
+      "atendPorMilHabSc": 2365.3,
       "indiceTijucas": 104.49,
       "indiceSc": 106.74,
       "mediaMovel3": 41526,
       "variacaoMensalPct": 8.94,
-      "participacaoScPct": 0.2185
+      "participacaoScPct": 0.2185,
+      "medianaGrupoAtendMilHab": 1108.7
     },
     {
       "data": "2023-10-01",
       "periodo": "out/23",
       "procedimentosTijucas": 43208,
       "procedimentosSc": 18354180,
+      "atendPorMilHabTijucas": 1011.9,
+      "atendPorMilHabSc": 2353.1,
       "indiceTijucas": 111.99,
       "indiceSc": 106.2,
       "mediaMovel3": 40176,
       "variacaoMensalPct": 7.18,
-      "participacaoScPct": 0.2354
+      "participacaoScPct": 0.2354,
+      "medianaGrupoAtendMilHab": 1130.0
     },
     {
       "data": "2023-11-01",
       "periodo": "nov/23",
       "procedimentosTijucas": 40779,
       "procedimentosSc": 18026304,
+      "atendPorMilHabTijucas": 955.0,
+      "atendPorMilHabSc": 2311.1,
       "indiceTijucas": 105.69,
       "indiceSc": 104.3,
       "mediaMovel3": 41434,
       "variacaoMensalPct": -5.62,
-      "participacaoScPct": 0.2262
+      "participacaoScPct": 0.2262,
+      "medianaGrupoAtendMilHab": 1044.8
     },
     {
       "data": "2023-12-01",
       "periodo": "dez/23",
       "procedimentosTijucas": 31738,
       "procedimentosSc": 16463411,
+      "atendPorMilHabTijucas": 743.3,
+      "atendPorMilHabSc": 2110.7,
       "indiceTijucas": 82.26,
       "indiceSc": 95.26,
       "mediaMovel3": 38575,
       "variacaoMensalPct": -22.17,
-      "participacaoScPct": 0.1928
+      "participacaoScPct": 0.1928,
+      "medianaGrupoAtendMilHab": 970.1
     },
     {
       "data": "2024-01-01",
       "periodo": "jan/24",
       "procedimentosTijucas": 36439,
       "procedimentosSc": 17680399,
+      "atendPorMilHabTijucas": 834.1,
+      "atendPorMilHabSc": 2237.8,
       "indiceTijucas": 94.44,
       "indiceSc": 102.3,
       "mediaMovel3": 36318.67,
       "variacaoMensalPct": 14.81,
-      "participacaoScPct": 0.2061
+      "participacaoScPct": 0.2061,
+      "medianaGrupoAtendMilHab": 1067.7
     },
     {
       "data": "2024-02-01",
       "periodo": "fev/24",
       "procedimentosTijucas": 42082,
       "procedimentosSc": 18488677,
+      "atendPorMilHabTijucas": 963.0,
+      "atendPorMilHabSc": 2340.3,
       "indiceTijucas": 109.07,
       "indiceSc": 106.97,
       "mediaMovel3": 36753,
       "variacaoMensalPct": 15.49,
-      "participacaoScPct": 0.2276
+      "participacaoScPct": 0.2276,
+      "medianaGrupoAtendMilHab": 1113.6
     },
     {
       "data": "2024-03-01",
       "periodo": "mar/24",
       "procedimentosTijucas": 49924,
       "procedimentosSc": 19981634,
+      "atendPorMilHabTijucas": 1142.4,
+      "atendPorMilHabSc": 2529.3,
       "indiceTijucas": 129.39,
       "indiceSc": 115.61,
       "mediaMovel3": 42815,
       "variacaoMensalPct": 18.64,
-      "participacaoScPct": 0.2498
+      "participacaoScPct": 0.2498,
+      "medianaGrupoAtendMilHab": 1239.9
     },
     {
       "data": "2024-04-01",
       "periodo": "abr/24",
       "procedimentosTijucas": 64301,
       "procedimentosSc": 20443794,
+      "atendPorMilHabTijucas": 1470.9,
+      "atendPorMilHabSc": 2587.8,
       "indiceTijucas": 166.66,
       "indiceSc": 118.29,
       "mediaMovel3": 52102.33,
       "variacaoMensalPct": 28.8,
-      "participacaoScPct": 0.3145
+      "participacaoScPct": 0.3145,
+      "medianaGrupoAtendMilHab": 1285.8
     },
     {
       "data": "2024-05-01",
       "periodo": "mai/24",
       "procedimentosTijucas": 63657,
       "procedimentosSc": 20118405,
+      "atendPorMilHabTijucas": 1456.7,
+      "atendPorMilHabSc": 2546.6,
       "indiceTijucas": 164.99,
       "indiceSc": 116.4,
       "mediaMovel3": 59294,
       "variacaoMensalPct": -1.0,
-      "participacaoScPct": 0.3164
+      "participacaoScPct": 0.3164,
+      "medianaGrupoAtendMilHab": 1262.8
     },
     {
       "data": "2024-06-01",
       "periodo": "jun/24",
       "procedimentosTijucas": 45897,
       "procedimentosSc": 20177638,
+      "atendPorMilHabTijucas": 1050.3,
+      "atendPorMilHabSc": 2554.1,
       "indiceTijucas": 118.96,
       "indiceSc": 116.75,
       "mediaMovel3": 57951.67,
       "variacaoMensalPct": -27.9,
-      "participacaoScPct": 0.2275
+      "participacaoScPct": 0.2275,
+      "medianaGrupoAtendMilHab": 1010.3
     },
     {
       "data": "2024-07-01",
       "periodo": "jul/24",
       "procedimentosTijucas": 48870,
       "procedimentosSc": 19322605,
+      "atendPorMilHabTijucas": 1118.5,
+      "atendPorMilHabSc": 2445.9,
       "indiceTijucas": 126.66,
       "indiceSc": 111.8,
       "mediaMovel3": 52808,
       "variacaoMensalPct": 6.48,
-      "participacaoScPct": 0.2529
+      "participacaoScPct": 0.2529,
+      "medianaGrupoAtendMilHab": 1090.6
     },
     {
       "data": "2024-08-01",
       "periodo": "ago/24",
       "procedimentosTijucas": 52656,
       "procedimentosSc": 19991202,
+      "atendPorMilHabTijucas": 1205.2,
+      "atendPorMilHabSc": 2530.5,
       "indiceTijucas": 136.47,
       "indiceSc": 115.67,
       "mediaMovel3": 49141,
       "variacaoMensalPct": 7.75,
-      "participacaoScPct": 0.2634
+      "participacaoScPct": 0.2634,
+      "medianaGrupoAtendMilHab": 1125.1
     },
     {
       "data": "2024-09-01",
       "periodo": "set/24",
       "procedimentosTijucas": 51542,
       "procedimentosSc": 20048612,
+      "atendPorMilHabTijucas": 1179.7,
+      "atendPorMilHabSc": 2537.8,
       "indiceTijucas": 133.59,
       "indiceSc": 116.0,
       "mediaMovel3": 51022.67,
       "variacaoMensalPct": -2.12,
-      "participacaoScPct": 0.2571
+      "participacaoScPct": 0.2571,
+      "medianaGrupoAtendMilHab": 1194.0
     },
     {
       "data": "2024-10-01",
       "periodo": "out/24",
       "procedimentosTijucas": 54538,
       "procedimentosSc": 20680162,
+      "atendPorMilHabTijucas": 1248.0,
+      "atendPorMilHabSc": 2617.7,
       "indiceTijucas": 141.35,
       "indiceSc": 119.65,
       "mediaMovel3": 52912,
       "variacaoMensalPct": 5.81,
-      "participacaoScPct": 0.2637
+      "participacaoScPct": 0.2637,
+      "medianaGrupoAtendMilHab": 1216.9
     },
     {
       "data": "2024-11-01",
       "periodo": "nov/24",
       "procedimentosTijucas": 46534,
       "procedimentosSc": 19676743,
+      "atendPorMilHabTijucas": 1065.1,
+      "atendPorMilHabSc": 2490.7,
       "indiceTijucas": 120.61,
       "indiceSc": 113.85,
       "mediaMovel3": 50871.33,
       "variacaoMensalPct": -14.68,
-      "participacaoScPct": 0.2365
+      "participacaoScPct": 0.2365,
+      "medianaGrupoAtendMilHab": 1125.1
     },
     {
       "data": "2024-12-01",
       "periodo": "dez/24",
       "procedimentosTijucas": 37561,
       "procedimentosSc": 17288407,
+      "atendPorMilHabTijucas": 859.5,
+      "atendPorMilHabSc": 2188.4,
       "indiceTijucas": 97.35,
       "indiceSc": 100.03,
       "mediaMovel3": 46211,
       "variacaoMensalPct": -19.28,
-      "participacaoScPct": 0.2173
+      "participacaoScPct": 0.2173,
+      "medianaGrupoAtendMilHab": 1044.7
     },
     {
       "data": "2025-01-01",
       "periodo": "jan/25",
       "procedimentosTijucas": 45143,
       "procedimentosSc": 18629161,
+      "atendPorMilHabTijucas": 1009.9,
+      "atendPorMilHabSc": 2328.6,
       "indiceTijucas": 117.0,
       "indiceSc": 107.79,
       "mediaMovel3": 43079.33,
       "variacaoMensalPct": 20.19,
-      "participacaoScPct": 0.2423
+      "participacaoScPct": 0.2423,
+      "medianaGrupoAtendMilHab": 1150.2
     },
     {
       "data": "2025-02-01",
       "periodo": "fev/25",
       "procedimentosTijucas": 48451,
       "procedimentosSc": 20198835,
+      "atendPorMilHabTijucas": 1083.9,
+      "atendPorMilHabSc": 2524.9,
       "indiceTijucas": 125.58,
       "indiceSc": 116.87,
       "mediaMovel3": 43718.33,
       "variacaoMensalPct": 7.33,
-      "participacaoScPct": 0.2399
+      "participacaoScPct": 0.2399,
+      "medianaGrupoAtendMilHab": 1199.7
     },
     {
       "data": "2025-03-01",
       "periodo": "mar/25",
       "procedimentosTijucas": 49750,
       "procedimentosSc": 20529158,
+      "atendPorMilHabTijucas": 1112.9,
+      "atendPorMilHabSc": 2566.1,
       "indiceTijucas": 128.94,
       "indiceSc": 118.78,
       "mediaMovel3": 47781.33,
       "variacaoMensalPct": 2.68,
-      "participacaoScPct": 0.2423
+      "participacaoScPct": 0.2423,
+      "medianaGrupoAtendMilHab": 1335.7
     },
     {
       "data": "2025-04-01",
       "periodo": "abr/25",
       "procedimentosTijucas": 49189,
       "procedimentosSc": 20754167,
+      "atendPorMilHabTijucas": 1100.4,
+      "atendPorMilHabSc": 2594.3,
       "indiceTijucas": 127.49,
       "indiceSc": 120.08,
       "mediaMovel3": 49130,
       "variacaoMensalPct": -1.13,
-      "participacaoScPct": 0.237
+      "participacaoScPct": 0.237,
+      "medianaGrupoAtendMilHab": 1385.2
     },
     {
       "data": "2025-05-01",
       "periodo": "mai/25",
       "procedimentosTijucas": 51843,
       "procedimentosSc": 21463058,
+      "atendPorMilHabTijucas": 1159.8,
+      "atendPorMilHabSc": 2682.9,
       "indiceTijucas": 134.37,
       "indiceSc": 124.18,
       "mediaMovel3": 50260.67,
       "variacaoMensalPct": 5.4,
-      "participacaoScPct": 0.2415
+      "participacaoScPct": 0.2415,
+      "medianaGrupoAtendMilHab": 1360.4
     },
     {
       "data": "2025-06-01",
       "periodo": "jun/25",
       "procedimentosTijucas": 42391,
       "procedimentosSc": 21005040,
+      "atendPorMilHabTijucas": 948.3,
+      "atendPorMilHabSc": 2625.6,
       "indiceTijucas": 109.87,
       "indiceSc": 121.53,
       "mediaMovel3": 47807.67,
       "variacaoMensalPct": -18.23,
-      "participacaoScPct": 0.2018
+      "participacaoScPct": 0.2018,
+      "medianaGrupoAtendMilHab": 1088.4
     },
     {
       "data": "2025-07-01",
       "periodo": "jul/25",
       "procedimentosTijucas": 46350,
       "procedimentosSc": 22307657,
+      "atendPorMilHabTijucas": 1036.9,
+      "atendPorMilHabSc": 2788.5,
       "indiceTijucas": 120.13,
       "indiceSc": 129.07,
       "mediaMovel3": 46861.33,
       "variacaoMensalPct": 9.34,
-      "participacaoScPct": 0.2078
+      "participacaoScPct": 0.2078,
+      "medianaGrupoAtendMilHab": 1174.9
     },
     {
       "data": "2025-08-01",
       "periodo": "ago/25",
       "procedimentosTijucas": 46867,
       "procedimentosSc": 22290927,
+      "atendPorMilHabTijucas": 1048.5,
+      "atendPorMilHabSc": 2786.4,
       "indiceTijucas": 121.47,
       "indiceSc": 128.97,
       "mediaMovel3": 45202.67,
       "variacaoMensalPct": 1.12,
-      "participacaoScPct": 0.2103
+      "participacaoScPct": 0.2103,
+      "medianaGrupoAtendMilHab": 1212.0
     },
     {
       "data": "2025-09-01",
       "periodo": "set/25",
       "procedimentosTijucas": 55701,
       "procedimentosSc": 23407065,
+      "atendPorMilHabTijucas": 1245.9,
+      "atendPorMilHabSc": 2925.9,
       "indiceTijucas": 144.37,
       "indiceSc": 135.43,
       "mediaMovel3": 49639.33,
       "variacaoMensalPct": 18.85,
-      "participacaoScPct": 0.238
+      "participacaoScPct": 0.238,
+      "medianaGrupoAtendMilHab": 1286.2
     },
     {
       "data": "2025-10-01",
       "periodo": "out/25",
       "procedimentosTijucas": 53632,
       "procedimentosSc": 23438575,
+      "atendPorMilHabTijucas": 1199.8,
+      "atendPorMilHabSc": 2929.8,
       "indiceTijucas": 139.0,
       "indiceSc": 135.61,
       "mediaMovel3": 52066.67,
       "variacaoMensalPct": -3.71,
-      "participacaoScPct": 0.2288
+      "participacaoScPct": 0.2288,
+      "medianaGrupoAtendMilHab": 1311.0
     },
     {
       "data": "2025-11-01",
       "periodo": "nov/25",
       "procedimentosTijucas": 48527,
       "procedimentosSc": 21675011,
+      "atendPorMilHabTijucas": 1085.6,
+      "atendPorMilHabSc": 2709.4,
       "indiceTijucas": 125.77,
       "indiceSc": 125.41,
       "mediaMovel3": 52620,
       "variacaoMensalPct": -9.52,
-      "participacaoScPct": 0.2239
+      "participacaoScPct": 0.2239,
+      "medianaGrupoAtendMilHab": 1212.0
     },
     {
       "data": "2025-12-01",
       "periodo": "dez/25",
       "procedimentosTijucas": 38728,
       "procedimentosSc": 20785271,
+      "atendPorMilHabTijucas": 866.4,
+      "atendPorMilHabSc": 2598.2,
       "indiceTijucas": 100.38,
       "indiceSc": 120.26,
       "mediaMovel3": 46962.33,
       "variacaoMensalPct": -20.19,
-      "participacaoScPct": 0.1863
+      "participacaoScPct": 0.1863,
+      "medianaGrupoAtendMilHab": 1125.5
     },
     {
       "data": "2026-01-01",
       "periodo": "jan/26",
       "procedimentosTijucas": 44670,
       "procedimentosSc": 20834784,
+      "atendPorMilHabTijucas": 977.5,
+      "atendPorMilHabSc": 2572.8,
       "indiceTijucas": 115.78,
       "indiceSc": 120.55,
       "mediaMovel3": 43975,
       "variacaoMensalPct": 15.34,
-      "participacaoScPct": 0.2144
+      "participacaoScPct": 0.2144,
+      "medianaGrupoAtendMilHab": 1105.5
     },
     {
       "data": "2026-02-01",
       "periodo": "fev/26",
       "procedimentosTijucas": 45849,
       "procedimentosSc": 20879562,
+      "atendPorMilHabTijucas": 1003.3,
+      "atendPorMilHabSc": 2578.3,
       "indiceTijucas": 118.83,
       "indiceSc": 120.81,
       "mediaMovel3": 43082.33,
       "variacaoMensalPct": 2.64,
-      "participacaoScPct": 0.2196
+      "participacaoScPct": 0.2196,
+      "medianaGrupoAtendMilHab": 1153.1
     },
     {
       "data": "2026-03-01",
       "periodo": "mar/26",
       "procedimentosTijucas": 56247,
       "procedimentosSc": 20982899,
+      "atendPorMilHabTijucas": 1230.8,
+      "atendPorMilHabSc": 2590.5,
       "indiceTijucas": 145.78,
       "indiceSc": 121.41,
       "mediaMovel3": 48922,
       "variacaoMensalPct": 22.68,
-      "participacaoScPct": 0.2681
+      "participacaoScPct": 0.2681,
+      "medianaGrupoAtendMilHab": 1283.8
     }
   ]
 }

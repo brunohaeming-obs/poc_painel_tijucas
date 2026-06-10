@@ -165,6 +165,7 @@ function buildOverviewKpis(indicadoresLong, availableYears, selectedYear, rendim
         value: currentValue,
         valueText: formatIndicatorValue(currentValue, "%"),
         comparisonText: null,
+        lowerIsBetter: true,
         variation: buildVariation(currentValue, previousValue, "%", previousRendimento?.ano ?? null),
       };
     }
@@ -328,6 +329,44 @@ function buildInfrastructureChart(indicadoresLong, selectedYear, comparativoSc20
   };
 }
 
+const infraHistoryDefinitions = [
+  { key: "internet",      label: "Internet",       longIndicator: "Percentual de escolas com internet",           scCode: "perc_escolas_internet" },
+  { key: "refectory",     label: "Refeitório",     longIndicator: "refeitorio",                                   scCode: "perc_escolas_refeitorio" },
+  { key: "accessibility", label: "Acessibilidade", longIndicator: "Percentual de escolas com banheiro acessível", scCode: "perc_escolas_banheiro_acessivel" },
+  { key: "water",         label: "Água potável",   longIndicator: "agua potavel",                                 scCode: null },
+];
+
+function buildInfrastructureHistory(comparativoSc, indicadoresLong) {
+  const scData = Array.isArray(comparativoSc) ? comparativoSc : [];
+
+  return infraHistoryDefinitions.map((def) => {
+    const scRows = def.scCode
+      ? scData.filter((row) => row.indicador_codigo === def.scCode)
+      : [];
+
+    const allYears = def.scCode
+      ? [...new Set(scRows.map((row) => Number(row.ano)))].sort((a, b) => a - b)
+      : indicadoresLong
+          .filter((row) => row.indicador === def.longIndicator)
+          .map((row) => row.ano)
+          .sort((a, b) => a - b);
+
+    const chartData = allYears.map((year) => {
+      const tijucasRow = indicadoresLong.find(
+        (row) => row.indicador === def.longIndicator && row.ano === year,
+      );
+      const scRow = scRows.find((row) => Number(row.ano) === year);
+      return {
+        year,
+        tijucas: tijucasRow?.valor ?? null,
+        sc: scRow?.santa_catarina ?? null,
+      };
+    });
+
+    return { key: def.key, label: def.label, hasSc: scRows.length > 0, chartData };
+  });
+}
+
 function buildTerritoryData(
   mapaEscolas,
   filters,
@@ -482,6 +521,10 @@ export function buildEducacaoViewModel(allData, filters) {
       allData.indicadoresLong,
       selectedYear,
       allData.comparativoSc2024,
+    ),
+    infrastructureHistory: buildInfrastructureHistory(
+      allData.comparativoSc,
+      allData.indicadoresLong,
     ),
     territoryData: buildTerritoryData(
       allData.mapaEscolas,

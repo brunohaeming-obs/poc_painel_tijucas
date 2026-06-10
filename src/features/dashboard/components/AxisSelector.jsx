@@ -27,7 +27,7 @@ function AxisThemeButton({ theme, active, onClick }) {
             style={{
               backgroundColor: active ? themeColors.primary : themeColors.secondary,
               borderColor: `${themeColors.primary}33`,
-              color: active ? "#FFFFFF" : themeColors.primary,
+              color: active ? (themeColors.textOnPrimary ?? "#FFFFFF") : themeColors.primary,
             }}
           >
             <Icon size={23} strokeWidth={2.2} />

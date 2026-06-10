@@ -4,18 +4,14 @@ import { EducacaoOverviewSection } from "./components/EducacaoOverviewSection.js
 import { AtendimentoEscolarSection } from "./components/AtendimentoEscolarSection.jsx";
 import { InfraestruturaSection } from "./components/InfraestruturaSection.jsx";
 import { TerritorioSection } from "./components/TerritorioSection.jsx";
-import { EducacaoFooter } from "./components/EducacaoFooter.jsx";
 import { loadAllEducacaoData } from "./data/loadEducacaoData.js";
 import { buildEducacaoNarratives } from "./data/buildEducacaoNarratives.js";
-import { buildEducacaoViewModel, getAvailableYears } from "./data/transformEducacaoData.js";
+import { buildEducacaoViewModel } from "./data/transformEducacaoData.js";
 
-const initialFilterState = {
-  selectedYear: "",
-};
+const FIXED_YEAR = 2025;
 
 export function EducacaoPage() {
   const [allData, setAllData] = useState(null);
-  const [filters, setFilters] = useState(initialFilterState);
   const [territoryMode, setTerritoryMode] = useState("schools");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -30,13 +26,7 @@ export function EducacaoPage() {
       try {
         const response = await loadAllEducacaoData();
         if (cancelled) return;
-
-        const availableYears = getAvailableYears(response);
         setAllData(response);
-        setFilters((current) => ({
-          ...current,
-          selectedYear: current.selectedYear || availableYears[availableYears.length - 1] || "",
-        }));
       } catch (error) {
         if (cancelled) return;
         setErrorMessage(
@@ -45,22 +35,15 @@ export function EducacaoPage() {
             : "Dados de educação não encontrados. Verifique os arquivos em public/data/educacao.",
         );
       } finally {
-        if (!cancelled) {
-          setIsLoading(false);
-        }
+        if (!cancelled) setIsLoading(false);
       }
     }
 
     loadData();
-
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, []);
 
-  const availableYears = allData ? getAvailableYears(allData) : [];
-  const viewModel =
-    allData && filters.selectedYear ? buildEducacaoViewModel(allData, filters) : null;
+  const viewModel = allData ? buildEducacaoViewModel(allData, { selectedYear: FIXED_YEAR }) : null;
   const narratives = viewModel
     ? buildEducacaoNarratives({
         selectedYear: viewModel.selectedYear,
@@ -74,10 +57,6 @@ export function EducacaoPage() {
       })
     : null;
 
-  function handleYearChange(selectedYear) {
-    setFilters({ selectedYear });
-  }
-
   return (
     <section
       id="educacao"
@@ -85,11 +64,7 @@ export function EducacaoPage() {
       className="educacao-shell relative overflow-hidden rounded-[32px] font-sans shadow-[0_24px_80px_rgba(3,10,34,0.24)]"
     >
       <div className="relative flex flex-col gap-10 p-5 md:p-6 xl:p-8">
-        <EducacaoHeader
-          selectedYear={filters.selectedYear}
-          availableYears={availableYears}
-          onYearChange={handleYearChange}
-        />
+        <EducacaoHeader selectedYear={FIXED_YEAR} />
 
         {isLoading ? (
           <div className="educacao-surface rounded-[28px] px-6 py-10 text-center text-sm font-semibold text-slate-200">
@@ -123,6 +98,7 @@ export function EducacaoPage() {
               selectedYear={viewModel.selectedYear}
               infrastructureKpis={viewModel.infrastructureKpis}
               infrastructureChart={viewModel.infrastructureChart}
+              infrastructureHistory={viewModel.infrastructureHistory}
               narratives={narratives}
             />
 
@@ -133,8 +109,6 @@ export function EducacaoPage() {
               onModeChange={setTerritoryMode}
               narratives={narratives}
             />
-
-            <EducacaoFooter metadata={allData.metadata} />
           </>
         ) : null}
       </div>

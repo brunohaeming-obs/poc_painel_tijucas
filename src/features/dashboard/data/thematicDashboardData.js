@@ -1,6 +1,3 @@
-import { realIndicators } from "../../../data/realIndicators.js";
-import { employmentDashboardData } from "../../../data/employmentDashboardData.js";
-import { pibDashboardData } from "../../../data/pibDashboardData.js";
 import { publicFinanceDashboardData } from "../../../data/publicFinanceDashboardData.js";
 
 const meses = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
@@ -16,23 +13,6 @@ export const thematicDashboardData = {
     id: "economiaEmpregos",
     label: "Economia",
     shortLabel: "Economia",
-    source: "MTE/CAGED real",
-    summary: employmentDashboardData.scopes.sc.summary,
-    kpis: [
-      ...employmentDashboardData.scopes.sc.kpis,
-    ],
-    employmentScopes: employmentDashboardData.scopes,
-    employmentPeriod: employmentDashboardData.metadata.periodo12m,
-    employment: employmentDashboardData.scopes.sc.monthly,
-    sectors: employmentDashboardData.scopes.sc.sectors,
-    pib: pibDashboardData,
-    bolsaFamilia: realIndicators.bolsaFamiliaMonthly,
-    scatter: realIndicators.municipalScatter,
-    table: realIndicators.employmentSectorsTijucas.slice(0, 6).map((row) => [
-      row.setor,
-      `${row.saldo > 0 ? "+" : ""}${row.saldo}`,
-      "saldo acumulado",
-    ]),
   },
   populacao: {
     id: "populacao",

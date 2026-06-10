@@ -1,10 +1,9 @@
 import { GraduationCap } from "lucide-react";
-import { EducacaoFilters } from "./EducacaoFilters.jsx";
 
-export function EducacaoHeader({ selectedYear, availableYears, onYearChange }) {
+export function EducacaoHeader({ selectedYear }) {
   return (
     <header className="educacao-surface-strong relative overflow-visible rounded-[30px] px-6 py-5 md:px-7 md:py-6">
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(280px,340px)] xl:items-start">
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="max-w-3xl">
           <span className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.1] px-5 py-2.5 text-sm font-bold uppercase tracking-[0.2em] text-slate-50">
             <GraduationCap size={20} strokeWidth={2.1} />
@@ -21,12 +20,9 @@ export function EducacaoHeader({ selectedYear, availableYears, onYearChange }) {
             básica.
           </p>
         </div>
-
-        <EducacaoFilters
-          selectedYear={selectedYear}
-          availableYears={availableYears}
-          onYearChange={onYearChange}
-        />
+        <span className="rounded-2xl border border-white/15 bg-white/[0.08] px-5 py-3 text-sm font-extrabold text-slate-100">
+          Ano de referência: {selectedYear}
+        </span>
       </div>
     </header>
   );

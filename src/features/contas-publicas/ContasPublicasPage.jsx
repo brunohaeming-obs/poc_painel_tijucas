@@ -33,18 +33,18 @@ import {
 const colors = {
   revenue: "#71B434",
   expense: "#F2A116",
-  result: "#FCD418",
+  result: "#B48A00",
   tijucas: "#007FFE",
   median: "#94A3B8",
   own: "#22C55E",
   transfer: "#38BDF8",
-  fpm: "#FCD418",
+  fpm: "#B48A00",
   investment: "#A78BFA",
   similar: "#38BDF8",
   mesoregion: "#F2A116",
-  functionPalette: ["#007FFE", "#FCD418", "#14B8A6", "#F2A116", "#A78BFA", "#71B434", "#38BDF8", "#FB7185"],
-  grid: "rgba(255,255,255,0.14)",
-  text: "#CBD5E1",
+  functionPalette: ["#007FFE", "#B48A00", "#14B8A6", "#F2A116", "#A78BFA", "#71B434", "#38BDF8", "#FB7185"],
+  grid: "rgba(0,0,0,0.07)",
+  text: "#475569",
 };
 
 const functionIndicatorByName = {
@@ -86,14 +86,14 @@ function InfoMark({ text }) {
   return (
     <span
       tabIndex={0}
-      className="group relative inline-grid h-5 w-5 shrink-0 place-items-center rounded-full border border-white/20 bg-white/10 text-slate-200 outline-none transition hover:border-brand-yellow hover:text-brand-yellow focus:border-brand-yellow focus:text-brand-yellow"
+      className="group relative inline-grid h-5 w-5 shrink-0 place-items-center rounded-full border border-yellow-400/50 bg-yellow-400/[0.10] text-yellow-700 outline-none transition hover:border-yellow-400 hover:bg-yellow-400 hover:text-brand-navy focus:border-yellow-400 focus:bg-yellow-400 focus:text-brand-navy"
       aria-label="Mais informações"
     >
       <Info size={12} strokeWidth={2.6} />
-      <span className="pointer-events-none absolute right-0 top-7 z-30 hidden w-[420px] max-w-[calc(100vw-32px)] rounded-2xl border border-brand-yellow/35 bg-[#071845] p-5 text-left text-sm font-semibold leading-6 text-slate-100 shadow-2xl ring-1 ring-white/10 group-hover:block group-focus:block">
-        <span className="mb-3 block text-xs font-extrabold uppercase tracking-[0.18em] text-brand-yellow">Como ler este indicador</span>
+      <span className="pointer-events-none absolute right-0 top-7 z-30 hidden w-[420px] max-w-[calc(100vw-32px)] rounded-2xl border border-yellow-200 bg-white p-5 text-left text-sm font-semibold leading-6 text-slate-700 shadow-2xl ring-1 ring-yellow-400/20 group-hover:block group-focus:block">
+        <span className="mb-3 block text-xs font-extrabold uppercase tracking-[0.18em] text-yellow-700">Como ler este indicador</span>
         {paragraphs.map((paragraph) => (
-          <span key={paragraph} className="mt-3 block border-l-2 border-brand-yellow/40 pl-3">
+          <span key={paragraph} className="mt-3 block border-l-2 border-yellow-300 pl-3">
             {paragraph}
           </span>
         ))}
@@ -144,16 +144,14 @@ function SourceLine({ children }) {
 
 function NarrativeCard({ eyebrow, title, body, caption, source, icon: Icon, restartKey }) {
   return (
-    <aside className="educacao-surface contas-publicas-narrative-card flex h-full flex-col justify-between rounded-[24px] p-6">
+    <aside className="flex h-full flex-col justify-between border-l-2 border-white/15 pl-6">
       <div>
-        <div className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-yellow text-brand-navy">
-            <Icon size={20} strokeWidth={2.4} />
-          </span>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">{eyebrow}</p>
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-slate-400">
+          {Icon && <Icon size={13} strokeWidth={2.4} />}
+          <span>{eyebrow}</span>
         </div>
-        <h4 className="mt-5 text-2xl font-extrabold leading-tight text-white">{title}</h4>
-        <p className="mt-4 text-sm font-medium leading-7 text-slate-200">
+        <h3 className="mt-3 text-2xl font-extrabold leading-tight text-white">{title}</h3>
+        <p className="mt-4 text-sm leading-7 text-slate-200">
           <TypewriterText text={body} restartKey={restartKey ?? body} intervalMs={16} />
         </p>
       </div>
@@ -168,8 +166,8 @@ function NarrativeCard({ eyebrow, title, body, caption, source, icon: Icon, rest
 function FiscalTooltip({ active, payload, label, formatter = formatMoney }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-xl border border-white/10 bg-[#071845] px-3 py-2 text-xs text-slate-100 shadow-lg">
-      <strong className="text-white">{label}</strong>
+    <div className="rounded-xl border border-yellow-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg">
+      <strong className="text-brand-navy">{label}</strong>
       <div className="mt-2 grid gap-1">
         {payload.map((item) => (
           <span key={item.dataKey}>
@@ -487,6 +485,13 @@ function benchmarkNote(benchmark, formatter) {
   return `mediana de municípios similares a Tijucas: ${formatter(benchmark.mediana_similares)}`;
 }
 
+function perCapitaNote(perCapitaValue, medianaPerCapita) {
+  const tijucas = formatPerCapita(perCapitaValue);
+  return medianaPerCapita != null
+    ? `${tijucas} · mediana similares: ${formatPerCapita(medianaPerCapita)}`
+    : tijucas;
+}
+
 export function ContasPublicasPage() {
   const [fiscalMode, setFiscalMode] = useState("total");
   const [functionMode, setFunctionMode] = useState("perCapita");
@@ -528,10 +533,10 @@ export function ContasPublicasPage() {
       help: `É a receita menos a despesa empenhada. Saldo positivo indica receita acima da despesa no ano. ${fiscalPeerHelp}`,
     },
     {
-      label: "Por morador",
-      value: formatPerCapita(latest.receita_per_capita),
-      note: benchmarkNote(revenueBenchmark, formatPerCapita),
-      help: `Mostra quanto a prefeitura arrecadou para cada habitante. Usa a população informada na DCA para o ano. ${fiscalPeerHelp}`,
+      label: "Receita própria",
+      value: formatMoney(latest.receita_propria),
+      note: perCapitaNote(latest.receita_propria_per_capita, ownRevenueBenchmark?.mediana_similares),
+      help: `Mostra quanto Tijucas arrecada localmente — tributos, contribuições e outras receitas próprias, sem contar transferências. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
     },
     {
       label: "Dependência do FPM",
@@ -540,10 +545,10 @@ export function ContasPublicasPage() {
       help: `Mostra quanto da receita corrente vem do Fundo de Participação dos Municípios. Quanto maior, maior a dependência de repasses federais. ${fpmSourceHelp} ${fiscalPeerHelp}`,
     },
     {
-      label: "Investimento por morador",
-      value: formatPerCapita(latest.investimento_per_capita),
-      note: benchmarkNote(investmentBenchmark, formatPerCapita),
-      help: `Mostra quanto foi destinado a obras, equipamentos e melhorias permanentes para cada habitante. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
+      label: "Investimento total",
+      value: formatMoney(latest.investimento_total),
+      note: perCapitaNote(latest.investimento_per_capita, investmentBenchmark?.mediana_similares),
+      help: `Mostra quanto foi destinado a obras, equipamentos e melhorias permanentes. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
     },
   ];
 
@@ -555,16 +560,16 @@ export function ContasPublicasPage() {
       help: `O FPM é uma transferência do Governo Federal. O indicador divide FPM pela receita corrente para medir dependência. ${fpmSourceHelp}`,
     },
     {
-      label: "Receita própria por morador",
-      value: formatPerCapita(latest.receita_propria_per_capita),
-      note: benchmarkNote(ownRevenueBenchmark, formatPerCapita),
-      help: `Mostra quanto Tijucas arrecada localmente para cada habitante. Inclui tributos, contribuições e outras receitas próprias. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
+      label: "Receita própria",
+      value: formatMoney(latest.receita_propria),
+      note: perCapitaNote(latest.receita_propria_per_capita, ownRevenueBenchmark?.mediana_similares),
+      help: `Mostra quanto Tijucas arrecada localmente — tributos, contribuições e outras receitas próprias, sem contar transferências. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
     },
     {
-      label: "FPM por morador",
-      value: formatPerCapita(latest.fpm_per_capita),
-      note: benchmarkNote(fpmPerCapitaBenchmark, formatPerCapita),
-      help: `Mostra o FPM dividido pela população, para comparar cidades de tamanhos diferentes. ${fpmSourceHelp} ${fiscalPeerHelp}`,
+      label: "Repasse do FPM",
+      value: formatMoney(latest.fpm),
+      note: perCapitaNote(latest.fpm_per_capita, fpmPerCapitaBenchmark?.mediana_similares),
+      help: `Mostra o valor total recebido do Fundo de Participação dos Municípios. ${fpmSourceHelp} ${fiscalPeerHelp}`,
     },
   ];
 
@@ -577,15 +582,15 @@ export function ContasPublicasPage() {
     },
     {
       label: "Educação",
-      value: formatPerCapita(educationRow?.per_capita),
-      note: `${formatPercent(educationRow?.participacao_pct)} da despesa total`,
-      help: `Educação reúne gastos registrados na função educação. A leitura por morador usa a população da DCA e compara Tijucas com a mediana dos similares. ${fiscalPeerHelp}`,
+      value: formatMoney(educationRow?.valor),
+      note: educationRow ? perCapitaNote(educationRow.per_capita, educationRow.mediana_per_capita) : "dado indisponível",
+      help: `Educação reúne gastos registrados na função educação — ${formatPercent(educationRow?.participacao_pct)} da despesa total em ${latest.ano}. ${fiscalPeerHelp}`,
     },
     {
       label: "Saúde",
-      value: formatPerCapita(healthRow?.per_capita),
-      note: `${formatPercent(healthRow?.participacao_pct)} da despesa total`,
-      help: `Saúde reúne gastos registrados na função saúde. Mostra quanto essa área representa no orçamento e por habitante. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
+      value: formatMoney(healthRow?.valor),
+      note: healthRow ? perCapitaNote(healthRow.per_capita, healthRow.mediana_per_capita) : "dado indisponível",
+      help: `Saúde reúne gastos registrados na função saúde — ${formatPercent(healthRow?.participacao_pct)} da despesa total em ${latest.ano}. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
     },
     {
       label: "Administração",
@@ -597,22 +602,22 @@ export function ContasPublicasPage() {
 
   const investmentKpis = [
     {
-      label: "Investimento por morador",
-      value: formatPerCapita(latest.investimento_per_capita),
-      note: benchmarkNote(investmentBenchmark, formatPerCapita),
-      help: `Mostra quanto foi destinado a obras, equipamentos e melhorias permanentes para cada habitante. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
+      label: "Investimento total",
+      value: formatMoney(latest.investimento_total),
+      note: perCapitaNote(latest.investimento_per_capita, investmentBenchmark?.mediana_similares),
+      help: `Mostra o valor total empenhado como investimento em obras, equipamentos e melhorias permanentes. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
     },
     {
-      label: "Quanto da despesa virou investimento",
+      label: "% da despesa total",
       value: formatPercent(latest.investimento_pct_despesa),
       note: benchmarkNote(investmentShareBenchmark, formatPercent),
       help: `Mostra investimentos divididos pela despesa total empenhada. Ajuda a separar manutenção de serviços e melhorias permanentes. ${fiscalPeerHelp}`,
     },
     {
-      label: "Investimento total",
-      value: formatMoney(latest.investimento_total),
-      note: `${formatPercent(latest.investimento_pct_receita)} da receita corrente`,
-      help: `Mostra o valor total empenhado como investimento no ano. ${fiscalSourceHelp} Para comparar cidades, prefira o investimento por morador.`,
+      label: "% da receita corrente",
+      value: formatPercent(latest.investimento_pct_receita),
+      note: `${formatMoney(latest.investimento_total)} empenhados em ${latest.ano}`,
+      help: `Mostra quanto da receita corrente foi convertido em investimento no ano. ${fiscalSourceHelp}`,
     },
   ];
 
@@ -623,16 +628,16 @@ export function ContasPublicasPage() {
         : `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}. O saldo foi negativo em ${formatMoney(Math.abs(latest.resultado_orcamentario))}, ou seja, a despesa ficou acima da receita. Isso merece atenção porque pode pressionar o orçamento do ano seguinte.`
       : `Por morador, Tijucas arrecadou ${formatPerCapita(latest.receita_per_capita)} e gastou ${formatPerCapita(latest.despesa_per_capita)}. Essa leitura coloca cidades de tamanhos diferentes na mesma régua. Na receita por morador, Tijucas ficou ${revenueBenchmark?.classificacao ?? "sem comparação disponível"} frente aos municípios semelhantes.`;
 
-  const sourceNarrative = `Tijucas arrecada relativamente bem por conta própria: em ${latest.ano}, a receita própria chegou a ${formatPerCapita(latest.receita_propria_per_capita)} por morador, acima da mediana dos municípios semelhantes. Ainda assim, ${formatPercent(latest.transferencias_correntes_pct_receita_corrente)} da receita corrente veio de transferências, grupo que inclui o FPM. O FPM representou ${formatPercent(latest.fpm_pct_receita_corrente)} da receita corrente; é um peso relevante, mas próximo do padrão de cidades parecidas.`;
+  const sourceNarrative = `Tijucas arrecada relativamente bem por conta própria: em ${latest.ano}, a receita própria totalizou ${formatMoney(latest.receita_propria)} (${formatPerCapita(latest.receita_propria_per_capita)}, acima da mediana dos municípios semelhantes). Ainda assim, ${formatPercent(latest.transferencias_correntes_pct_receita_corrente)} da receita corrente veio de transferências, grupo que inclui o FPM. O repasse do FPM foi de ${formatMoney(latest.fpm)}, representando ${formatPercent(latest.fpm_pct_receita_corrente)} da receita corrente — peso relevante, mas próximo do padrão de cidades parecidas.`;
 
   const functionNarrative =
     functionMode === "perCapita"
-      ? `O gasto por área por morador mostra quanto o orçamento representa na vida de cada habitante. Em ${latest.ano}, educação recebeu ${formatPerCapita(educationRow?.per_capita)} por morador e saúde recebeu ${formatPerCapita(healthRow?.per_capita)}. O orçamento está concentrado nas áreas essenciais, especialmente educação, saúde e urbanismo, que reúnem serviços diretos e infraestrutura da cidade.`
+      ? `Em ${latest.ano}, educação recebeu ${formatMoney(educationRow?.valor)} (${formatPerCapita(educationRow?.per_capita)}) e saúde recebeu ${formatMoney(healthRow?.valor)} (${formatPerCapita(healthRow?.per_capita)}). O orçamento está concentrado nas áreas essenciais — educação, saúde e urbanismo reúnem serviços diretos e infraestrutura da cidade. A leitura por morador permite comparar Tijucas com municípios de porte semelhante.`
       : `A participação mostra para onde vai o orçamento. Educação representa ${formatPercent(educationRow?.participacao_pct)} da despesa total e saúde representa ${formatPercent(healthRow?.participacao_pct)}. Administração mostra o custo de manter a estrutura pública funcionando; ela deve ser lida junto das áreas finalísticas, não isoladamente.`;
 
-  const investmentNarrative = `Em ${latest.ano}, Tijucas investiu ${formatPerCapita(latest.investimento_per_capita)} por morador, acima da mediana dos municípios semelhantes. O investimento representou ${formatPercent(latest.investimento_pct_despesa)} da despesa total. Isso sugere boa capacidade de transformar parte do orçamento em obras, equipamentos e melhorias permanentes, não apenas manter os serviços do dia a dia.`;
+  const investmentNarrative = `Em ${latest.ano}, Tijucas investiu ${formatMoney(latest.investimento_total)} em obras, equipamentos e melhorias permanentes — equivalente a ${formatPerCapita(latest.investimento_per_capita)}, acima da mediana dos municípios semelhantes. O investimento representou ${formatPercent(latest.investimento_pct_despesa)} da despesa total, indicando boa capacidade de transformar orçamento em melhoria real para a cidade.`;
 
-  const openingNarrative = `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}, fechando o ano com ${buildSaldoText(latest, resultBenchmark)}. A cidade tem boa receita própria por morador, mas a maior parte da receita corrente ainda vem de transferências. O investimento por morador ficou acima da mediana dos municípios catarinenses semelhantes.`;
+  const openingNarrative = `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}, fechando o ano com ${buildSaldoText(latest, resultBenchmark)}. A receita própria totalizou ${formatMoney(latest.receita_propria)}, mas a maior parte da receita corrente ainda vem de transferências. O investimento de ${formatMoney(latest.investimento_total)} ficou acima da mediana dos municípios catarinenses semelhantes.`;
   const dcaSource = "DCA/SICONFI, contas anuais municipais 2013-2024. Coleta/consulta em 2026.";
   const fpmSource = "STN/Tesouro Transparente, API de Transferências Constitucionais/FPM 2026; DCA/SICONFI 2013-2024. Coleta/consulta em 2026.";
   const functionSource = "DCA/SICONFI, despesa por função 2013-2024. Coleta/consulta em 2026.";
@@ -644,12 +649,12 @@ export function ContasPublicasPage() {
       className="educacao-shell contas-publicas-shell relative overflow-hidden rounded-[32px] font-sans shadow-[0_24px_80px_rgba(3,10,34,0.24)]"
     >
       <div className="relative flex flex-col gap-10 p-6 md:p-8 xl:p-10">
-        <header className="grid gap-2">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-300">Eixo contas públicas</p>
-          <h2 id="contas-publicas-title" className="max-w-5xl text-4xl font-extrabold tracking-tight text-white md:text-5xl">
+        <header className="rounded-[28px] border border-yellow-200 bg-[#FEFCE8] px-6 py-7 shadow-[0_18px_45px_rgba(252,212,24,0.15)] md:px-8">
+          <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-amber-700">Eixo contas públicas</p>
+          <h2 id="contas-publicas-title" className="mt-2 text-3xl font-extrabold tracking-tight text-slate-950 md:text-4xl">
             Entendendo as contas públicas de Tijucas
           </h2>
-          <p className="max-w-5xl text-base font-semibold leading-7 text-slate-200">
+          <p className="mt-3 max-w-5xl text-base font-medium leading-7 text-slate-600">
             <TypewriterText text={openingNarrative} restartKey={`abertura-contas-${latest.ano}`} intervalMs={15} />
           </p>
         </header>
@@ -659,7 +664,11 @@ export function ContasPublicasPage() {
         <section className="grid gap-5" aria-labelledby="arrecada-gasta-title">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <h3 id="arrecada-gasta-title" className="text-2xl font-extrabold text-white">1. Quanto a prefeitura arrecada e gasta?</h3>
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-slate-400">
+                <Banknote size={13} strokeWidth={2.4} />
+                <span>Receita e despesa</span>
+              </div>
+              <h3 id="arrecada-gasta-title" className="mt-1 text-2xl font-extrabold text-white">Quanto a prefeitura arrecada e gasta?</h3>
               <p className="mt-1 text-sm font-semibold text-slate-300">Receita, despesa e saldo do ano em uma mesma série histórica.</p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -691,13 +700,26 @@ export function ContasPublicasPage() {
 
         <section className="grid gap-5" aria-labelledby="origem-dinheiro-title">
           <div>
-            <h3 id="origem-dinheiro-title" className="text-2xl font-extrabold text-white">2. De onde vem o dinheiro?</h3>
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-slate-400">
+              <Building2 size={13} strokeWidth={2.4} />
+              <span>Origem da receita</span>
+            </div>
+            <h3 id="origem-dinheiro-title" className="mt-1 text-2xl font-extrabold text-white">De onde vem o dinheiro?</h3>
             <p className="mt-1 text-sm font-semibold text-slate-300">Receita própria, transferências e dependência do FPM.</p>
           </div>
 
           <KpiGrid items={sourceKpis} />
 
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,0.8fr)]">
+          <div className="grid gap-6 lg:grid-cols-[minmax(300px,0.8fr)_minmax(0,1.6fr)]">
+            <NarrativeCard
+              eyebrow="Origem da receita"
+              title="Gera localmente ou depende de repasses?"
+              body={sourceNarrative}
+              caption={`FPM por morador em Tijucas: ${formatPerCapita(latest.fpm_per_capita)}. Mediana de municípios similares a Tijucas: ${formatBenchmark(fpmPerCapitaBenchmark?.mediana_similares, formatPerCapita)}.`}
+              source={fpmSource}
+              icon={Building2}
+              restartKey="origem-receita"
+            />
             <article className="educacao-surface contas-publicas-chart-card rounded-[24px] p-5">
               <div className="mb-5">
                 <h4 className="text-base font-extrabold text-white">Participação do FPM na receita</h4>
@@ -713,22 +735,17 @@ export function ContasPublicasPage() {
               </div>
               <SourceLine>{fpmSource}</SourceLine>
             </article>
-            <NarrativeCard
-              eyebrow="Origem da receita"
-              title="Gera localmente ou depende de repasses?"
-              body={sourceNarrative}
-              caption={`FPM por morador em Tijucas: ${formatPerCapita(latest.fpm_per_capita)}. Mediana de municípios similares a Tijucas: ${formatBenchmark(fpmPerCapitaBenchmark?.mediana_similares, formatPerCapita)}.`}
-              source={fpmSource}
-              icon={Building2}
-              restartKey="origem-receita"
-            />
           </div>
         </section>
 
         <section className="grid gap-5" aria-labelledby="destino-dinheiro-title">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <h3 id="destino-dinheiro-title" className="text-2xl font-extrabold text-white">3. Para onde vai o dinheiro?</h3>
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-slate-400">
+                <Landmark size={13} strokeWidth={2.4} />
+                <span>Destino dos recursos</span>
+              </div>
+              <h3 id="destino-dinheiro-title" className="mt-1 text-2xl font-extrabold text-white">Para onde vai o dinheiro?</h3>
               <p className="mt-1 text-sm font-semibold text-slate-300">Perfil da despesa por função e comparação com municípios semelhantes.</p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -787,13 +804,26 @@ export function ContasPublicasPage() {
 
         <section className="grid gap-5" aria-labelledby="futuro-title">
           <div>
-            <h3 id="futuro-title" className="text-2xl font-extrabold text-white">4. Quanto vira futuro?</h3>
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-slate-400">
+              <Hammer size={13} strokeWidth={2.4} />
+              <span>Capacidade de investimento</span>
+            </div>
+            <h3 id="futuro-title" className="mt-1 text-2xl font-extrabold text-white">Quanto vira futuro?</h3>
             <p className="mt-1 text-sm font-semibold text-slate-300">Investimento em obras, equipamentos e melhorias permanentes.</p>
           </div>
 
           <KpiGrid items={investmentKpis} />
 
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(300px,0.8fr)]">
+          <div className="grid gap-6 lg:grid-cols-[minmax(300px,0.8fr)_minmax(0,1.6fr)]">
+            <NarrativeCard
+              eyebrow="Capacidade de investimento"
+              title="Manter serviços e criar melhorias"
+              body={investmentNarrative}
+              caption={`O índice fiscal sintético foi movido para leitura secundária: ${decimalFormatter.format(contasPublicasData.cards.find((card) => card.indicador === "indice_saude_fiscal_municipal")?.valor ?? 0)}/100 frente ao grupo similar.`}
+              source={dcaSource}
+              icon={Hammer}
+              restartKey="investimento"
+            />
             <article className="educacao-surface contas-publicas-chart-card rounded-[24px] p-5">
               <div className="mb-4">
                 <h4 className="text-base font-extrabold text-white">Investimento por morador</h4>
@@ -805,15 +835,6 @@ export function ContasPublicasPage() {
               />
               <SourceLine>{dcaSource}</SourceLine>
             </article>
-            <NarrativeCard
-              eyebrow="Capacidade de investimento"
-              title="Manter serviços e criar melhorias"
-              body={investmentNarrative}
-              caption={`O índice fiscal sintético foi movido para leitura secundária: ${decimalFormatter.format(contasPublicasData.cards.find((card) => card.indicador === "indice_saude_fiscal_municipal")?.valor ?? 0)}/100 frente ao grupo similar.`}
-              source={dcaSource}
-              icon={Hammer}
-              restartKey="investimento"
-            />
           </div>
         </section>
       </div>

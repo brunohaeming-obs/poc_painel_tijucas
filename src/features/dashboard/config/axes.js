@@ -16,7 +16,7 @@ export const axisTheme = {
   populacao: { primary: "#8D2A8A", secondary: "#FFEFFE" },
   educacao: { primary: "#F2A116", secondary: "#FDE7C2" },
   saude: { primary: "#EC4137", secondary: "#FFEAE9" },
-  contasPublicas: { primary: "#000086", secondary: "#EBF4FF" },
+  contasPublicas: { primary: "#FCD418", secondary: "#FDF5C7", textOnPrimary: "#10213A" },
   construcaoCivil: { primary: "#000086", secondary: "#EBF4FF" },
 };
 

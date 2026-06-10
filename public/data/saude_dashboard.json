@@ -12,7 +12,8 @@
       "value": 56247,
       "unit": "procedimentos",
       "note": "mar/26",
-      "source": "DataSUS/SIA"
+      "source": "DataSUS/SIA",
+      "help": "Conta todos os procedimentos registrados nos estabelecimentos de saúde do município no mês. Inclui consultas, exames e pequenos procedimentos realizados em ambulatório. Oscilações podem refletir campanhas sazonais, variação de oferta ou subnotificação — compare sempre com o histórico para identificar tendências."
     },
     {
       "id": "coberturaAps",
@@ -20,7 +21,8 @@
       "value": 107.33,
       "unit": "%",
       "note": "03/2026",
-      "source": "Relatórios Públicos da APS"
+      "source": "Relatórios Públicos da APS",
+      "help": "Mede o percentual da população coberta por equipes de Saúde da Família (eSF). Valores acima de 100% ocorrem quando a população cadastrada supera a estimativa do IBGE — não indica erro, mas exige atenção à qualidade dos cadastros. A meta do Ministério da Saúde é atingir cobertura universal."
     },
     {
       "id": "coberturaAcs",
@@ -28,7 +30,8 @@
       "value": 90.13,
       "unit": "%",
       "note": "03/2026",
-      "source": "Relatórios Públicos da APS"
+      "source": "Relatórios Públicos da APS",
+      "help": "Indica o percentual da população acompanhada por Agentes Comunitários de Saúde (ACS). Valores abaixo de 100% sinalizam áreas sem visita domiciliar regular, o que reduz a capacidade de detecção precoce de agravos e acompanhamento de grupos vulneráveis."
     },
     {
       "id": "saudeBucal",
@@ -36,7 +39,8 @@
       "value": 59.63,
       "unit": "%",
       "note": "03/2026",
-      "source": "Relatórios Públicos da APS"
+      "source": "Relatórios Públicos da APS",
+      "help": "Percentual da população coberta por equipes de Saúde Bucal (eSB) na atenção primária. Um índice bem abaixo da cobertura médica geral indica que parcela significativa da população não tem acesso a prevenção e tratamento odontológico básico na rede pública."
     },
     {
       "id": "vacinasAtencao",
@@ -44,7 +48,8 @@
       "value": 5,
       "unit": "vacinas",
       "note": "2022",
-      "source": "DataSUS/TabNet"
+      "source": "DataSUS/TabNet",
+      "help": "Quantidade de vacinas do calendário básico com cobertura abaixo de 95% — referência mínima para proteção coletiva. Cada vacina fora da meta representa um grupo ou faixa etária com risco de surtos. Acesse a seção de Imunização abaixo para ver quais vacinas precisam de ação prioritária."
     }
   ]
 }
