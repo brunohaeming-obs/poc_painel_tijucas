@@ -22,7 +22,7 @@ PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
 
 FORM_URL = "https://tabnet.datasus.gov.br/cgi/dhdat.exe?bd_pni/cpnibr.def"
 QUERY_URL = "https://tabnet.datasus.gov.br/cgi/webtabx.exe?bd_pni/cpnibr.def"
-FORM_CACHE = RAW_DATA_DIR / "datasus_pni_cobertura_form.html"
+FORM_CACHE = RAW_DATA_DIR / "datasus" / "datasus_pni_cobertura_form.html"
 
 MUNICIPIO_LABEL = (
     "Município|CONCAT(CONCAT(DISSEMINACAO.TB_TBN_MUNICIPIO.CO_MUNICIPIO, ' '), "
@@ -73,7 +73,7 @@ def attr_value(attrs: str, name: str) -> str | None:
 
 
 def load_form_html(refresh: bool = False) -> str:
-    RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    FORM_CACHE.parent.mkdir(parents=True, exist_ok=True)
     if refresh or not FORM_CACHE.exists():
         response = requests.get(FORM_URL, timeout=90)
         response.raise_for_status()
@@ -259,7 +259,7 @@ def main() -> None:
     parser.add_argument("--sleep", type=float, default=1.2, help="Pausa entre requisicoes de vacinas.")
     args = parser.parse_args()
 
-    RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    (RAW_DATA_DIR / "datasus").mkdir(parents=True, exist_ok=True)
     PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     html = load_form_html(refresh=args.refresh_form)
@@ -274,7 +274,7 @@ def main() -> None:
         raise SystemExit("Nenhuma vacina encontrada.")
 
     collected: list[pd.DataFrame] = []
-    raw_dir = RAW_DATA_DIR / "datasus_pni_cobertura"
+    raw_dir = RAW_DATA_DIR / "datasus" / "pni_cobertura"
     raw_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Anos: {years[0].label}-{years[-1].label}; vacinas: {len(vaccines)}")
@@ -319,8 +319,10 @@ def main() -> None:
 
     result = pd.concat(collected, ignore_index=True)
     result = result.sort_values(["codigo_municipio", "vacina", "ano"], kind="stable")
-    csv_path = PROCESSED_DATA_DIR / "datasus_cobertura_vacinal_municipios_brasil.csv"
-    parquet_path = PROCESSED_DATA_DIR / "datasus_cobertura_vacinal_municipios_brasil.parquet"
+    health_dir = PROCESSED_DATA_DIR / "saude"
+    health_dir.mkdir(parents=True, exist_ok=True)
+    csv_path = health_dir / "datasus_cobertura_vacinal_municipios_brasil.csv"
+    parquet_path = health_dir / "datasus_cobertura_vacinal_municipios_brasil.parquet"
     result.to_csv(csv_path, index=False, encoding="utf-8-sig")
     try:
         result.to_parquet(parquet_path, index=False)
@@ -328,7 +330,7 @@ def main() -> None:
         print(f"Parquet nao gerado: {exc}", file=sys.stderr)
 
     write_metadata(
-        PROCESSED_DATA_DIR / "datasus_cobertura_vacinal_municipios_brasil_metadata.csv",
+        health_dir / "datasus_cobertura_vacinal_municipios_brasil_metadata.csv",
         [
             {"campo": "fonte", "valor": "DATASUS/TabNet, Imunizacoes desde 1994, Cobertura"},
             {"campo": "url_formulario", "valor": FORM_URL},

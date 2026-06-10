@@ -14,9 +14,10 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
 PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
-SRC_DATA_DIR = PROJECT_ROOT / "src" / "data"
+FISCAL_DATA_DIR = PROCESSED_DATA_DIR / "fiscal"
 DOCS_DIR = PROJECT_ROOT / "docs"
-FPM_ANUAL_PATH = PROCESSED_DATA_DIR / "fpm_municipios_sc_anual_1997_2025.parquet"
+FPM_ANUAL_PATH = FISCAL_DATA_DIR / "fpm_municipios_sc_anual_1997_2025.parquet"
+CONTAS_PUBLICAS_JSON = PROJECT_ROOT / "src" / "features" / "contas-publicas" / "data" / "contas_publicas_tijucas.json"
 
 TIJUCAS_IBGE = "4218004"
 MIN_PEERS = 10
@@ -113,7 +114,7 @@ def extract_municipio(instituicao: object) -> str:
 
 
 def load_dca() -> pd.DataFrame:
-    path = RAW_DATA_DIR / "SICONFI_DCA_SC_municipios_2013_2024.csv"
+    path = RAW_DATA_DIR / "siconfi" / "SICONFI_DCA_SC_municipios_2013_2024.csv"
     columns = [
         "an_exercicio_consulta",
         "id_ente_consulta",
@@ -806,9 +807,9 @@ Data: 2026-06-05
 
 A base historica principal e a DCA / Contas Anuais do SICONFI:
 
-- `data/raw/SICONFI_DCA_SC_municipios_2013_2024.csv`
-- `data/raw/SICONFI_DCA_Tijucas_serie_historica.csv`
-- `data/processed/fpm_municipios_sc_anual_1997_2025.parquet`
+- `data/raw/siconfi/SICONFI_DCA_SC_municipios_2013_2024.csv`
+- `data/raw/siconfi/SICONFI_DCA_Tijucas_serie_historica.csv`
+- `data/processed/fiscal/fpm_municipios_sc_anual_1997_2025.parquet`
 
 Para Tijucas/SC, o codigo IBGE validado e `{TIJUCAS_IBGE}`. Os arquivos SICONFI tratados de 2025 nao trazem esse codigo; por isso, 2025 e tratado como indisponivel para Tijucas ate nova validacao da fonte.
 
@@ -908,9 +909,9 @@ def validate_outputs(indicators: pd.DataFrame, peers: pd.DataFrame) -> list[str]
     checks.append(f"Municipios similares apenas SC: {'ok' if peers['uf'].eq('SC').all() else 'falhou'}")
     checks.append(f"Municipios similares n={len(peers)}")
     siconfi_files = [
-        PROCESSED_DATA_DIR / "siconfi_receitas_orcamentarias_muni_2025.parquet",
-        PROCESSED_DATA_DIR / "siconfi_despesas_orcamentarias_muni_2025.parquet",
-        PROCESSED_DATA_DIR / "siconfi_despesas_por_funcao_muni_2025.parquet",
+        FISCAL_DATA_DIR / "siconfi_receitas_orcamentarias_muni_2025.parquet",
+        FISCAL_DATA_DIR / "siconfi_despesas_orcamentarias_muni_2025.parquet",
+        FISCAL_DATA_DIR / "siconfi_despesas_por_funcao_muni_2025.parquet",
     ]
     siconfi_has_tijucas = False
     for path in siconfi_files:
@@ -922,8 +923,8 @@ def validate_outputs(indicators: pd.DataFrame, peers: pd.DataFrame) -> list[str]
 
 
 def main() -> None:
-    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
-    SRC_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    FISCAL_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    CONTAS_PUBLICAS_JSON.parent.mkdir(parents=True, exist_ok=True)
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
 
     dca = load_dca()
@@ -937,15 +938,15 @@ def main() -> None:
 
     tijucas = indicators[indicators["cd_ibge"].eq(TIJUCAS_IBGE)].copy()
 
-    indicators.to_parquet(PROCESSED_DATA_DIR / "indicadores_fiscais_municipios_sc_2013_2024.parquet", index=False)
-    tijucas.to_parquet(PROCESSED_DATA_DIR / "indicadores_fiscais_tijucas_2013_2024.parquet", index=False)
-    benchmark.to_parquet(PROCESSED_DATA_DIR / "benchmark_fiscal_tijucas_municipios_similares.parquet", index=False)
-    indicators.to_csv(PROCESSED_DATA_DIR / "indicadores_fiscais_municipios_sc_2013_2024.csv", index=False, encoding="utf-8-sig")
-    tijucas.to_csv(PROCESSED_DATA_DIR / "indicadores_fiscais_tijucas_2013_2024.csv", index=False, encoding="utf-8-sig")
-    benchmark.to_csv(PROCESSED_DATA_DIR / "benchmark_fiscal_tijucas_municipios_similares.csv", index=False, encoding="utf-8-sig")
+    indicators.to_parquet(FISCAL_DATA_DIR / "indicadores_fiscais_municipios_sc_2013_2024.parquet", index=False)
+    tijucas.to_parquet(FISCAL_DATA_DIR / "indicadores_fiscais_tijucas_2013_2024.parquet", index=False)
+    benchmark.to_parquet(FISCAL_DATA_DIR / "benchmark_fiscal_tijucas_municipios_similares.parquet", index=False)
+    indicators.to_csv(FISCAL_DATA_DIR / "indicadores_fiscais_municipios_sc_2013_2024.csv", index=False, encoding="utf-8-sig")
+    tijucas.to_csv(FISCAL_DATA_DIR / "indicadores_fiscais_tijucas_2013_2024.csv", index=False, encoding="utf-8-sig")
+    benchmark.to_csv(FISCAL_DATA_DIR / "benchmark_fiscal_tijucas_municipios_similares.csv", index=False, encoding="utf-8-sig")
 
     frontend = build_frontend_json(indicators, benchmark, scores, peers)
-    (SRC_DATA_DIR / "contas_publicas_tijucas.json").write_text(json.dumps(frontend, ensure_ascii=False, indent=2), encoding="utf-8")
+    CONTAS_PUBLICAS_JSON.write_text(json.dumps(frontend, ensure_ascii=False, indent=2), encoding="utf-8")
 
     indicator_columns = [
         col
@@ -956,10 +957,10 @@ def main() -> None:
 
     checks = validate_outputs(indicators, peers)
     print("Arquivos gerados:")
-    print(" - data/processed/indicadores_fiscais_municipios_sc_2013_2024.parquet")
-    print(" - data/processed/indicadores_fiscais_tijucas_2013_2024.parquet")
-    print(" - data/processed/benchmark_fiscal_tijucas_municipios_similares.parquet")
-    print(" - src/data/contas_publicas_tijucas.json")
+    print(" - data/processed/fiscal/indicadores_fiscais_municipios_sc_2013_2024.parquet")
+    print(" - data/processed/fiscal/indicadores_fiscais_tijucas_2013_2024.parquet")
+    print(" - data/processed/fiscal/benchmark_fiscal_tijucas_municipios_similares.parquet")
+    print(" - src/features/contas-publicas/data/contas_publicas_tijucas.json")
     print(" - docs/metodologia_indicadores_fiscais_tijucas.md")
     print("Validacoes:")
     for check in checks:

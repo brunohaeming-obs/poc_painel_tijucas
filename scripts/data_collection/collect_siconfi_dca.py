@@ -172,7 +172,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output",
         type=Path,
-        default=RAW_DATA_DIR / "SICONFI_DCA_Tijucas_serie_historica.csv",
+        default=RAW_DATA_DIR / "siconfi" / "SICONFI_DCA_Tijucas_serie_historica.csv",
         help="Arquivo CSV de saida.",
     )
     parser.add_argument(

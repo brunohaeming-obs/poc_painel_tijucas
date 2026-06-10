@@ -542,55 +542,73 @@
       "funcao": "Educação",
       "valor": 88376636.69,
       "participacao_pct": 26.164786009077222,
-      "per_capita": 1786.324871447629
+      "per_capita": 1786.324871447629,
+      "mediana_total_sc": 17243951.36,
+      "mediana_pct_sc": 24.9514
     },
     {
       "funcao": "Saúde",
       "valor": 64912738.55,
       "participacao_pct": 19.218064604353838,
-      "per_capita": 1312.057617132231
+      "per_capita": 1312.057617132231,
+      "mediana_total_sc": 12461213.09,
+      "mediana_pct_sc": 20.7389
     },
     {
       "funcao": "Urbanismo",
       "valor": 59351936.84,
       "participacao_pct": 17.57173371611894,
-      "per_capita": 1199.6591510692485
+      "per_capita": 1199.6591510692485,
+      "mediana_total_sc": 7388156.94,
+      "mediana_pct_sc": 11.8515
     },
     {
       "funcao": "Administração",
       "valor": 19344949.6,
       "participacao_pct": 5.7272655488784485,
-      "per_capita": 391.01244289930065
+      "per_capita": 391.01244289930065,
+      "mediana_total_sc": 5368467.55,
+      "mediana_pct_sc": 9.128
     },
     {
       "funcao": "Previdência Social",
       "valor": 18862450.2,
       "participacao_pct": 5.584416782243537,
-      "per_capita": 381.25985770303595
+      "per_capita": 381.25985770303595,
+      "mediana_total_sc": 8462720.95,
+      "mediana_pct_sc": 5.8522
     },
     {
       "funcao": "Saneamento",
       "valor": 16865876.32,
       "participacao_pct": 4.9933111430376025,
-      "per_capita": 340.90383474148035
+      "per_capita": 340.90383474148035,
+      "mediana_total_sc": 888158.14,
+      "mediana_pct_sc": 1.2903
     },
     {
       "funcao": "Transporte",
       "valor": 15363188.89,
       "participacao_pct": 4.548425520354374,
-      "per_capita": 310.53055928366416
+      "per_capita": 310.53055928366416,
+      "mediana_total_sc": 6161891.29,
+      "mediana_pct_sc": 11.0309
     },
     {
       "funcao": "Assistência Social",
       "valor": 10036685,
       "participacao_pct": 2.9714608419266746,
-      "per_capita": 202.86786999231919
+      "per_capita": 202.86786999231919,
+      "mediana_total_sc": 2247066.55,
+      "mediana_pct_sc": 3.3734
     },
     {
       "funcao": "Segurança Pública",
       "valor": 3006685.6,
       "participacao_pct": 0.8901593030352959,
-      "per_capita": 60.773044427376
+      "per_capita": 60.773044427376,
+      "mediana_total_sc": 392376.01,
+      "mediana_pct_sc": 0.5325
     }
   ],
   "funcoes_series": [
@@ -599,756 +617,1080 @@
       "funcao": "Saúde",
       "valor": 15272160.92,
       "participacao_pct": 20.327335866038567,
-      "per_capita": 451.21165598132774
+      "per_capita": 451.21165598132774,
+      "mediana_total_sc": 3909673.98,
+      "mediana_pct_sc": 22.0836,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2013,
       "funcao": "Educação",
       "valor": 17879425.45,
       "participacao_pct": 23.797620265904566,
-      "per_capita": 528.2425458681714
+      "per_capita": 528.2425458681714,
+      "mediana_total_sc": 4992223.54,
+      "mediana_pct_sc": 26.6029,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2013,
       "funcao": "Urbanismo",
       "valor": 3954530.42,
       "participacao_pct": 5.263503210900331,
-      "per_capita": 116.83547788578012
+      "per_capita": 116.83547788578012,
+      "mediana_total_sc": 1220803.27,
+      "mediana_pct_sc": 6.7699,
+      "n_municipios_sc": 286
     },
     {
       "ano": 2013,
       "funcao": "Administração",
       "valor": 5917872.97,
       "participacao_pct": 7.876723674133547,
-      "per_capita": 174.84187579401424
+      "per_capita": 174.84187579401424,
+      "mediana_total_sc": 2012974.43,
+      "mediana_pct_sc": 11.8196,
+      "n_municipios_sc": 293
     },
     {
       "ano": 2013,
       "funcao": "Assistência Social",
       "valor": 1752664.9,
       "participacao_pct": 2.3328072739372954,
-      "per_capita": 51.78198658669896
+      "per_capita": 51.78198658669896,
+      "mediana_total_sc": 635340.17,
+      "mediana_pct_sc": 3.3795,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2013,
       "funcao": "Saneamento",
       "valor": 9394317.47,
       "participacao_pct": 12.503891718087246,
-      "per_capita": 277.55244098442995
+      "per_capita": 277.55244098442995,
+      "mediana_total_sc": 305283.43,
+      "mediana_pct_sc": 1.3902,
+      "n_municipios_sc": 175
     },
     {
       "ano": 2013,
       "funcao": "Transporte",
       "valor": 4675172.63,
       "participacao_pct": 6.222682224181334,
-      "per_capita": 138.12664726563654
+      "per_capita": 138.12664726563654,
+      "mediana_total_sc": 1539821.22,
+      "mediana_pct_sc": 9.4979,
+      "n_municipios_sc": 253
     },
     {
       "ano": 2013,
       "funcao": "Segurança Pública",
       "valor": 420408.42,
       "participacao_pct": 0.5595660757515515,
-      "per_capita": 12.420847342452802
+      "per_capita": 12.420847342452802,
+      "mediana_total_sc": 72146.78,
+      "mediana_pct_sc": 0.3232,
+      "n_municipios_sc": 243
     },
     {
       "ano": 2013,
       "funcao": "Previdência Social",
       "valor": 3068997.65,
       "participacao_pct": 4.084853893985362,
-      "per_capita": 90.67266375158803
+      "per_capita": 90.67266375158803,
+      "mediana_total_sc": 1205971.43,
+      "mediana_pct_sc": 3.7684,
+      "n_municipios_sc": 89
     },
     {
       "ano": 2014,
       "funcao": "Saúde",
       "valor": 16976201.52,
       "participacao_pct": 19.319221828979362,
-      "per_capita": 490.24493242462745
+      "per_capita": 490.24493242462745,
+      "mediana_total_sc": 4797557.61,
+      "mediana_pct_sc": 21.8518,
+      "n_municipios_sc": 252
     },
     {
       "ano": 2014,
       "funcao": "Educação",
       "valor": 23701069.07,
       "participacao_pct": 26.972241723676927,
-      "per_capita": 684.4481076007855
+      "per_capita": 684.4481076007855,
+      "mediana_total_sc": 6044266.78,
+      "mediana_pct_sc": 25.0351,
+      "n_municipios_sc": 252
     },
     {
       "ano": 2014,
       "funcao": "Urbanismo",
       "valor": 10555384.26,
       "participacao_pct": 12.012216617999783,
-      "per_capita": 304.82223229756266
+      "per_capita": 304.82223229756266,
+      "mediana_total_sc": 1784981.65,
+      "mediana_pct_sc": 7.9682,
+      "n_municipios_sc": 246
     },
     {
       "ano": 2014,
       "funcao": "Administração",
       "valor": 6272738.66,
       "participacao_pct": 7.138489108119092,
-      "per_capita": 181.14643236687076
+      "per_capita": 181.14643236687076,
+      "mediana_total_sc": 2351430.2,
+      "mediana_pct_sc": 10.804,
+      "n_municipios_sc": 252
     },
     {
       "ano": 2014,
       "funcao": "Assistência Social",
       "valor": 1920875.32,
       "participacao_pct": 2.185990568571651,
-      "per_capita": 55.47173732239806
+      "per_capita": 55.47173732239806,
+      "mediana_total_sc": 794339.47,
+      "mediana_pct_sc": 3.4889,
+      "n_municipios_sc": 252
     },
     {
       "ano": 2014,
       "funcao": "Saneamento",
       "valor": 9433397.08,
       "participacao_pct": 10.735375082267886,
-      "per_capita": 272.42107774055677
+      "per_capita": 272.42107774055677,
+      "mediana_total_sc": 374921.36,
+      "mediana_pct_sc": 1.4071,
+      "n_municipios_sc": 164
     },
     {
       "ano": 2014,
       "funcao": "Transporte",
       "valor": 5270958.51,
       "participacao_pct": 5.998445328660104,
-      "per_capita": 152.2166602171653
+      "per_capita": 152.2166602171653,
+      "mediana_total_sc": 2034226.8,
+      "mediana_pct_sc": 10.3098,
+      "n_municipios_sc": 215
     },
     {
       "ano": 2014,
       "funcao": "Segurança Pública",
       "valor": 455213.53,
       "participacao_pct": 0.5180411622271289,
-      "per_capita": 13.14582216703246
+      "per_capita": 13.14582216703246,
+      "mediana_total_sc": 159911.11,
+      "mediana_pct_sc": 0.5254,
+      "n_municipios_sc": 220
     },
     {
       "ano": 2014,
       "funcao": "Previdência Social",
       "valor": 3494768.32,
       "participacao_pct": 3.9771090332208505,
-      "per_capita": 100.92319279196026
+      "per_capita": 100.92319279196026,
+      "mediana_total_sc": 1164403.97,
+      "mediana_pct_sc": 3.8112,
+      "n_municipios_sc": 77
     },
     {
       "ano": 2015,
       "funcao": "Saúde",
       "valor": 19598376,
       "participacao_pct": 19.590437576598514,
-      "per_capita": 565.9690423934388
+      "per_capita": 565.9690423934388,
+      "mediana_total_sc": 4612316.6,
+      "mediana_pct_sc": 22.1607,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2015,
       "funcao": "Educação",
       "valor": 22677664.89,
       "participacao_pct": 22.6684791847327,
-      "per_capita": 654.8938688344692
+      "per_capita": 654.8938688344692,
+      "mediana_total_sc": 6022106.76,
+      "mediana_pct_sc": 26.017,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2015,
       "funcao": "Urbanismo",
       "valor": 9299288.42,
       "participacao_pct": 9.295521695205533,
-      "per_capita": 268.54823899734316
+      "per_capita": 268.54823899734316,
+      "mediana_total_sc": 1908811.69,
+      "mediana_pct_sc": 8.2015,
+      "n_municipios_sc": 287
     },
     {
       "ano": 2015,
       "funcao": "Administração",
       "valor": 8027799.39,
       "participacao_pct": 8.024547688402887,
-      "per_capita": 231.82971554811135
+      "per_capita": 231.82971554811135,
+      "mediana_total_sc": 2451902.27,
+      "mediana_pct_sc": 11.6074,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2015,
       "funcao": "Assistência Social",
       "valor": 2475084.71,
       "participacao_pct": 2.4740821641572976,
-      "per_capita": 71.47639800161718
+      "per_capita": 71.47639800161718,
+      "mediana_total_sc": 830053.17,
+      "mediana_pct_sc": 3.6321,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2015,
       "funcao": "Saneamento",
       "valor": 12235187.2,
       "participacao_pct": 12.230231274244211,
-      "per_capita": 353.33219360055443
+      "per_capita": 353.33219360055443,
+      "mediana_total_sc": 522787.2,
+      "mediana_pct_sc": 1.9587,
+      "n_municipios_sc": 184
     },
     {
       "ano": 2015,
       "funcao": "Transporte",
       "valor": 5806223.22,
       "participacao_pct": 5.803871379302388,
-      "per_capita": 167.6742295252397
+      "per_capita": 167.6742295252397,
+      "mediana_total_sc": 1750446.85,
+      "mediana_pct_sc": 8.8535,
+      "n_municipios_sc": 249
     },
     {
       "ano": 2015,
       "funcao": "Segurança Pública",
       "valor": 772613.19,
       "participacao_pct": 0.7723002390377472,
-      "per_capita": 22.31180518655423
+      "per_capita": 22.31180518655423,
+      "mediana_total_sc": 102502.24,
+      "mediana_pct_sc": 0.3927,
+      "n_municipios_sc": 253
     },
     {
       "ano": 2015,
       "funcao": "Previdência Social",
       "valor": 4177447.81,
       "participacao_pct": 4.175755713192928,
-      "per_capita": 120.63785982441955
+      "per_capita": 120.63785982441955,
+      "mediana_total_sc": 1591287.5,
+      "mediana_pct_sc": 4.2949,
+      "n_municipios_sc": 84
     },
     {
       "ano": 2016,
       "funcao": "Saúde",
       "valor": 21305067.23,
       "participacao_pct": 20.5325920972179,
-      "per_capita": 601.8040571154172
+      "per_capita": 601.8040571154172,
+      "mediana_total_sc": 5245199.98,
+      "mediana_pct_sc": 22.3171,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2016,
       "funcao": "Educação",
       "valor": 27197196.54,
       "participacao_pct": 26.21108568750975,
-      "per_capita": 768.2389848031185
+      "per_capita": 768.2389848031185,
+      "mediana_total_sc": 6613825.3,
+      "mediana_pct_sc": 26.2641,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2016,
       "funcao": "Urbanismo",
       "valor": 5685042.05,
       "participacao_pct": 5.478914861334678,
-      "per_capita": 160.58533557426134
+      "per_capita": 160.58533557426134,
+      "mediana_total_sc": 2158088.75,
+      "mediana_pct_sc": 8.8786,
+      "n_municipios_sc": 290
     },
     {
       "ano": 2016,
       "funcao": "Administração",
       "valor": 7163562.6,
       "participacao_pct": 6.903827490465314,
-      "per_capita": 202.34909327156657
+      "per_capita": 202.34909327156657,
+      "mediana_total_sc": 2560412.02,
+      "mediana_pct_sc": 11.357,
+      "n_municipios_sc": 293
     },
     {
       "ano": 2016,
       "funcao": "Assistência Social",
       "valor": 2849255.94,
       "participacao_pct": 2.7459481523821108,
-      "per_capita": 80.48290887520479
+      "per_capita": 80.48290887520479,
+      "mediana_total_sc": 874642.78,
+      "mediana_pct_sc": 3.5919,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2016,
       "funcao": "Saneamento",
       "valor": 9085258.5,
       "participacao_pct": 8.755846900854007,
-      "per_capita": 256.6312213999209
+      "per_capita": 256.6312213999209,
+      "mediana_total_sc": 442556.1,
+      "mediana_pct_sc": 1.8884,
+      "n_municipios_sc": 178
     },
     {
       "ano": 2016,
       "funcao": "Transporte",
       "valor": 6504083.34,
       "participacao_pct": 6.2682595058176025,
-      "per_capita": 183.7207880910683
+      "per_capita": 183.7207880910683,
+      "mediana_total_sc": 1961946.75,
+      "mediana_pct_sc": 9.1311,
+      "n_municipios_sc": 245
     },
     {
       "ano": 2016,
       "funcao": "Segurança Pública",
       "valor": 1391379.67,
       "participacao_pct": 1.340931286818176,
-      "per_capita": 39.302289983616745
+      "per_capita": 39.302289983616745,
+      "mediana_total_sc": 122142.84,
+      "mediana_pct_sc": 0.4578,
+      "n_municipios_sc": 254
     },
     {
       "ano": 2016,
       "funcao": "Previdência Social",
       "valor": 5649732.21,
       "participacao_pct": 5.444885278892566,
-      "per_capita": 159.58793881701598
+      "per_capita": 159.58793881701598,
+      "mediana_total_sc": 1959700.89,
+      "mediana_pct_sc": 4.7215,
+      "n_municipios_sc": 84
     },
     {
       "ano": 2017,
       "funcao": "Saúde",
       "valor": 22316557.77,
       "participacao_pct": 21.13411352306503,
-      "per_capita": 616.9908147636163
+      "per_capita": 616.9908147636163,
+      "mediana_total_sc": 5654172.97,
+      "mediana_pct_sc": 23.3558,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2017,
       "funcao": "Educação",
       "valor": 31523085.17,
       "participacao_pct": 29.852832477399925,
-      "per_capita": 871.5257166159802
+      "per_capita": 871.5257166159802,
+      "mediana_total_sc": 7056930.0,
+      "mediana_pct_sc": 27.5553,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2017,
       "funcao": "Urbanismo",
       "valor": 5304448.42,
       "participacao_pct": 5.023391879738043,
-      "per_capita": 146.65326016035388
+      "per_capita": 146.65326016035388,
+      "mediana_total_sc": 1581902.21,
+      "mediana_pct_sc": 6.3104,
+      "n_municipios_sc": 289
     },
     {
       "ano": 2017,
       "funcao": "Administração",
       "valor": 7018127.29,
       "participacao_pct": 6.646271364733895,
-      "per_capita": 194.03171938070224
+      "per_capita": 194.03171938070224,
+      "mediana_total_sc": 2846524.38,
+      "mediana_pct_sc": 11.8876,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2017,
       "funcao": "Assistência Social",
       "valor": 2657129.73,
       "participacao_pct": 2.516341540576718,
-      "per_capita": 73.46225407796517
+      "per_capita": 73.46225407796517,
+      "mediana_total_sc": 938782.2,
+      "mediana_pct_sc": 3.677,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2017,
       "funcao": "Saneamento",
       "valor": 5707646.84,
       "participacao_pct": 5.405226805555119,
-      "per_capita": 157.8005761680951
+      "per_capita": 157.8005761680951,
+      "mediana_total_sc": 413561.1,
+      "mediana_pct_sc": 1.766,
+      "n_municipios_sc": 166
     },
     {
       "ano": 2017,
       "funcao": "Transporte",
       "valor": 6368265.45,
       "participacao_pct": 6.0308424960698055,
-      "per_capita": 176.06484517555987
+      "per_capita": 176.06484517555987,
+      "mediana_total_sc": 1925259.45,
+      "mediana_pct_sc": 8.9654,
+      "n_municipios_sc": 241
     },
     {
       "ano": 2017,
       "funcao": "Segurança Pública",
       "valor": 1190320.07,
       "participacao_pct": 1.1272508846315108,
-      "per_capita": 32.90904257672104
+      "per_capita": 32.90904257672104,
+      "mediana_total_sc": 127394.2,
+      "mediana_pct_sc": 0.4604,
+      "n_municipios_sc": 258
     },
     {
       "ano": 2017,
       "funcao": "Previdência Social",
       "valor": 6794745.37,
       "participacao_pct": 6.434725350113908,
-      "per_capita": 187.85582996958806
+      "per_capita": 187.85582996958806,
+      "mediana_total_sc": 2324200.41,
+      "mediana_pct_sc": 5.5488,
+      "n_municipios_sc": 85
     },
     {
       "ano": 2018,
       "funcao": "Saúde",
       "valor": 24521823.85,
       "participacao_pct": 19.174497596820913,
-      "per_capita": 677.9602944429085
+      "per_capita": 677.9602944429085,
+      "mediana_total_sc": 6333524.87,
+      "mediana_pct_sc": 23.6074,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2018,
       "funcao": "Educação",
       "valor": 35690519.63,
       "participacao_pct": 27.9077032385878,
-      "per_capita": 986.7437000276473
+      "per_capita": 986.7437000276473,
+      "mediana_total_sc": 7711623.71,
+      "mediana_pct_sc": 26.9476,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2018,
       "funcao": "Urbanismo",
       "valor": 10589944.17,
       "participacao_pct": 8.280658905317624,
-      "per_capita": 292.78253165606856
+      "per_capita": 292.78253165606856,
+      "mediana_total_sc": 2086222.88,
+      "mediana_pct_sc": 7.0543,
+      "n_municipios_sc": 287
     },
     {
       "ano": 2018,
       "funcao": "Administração",
       "valor": 7960065.36,
       "participacao_pct": 6.2242619084737205,
-      "per_capita": 220.07368979817528
+      "per_capita": 220.07368979817528,
+      "mediana_total_sc": 2965667.08,
+      "mediana_pct_sc": 11.5747,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2018,
       "funcao": "Assistência Social",
       "valor": 3986006.27,
       "participacao_pct": 3.11680191948806,
-      "per_capita": 110.2019980646945
+      "per_capita": 110.2019980646945,
+      "mediana_total_sc": 1059547.42,
+      "mediana_pct_sc": 3.9092,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2018,
       "funcao": "Saneamento",
       "valor": 6811875.89,
       "participacao_pct": 5.326451192277335,
-      "per_capita": 188.3294412496544
+      "per_capita": 188.3294412496544,
+      "mediana_total_sc": 400157.85,
+      "mediana_pct_sc": 1.3552,
+      "n_municipios_sc": 185
     },
     {
       "ano": 2018,
       "funcao": "Transporte",
       "valor": 11620015.5,
       "participacao_pct": 9.08610879201678,
-      "per_capita": 321.26114183024606
+      "per_capita": 321.26114183024606,
+      "mediana_total_sc": 2108297.33,
+      "mediana_pct_sc": 8.7481,
+      "n_municipios_sc": 242
     },
     {
       "ano": 2018,
       "funcao": "Segurança Pública",
       "valor": 1664747.94,
       "participacao_pct": 1.3017263956425722,
-      "per_capita": 46.02565496267625
+      "per_capita": 46.02565496267625,
+      "mediana_total_sc": 156423.02,
+      "mediana_pct_sc": 0.4817,
+      "n_municipios_sc": 265
     },
     {
       "ano": 2018,
       "funcao": "Previdência Social",
       "valor": 7216158.46,
       "participacao_pct": 5.6425743001799145,
-      "per_capita": 199.50673099253524
+      "per_capita": 199.50673099253524,
+      "mediana_total_sc": 2837798.88,
+      "mediana_pct_sc": 5.3851,
+      "n_municipios_sc": 84
     },
     {
       "ano": 2019,
       "funcao": "Saúde",
       "valor": 32377462.65,
       "participacao_pct": 20.67586636832812,
-      "per_capita": 860.0733869039713
+      "per_capita": 860.0733869039713,
+      "mediana_total_sc": 6775241.43,
+      "mediana_pct_sc": 22.5968,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2019,
       "funcao": "Educação",
       "valor": 37336274.57,
       "participacao_pct": 23.842505265017344,
-      "per_capita": 991.7990322752025
+      "per_capita": 991.7990322752025,
+      "mediana_total_sc": 8386026.41,
+      "mediana_pct_sc": 25.9009,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2019,
       "funcao": "Urbanismo",
       "valor": 19762218.35,
       "participacao_pct": 12.619919916618972,
-      "per_capita": 524.9626338159119
+      "per_capita": 524.9626338159119,
+      "mediana_total_sc": 2818299.51,
+      "mediana_pct_sc": 9.0245,
+      "n_municipios_sc": 289
     },
     {
       "ano": 2019,
       "funcao": "Administração",
       "valor": 9807784.03,
       "participacao_pct": 6.263135384196099,
-      "per_capita": 260.53351122327
+      "per_capita": 260.53351122327,
+      "mediana_total_sc": 3293504.89,
+      "mediana_pct_sc": 11.574,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2019,
       "funcao": "Assistência Social",
       "valor": 4526391.81,
       "participacao_pct": 2.8905005066619953,
-      "per_capita": 120.23885801567272
+      "per_capita": 120.23885801567272,
+      "mediana_total_sc": 1230944.96,
+      "mediana_pct_sc": 3.731,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2019,
       "funcao": "Saneamento",
       "valor": 10929115.46,
       "participacao_pct": 6.979204430492607,
-      "per_capita": 290.3205063089388
+      "per_capita": 290.3205063089388,
+      "mediana_total_sc": 535458.83,
+      "mediana_pct_sc": 1.5306,
+      "n_municipios_sc": 186
     },
     {
       "ano": 2019,
       "funcao": "Transporte",
       "valor": 10430935.61,
       "participacao_pct": 6.661072644894091,
-      "per_capita": 277.086880329393
+      "per_capita": 277.086880329393,
+      "mediana_total_sc": 2437276.5,
+      "mediana_pct_sc": 9.0346,
+      "n_municipios_sc": 239
     },
     {
       "ano": 2019,
       "funcao": "Segurança Pública",
       "valor": 2580130,
       "participacao_pct": 1.6476406341531036,
-      "per_capita": 68.53845132155665
+      "per_capita": 68.53845132155665,
+      "mediana_total_sc": 213198.35,
+      "mediana_pct_sc": 0.5703,
+      "n_municipios_sc": 269
     },
     {
       "ano": 2019,
       "funcao": "Previdência Social",
       "valor": 8754415.57,
       "participacao_pct": 5.590466690203441,
-      "per_capita": 232.55188125913136
+      "per_capita": 232.55188125913136,
+      "mediana_total_sc": 3523269.58,
+      "mediana_pct_sc": 5.4494,
+      "n_municipios_sc": 84
     },
     {
       "ano": 2020,
       "funcao": "Saúde",
       "valor": 33415801.44,
       "participacao_pct": 21.471224387859632,
-      "per_capita": 870.0445606269691
+      "per_capita": 870.0445606269691,
+      "mediana_total_sc": 7919412.18,
+      "mediana_pct_sc": 23.7446,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2020,
       "funcao": "Educação",
       "valor": 34654420.99,
       "participacao_pct": 22.267095716488157,
-      "per_capita": 902.2943991980629
+      "per_capita": 902.2943991980629,
+      "mediana_total_sc": 7375778.52,
+      "mediana_pct_sc": 22.126,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2020,
       "funcao": "Urbanismo",
       "valor": 19650464.2,
       "participacao_pct": 12.626347655356508,
-      "per_capita": 511.6375712760694
+      "per_capita": 511.6375712760694,
+      "mediana_total_sc": 4218787.56,
+      "mediana_pct_sc": 11.8297,
+      "n_municipios_sc": 289
     },
     {
       "ano": 2020,
       "funcao": "Administração",
       "valor": 11184573.53,
       "participacao_pct": 7.186614643265169,
-      "per_capita": 291.2118501835603
+      "per_capita": 291.2118501835603,
+      "mediana_total_sc": 3357967.54,
+      "mediana_pct_sc": 10.6958,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2020,
       "funcao": "Assistência Social",
       "valor": 4966900.63,
       "participacao_pct": 3.19146731017119,
-      "per_capita": 129.32279610487672
+      "per_capita": 129.32279610487672,
+      "mediana_total_sc": 1204645.21,
+      "mediana_pct_sc": 3.427,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2020,
       "funcao": "Saneamento",
       "valor": 9013351.05,
       "participacao_pct": 5.791502060143324,
-      "per_capita": 234.67990340302552
+      "per_capita": 234.67990340302552,
+      "mediana_total_sc": 629036.26,
+      "mediana_pct_sc": 1.804,
+      "n_municipios_sc": 184
     },
     {
       "ano": 2020,
       "funcao": "Transporte",
       "valor": 7605281.79,
       "participacao_pct": 4.886751321502728,
-      "per_capita": 198.01811622881246
+      "per_capita": 198.01811622881246,
+      "mediana_total_sc": 2935054.71,
+      "mediana_pct_sc": 9.8185,
+      "n_municipios_sc": 238
     },
     {
       "ano": 2020,
       "funcao": "Segurança Pública",
       "valor": 2154944.81,
       "participacao_pct": 1.3846534144046416,
-      "per_capita": 56.10812638321139
+      "per_capita": 56.10812638321139,
+      "mediana_total_sc": 222327.96,
+      "mediana_pct_sc": 0.5606,
+      "n_municipios_sc": 268
     },
     {
       "ano": 2020,
       "funcao": "Previdência Social",
       "valor": 9229756.67,
       "participacao_pct": 5.930552851253538,
-      "per_capita": 240.3144392949202
+      "per_capita": 240.3144392949202,
+      "mediana_total_sc": 3817283.07,
+      "mediana_pct_sc": 5.6263,
+      "n_municipios_sc": 83
     },
     {
       "ano": 2021,
       "funcao": "Saúde",
       "valor": 38530468.94,
       "participacao_pct": 21.423607298176144,
-      "per_capita": 984.0497749968075
+      "per_capita": 984.0497749968075,
+      "mediana_total_sc": 8797574.25,
+      "mediana_pct_sc": 23.0058,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2021,
       "funcao": "Educação",
       "valor": 47808770.26,
       "participacao_pct": 26.582503344402912,
-      "per_capita": 1221.0131594943175
+      "per_capita": 1221.0131594943175,
+      "mediana_total_sc": 10382368.71,
+      "mediana_pct_sc": 26.1508,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2021,
       "funcao": "Urbanismo",
       "valor": 14915296.81,
       "participacao_pct": 8.293163057287705,
-      "per_capita": 380.9295571446814
+      "per_capita": 380.9295571446814,
+      "mediana_total_sc": 3580338.12,
+      "mediana_pct_sc": 9.067,
+      "n_municipios_sc": 288
     },
     {
       "ano": 2021,
       "funcao": "Administração",
       "valor": 15413914.26,
       "participacao_pct": 8.57040298544566,
-      "per_capita": 393.6640086834376
+      "per_capita": 393.6640086834376,
+      "mediana_total_sc": 3673921.7,
+      "mediana_pct_sc": 10.2931,
+      "n_municipios_sc": 293
     },
     {
       "ano": 2021,
       "funcao": "Assistência Social",
       "valor": 5797091.78,
       "participacao_pct": 3.2232833179269615,
-      "per_capita": 148.0549554335334
+      "per_capita": 148.0549554335334,
+      "mediana_total_sc": 1311373.65,
+      "mediana_pct_sc": 3.3449,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2021,
       "funcao": "Saneamento",
       "valor": 10296993.1,
       "participacao_pct": 5.725306299021373,
-      "per_capita": 262.980286042651
+      "per_capita": 262.980286042651,
+      "mediana_total_sc": 642486.62,
+      "mediana_pct_sc": 1.7703,
+      "n_municipios_sc": 186
     },
     {
       "ano": 2021,
       "funcao": "Transporte",
       "valor": 12958325.61,
       "participacao_pct": 7.205053214972337,
-      "per_capita": 330.949447324735
+      "per_capita": 330.949447324735,
+      "mediana_total_sc": 3101904.53,
+      "mediana_pct_sc": 9.4552,
+      "n_municipios_sc": 241
     },
     {
       "ano": 2021,
       "funcao": "Segurança Pública",
       "valor": 1816635.46,
       "participacao_pct": 1.010080743101944,
-      "per_capita": 46.39600204316179
+      "per_capita": 46.39600204316179,
+      "mediana_total_sc": 246675.95,
+      "mediana_pct_sc": 0.5396,
+      "n_municipios_sc": 269
     },
     {
       "ano": 2021,
       "funcao": "Previdência Social",
       "valor": 10341214.3,
       "participacao_pct": 5.749894051237143,
-      "per_capita": 264.1096743710893
+      "per_capita": 264.1096743710893,
+      "mediana_total_sc": 4356880.52,
+      "mediana_pct_sc": 5.5584,
+      "n_municipios_sc": 84
     },
     {
       "ano": 2022,
       "funcao": "Saúde",
       "valor": 49143617.33,
       "participacao_pct": 20.193803787881492,
-      "per_capita": 1232.0092589435683
+      "per_capita": 1232.0092589435683,
+      "mediana_total_sc": 11239863.49,
+      "mediana_pct_sc": 20.216,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2022,
       "funcao": "Educação",
       "valor": 70102973.08,
       "participacao_pct": 28.8062979535792,
-      "per_capita": 1757.4512542304897
+      "per_capita": 1757.4512542304897,
+      "mediana_total_sc": 14094348.84,
+      "mediana_pct_sc": 25.8559,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2022,
       "funcao": "Urbanismo",
       "valor": 24831141.57,
       "participacao_pct": 10.203465433294094,
-      "per_capita": 622.5059933816341
+      "per_capita": 622.5059933816341,
+      "mediana_total_sc": 6712078.55,
+      "mediana_pct_sc": 11.1997,
+      "n_municipios_sc": 290
     },
     {
       "ano": 2022,
       "funcao": "Administração",
       "valor": 16571744.5,
       "participacao_pct": 6.8095629714994015,
-      "per_capita": 415.4464764722104
+      "per_capita": 415.4464764722104,
+      "mediana_total_sc": 4749611.67,
+      "mediana_pct_sc": 9.4246,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2022,
       "funcao": "Assistência Social",
       "valor": 7304643.03,
       "participacao_pct": 3.0015805938300097,
-      "per_capita": 183.1242455313495
+      "per_capita": 183.1242455313495,
+      "mediana_total_sc": 1871710.83,
+      "mediana_pct_sc": 3.37,
+      "n_municipios_sc": 295
     },
     {
       "ano": 2022,
       "funcao": "Saneamento",
       "valor": 13838589.42,
       "participacao_pct": 5.686471094954149,
-      "per_capita": 346.927459199278
+      "per_capita": 346.927459199278,
+      "mediana_total_sc": 834679.61,
+      "mediana_pct_sc": 1.4742,
+      "n_municipios_sc": 190
     },
     {
       "ano": 2022,
       "funcao": "Transporte",
       "valor": 14247047.38,
       "participacao_pct": 5.854312217524569,
-      "per_capita": 357.16732382361056
+      "per_capita": 357.16732382361056,
+      "mediana_total_sc": 5425072.21,
+      "mediana_pct_sc": 10.6018,
+      "n_municipios_sc": 233
     },
     {
       "ano": 2022,
       "funcao": "Segurança Pública",
       "valor": 2427885.31,
       "participacao_pct": 0.9976522330538796,
-      "per_capita": 60.86603599989972
+      "per_capita": 60.86603599989972,
+      "mediana_total_sc": 314947.92,
+      "mediana_pct_sc": 0.5507,
+      "n_municipios_sc": 273
     },
     {
       "ano": 2022,
       "funcao": "Previdência Social",
       "valor": 13865906.22,
       "participacao_pct": 5.697695952408345,
-      "per_capita": 347.6122795758229
+      "per_capita": 347.6122795758229,
+      "mediana_total_sc": 5128297.11,
+      "mediana_pct_sc": 5.6058,
+      "n_municipios_sc": 87
     },
     {
       "ano": 2023,
       "funcao": "Saúde",
       "valor": 59560987.47,
       "participacao_pct": 21.885269093928944,
-      "per_capita": 1493.1682285843215
+      "per_capita": 1493.1682285843215,
+      "mediana_total_sc": 11775760.93,
+      "mediana_pct_sc": 21.6304,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2023,
       "funcao": "Educação",
       "valor": 79120061.14,
       "participacao_pct": 29.072114186306496,
-      "per_capita": 1983.5057569756073
+      "per_capita": 1983.5057569756073,
+      "mediana_total_sc": 15554349.67,
+      "mediana_pct_sc": 26.3803,
+      "n_municipios_sc": 294
     },
     {
       "ano": 2023,
       "funcao": "Urbanismo",
       "valor": 24200218.04,
       "participacao_pct": 8.892201194681665,
-      "per_capita": 606.6890130111058
+      "per_capita": 606.6890130111058,
+      "mediana_total_sc": 5502608.99,
+      "mediana_pct_sc": 10.238,
+      "n_municipios_sc": 289
     },
     {
       "ano": 2023,
       "funcao": "Administração",
       "valor": 16286405.25,
       "participacao_pct": 5.984325925565907,
-      "per_capita": 408.29314472661633
+      "per_capita": 408.29314472661633,
+      "mediana_total_sc": 5158392.63,
+      "mediana_pct_sc": 10.1439,
+      "n_municipios_sc": 293
     },
     {
       "ano": 2023,
       "funcao": "Assistência Social",
       "valor": 8572121.5,
       "participacao_pct": 3.149766209431078,
-      "per_capita": 214.89938328862593
+      "per_capita": 214.89938328862593,
+      "mediana_total_sc": 2042353.5,
+      "mediana_pct_sc": 3.5131,
+      "n_municipios_sc": 293
     },
     {
       "ano": 2023,
       "funcao": "Saneamento",
       "valor": 14383236.14,
       "participacao_pct": 5.285019720735397,
-      "per_capita": 360.5815172102585
+      "per_capita": 360.5815172102585,
+      "mediana_total_sc": 1034492.22,
+      "mediana_pct_sc": 1.4791,
+      "n_municipios_sc": 195
     },
     {
       "ano": 2023,
       "funcao": "Transporte",
       "valor": 16327884.67,
       "participacao_pct": 5.999567248907252,
-      "per_capita": 409.33301586903656
+      "per_capita": 409.33301586903656,
+      "mediana_total_sc": 4765090.71,
+      "mediana_pct_sc": 9.1668,
+      "n_municipios_sc": 234
     },
     {
       "ano": 2023,
       "funcao": "Segurança Pública",
       "valor": 2594451.91,
       "participacao_pct": 0.9533132443481955,
-      "per_capita": 65.04178871368046
+      "per_capita": 65.04178871368046,
+      "mediana_total_sc": 315889.82,
+      "mediana_pct_sc": 0.5851,
+      "n_municipios_sc": 274
     },
     {
       "ano": 2023,
       "funcao": "Previdência Social",
       "valor": 16263139.26,
       "participacao_pct": 5.975776999943356,
-      "per_capita": 407.7098764070295
+      "per_capita": 407.7098764070295,
+      "mediana_total_sc": 5589315.31,
+      "mediana_pct_sc": 5.9723,
+      "n_municipios_sc": 87
     },
     {
       "ano": 2024,
       "funcao": "Saúde",
       "valor": 64912738.55,
       "participacao_pct": 19.218064604353838,
-      "per_capita": 1312.057617132231
+      "per_capita": 1312.057617132231,
+      "mediana_total_sc": 12461213.09,
+      "mediana_pct_sc": 20.7389,
+      "n_municipios_sc": 293
     },
     {
       "ano": 2024,
       "funcao": "Educação",
       "valor": 88376636.69,
       "participacao_pct": 26.164786009077222,
-      "per_capita": 1786.324871447629
+      "per_capita": 1786.324871447629,
+      "mediana_total_sc": 17243951.36,
+      "mediana_pct_sc": 24.9514,
+      "n_municipios_sc": 293
     },
     {
       "ano": 2024,
       "funcao": "Urbanismo",
       "valor": 59351936.84,
       "participacao_pct": 17.57173371611894,
-      "per_capita": 1199.6591510692485
+      "per_capita": 1199.6591510692485,
+      "mediana_total_sc": 7388156.94,
+      "mediana_pct_sc": 11.8515,
+      "n_municipios_sc": 288
     },
     {
       "ano": 2024,
       "funcao": "Administração",
       "valor": 19344949.6,
       "participacao_pct": 5.7272655488784485,
-      "per_capita": 391.01244289930065
+      "per_capita": 391.01244289930065,
+      "mediana_total_sc": 5368467.55,
+      "mediana_pct_sc": 9.128,
+      "n_municipios_sc": 293
     },
     {
       "ano": 2024,
       "funcao": "Assistência Social",
       "valor": 10036685,
       "participacao_pct": 2.9714608419266746,
-      "per_capita": 202.86786999231919
+      "per_capita": 202.86786999231919,
+      "mediana_total_sc": 2247066.55,
+      "mediana_pct_sc": 3.3734,
+      "n_municipios_sc": 293
     },
     {
       "ano": 2024,
       "funcao": "Saneamento",
       "valor": 16865876.32,
       "participacao_pct": 4.9933111430376025,
-      "per_capita": 340.90383474148035
+      "per_capita": 340.90383474148035,
+      "mediana_total_sc": 888158.14,
+      "mediana_pct_sc": 1.2903,
+      "n_municipios_sc": 200
     },
     {
       "ano": 2024,
       "funcao": "Transporte",
       "valor": 15363188.89,
       "participacao_pct": 4.548425520354374,
-      "per_capita": 310.53055928366416
+      "per_capita": 310.53055928366416,
+      "mediana_total_sc": 6161891.29,
+      "mediana_pct_sc": 11.0309,
+      "n_municipios_sc": 233
     },
     {
       "ano": 2024,
       "funcao": "Segurança Pública",
       "valor": 3006685.6,
       "participacao_pct": 0.8901593030352959,
-      "per_capita": 60.773044427376
+      "per_capita": 60.773044427376,
+      "mediana_total_sc": 392376.01,
+      "mediana_pct_sc": 0.5325,
+      "n_municipios_sc": 272
     },
     {
       "ano": 2024,
       "funcao": "Previdência Social",
       "valor": 18862450.2,
       "participacao_pct": 5.584416782243537,
-      "per_capita": 381.25985770303595
+      "per_capita": 381.25985770303595,
+      "mediana_total_sc": 8462720.95,
+      "mediana_pct_sc": 5.8522,
+      "n_municipios_sc": 87
     }
   ],
   "benchmark_ultimo_ano": [

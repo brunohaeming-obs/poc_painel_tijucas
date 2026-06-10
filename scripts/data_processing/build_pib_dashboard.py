@@ -28,8 +28,8 @@ def series_rows(frame: pd.DataFrame, name_column: str, name: str) -> list[dict]:
 
 
 def main() -> None:
-    municipios = pd.read_excel(RAW_DATA_DIR / "PIB municipios long.xlsx")
-    mesos = pd.read_excel(RAW_DATA_DIR / "PIB mesos long.xlsx")
+    municipios = pd.read_excel(RAW_DATA_DIR / "ibge" / "PIB municipios long.xlsx")
+    mesos = pd.read_excel(RAW_DATA_DIR / "ibge" / "PIB mesos long.xlsx")
 
     municipio_rows = municipios.loc[municipios["Município"] != "-"].copy()
     observed_year = int(municipio_rows.loc[municipio_rows["Tipo PIB"] == "Observado", "Data de Referência"].dt.year.max())

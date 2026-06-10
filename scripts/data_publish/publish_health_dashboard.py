@@ -8,16 +8,16 @@ import pandas as pd
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
+HEALTH_DATA_DIR = PROJECT_ROOT / "data" / "processed" / "saude"
 PUBLIC_DATA_DIR = PROJECT_ROOT / "public" / "data"
 
 TIJUCAS_CODE_6 = "421800"
 TIJUCAS_CODE_7 = "4218004"
 SC_CODE = "42"
 
-PROCEDURES_PATH = PROCESSED_DIR / "datasus_procedimentos_tijucas_sc_mensal.csv"
-APS_PATH = PROCESSED_DIR / "relatorioaps_cobertura_municipios_brasil.parquet"
-VACCINATION_PATH = PROCESSED_DIR / "datasus_cobertura_vacinal_municipios_brasil.parquet"
+PROCEDURES_PATH = HEALTH_DATA_DIR / "datasus_procedimentos_tijucas_sc_mensal.csv"
+APS_PATH = HEALTH_DATA_DIR / "relatorioaps_cobertura_municipios_brasil.parquet"
+VACCINATION_PATH = HEALTH_DATA_DIR / "datasus_cobertura_vacinal_municipios_brasil.parquet"
 
 OUTPUT_DASHBOARD = PUBLIC_DATA_DIR / "saude_dashboard.json"
 OUTPUT_PROCEDURES = PUBLIC_DATA_DIR / "saude_procedimentos.json"

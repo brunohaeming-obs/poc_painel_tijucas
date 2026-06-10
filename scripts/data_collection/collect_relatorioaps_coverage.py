@@ -19,7 +19,7 @@ RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
 PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
 
 API_BASE_URL = "https://relatorioaps-prd.saude.gov.br"
-RAW_DIR = RAW_DATA_DIR / "relatorioaps_cobertura"
+RAW_DIR = RAW_DATA_DIR / "aps" / "cobertura"
 
 
 @dataclass(frozen=True)
@@ -194,8 +194,8 @@ def main() -> None:
     parser.add_argument("--test", action="store_true", help="Coleta apenas APS 2024.")
     args = parser.parse_args()
 
-    RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
-    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    RAW_DIR.mkdir(parents=True, exist_ok=True)
+    (PROCESSED_DATA_DIR / "saude").mkdir(parents=True, exist_ok=True)
 
     selected_reports = [REPORTS[code] for code in (["aps"] if args.test else args.reports)]
     frames: list[pd.DataFrame] = []
@@ -218,9 +218,10 @@ def main() -> None:
     result = result.sort_values(["tipo_relatorio", "codigo_municipio", "competencia"], kind="stable")
 
     suffix = "teste" if args.test else "municipios_brasil"
-    csv_path = PROCESSED_DATA_DIR / f"relatorioaps_cobertura_{suffix}.csv"
-    parquet_path = PROCESSED_DATA_DIR / f"relatorioaps_cobertura_{suffix}.parquet"
-    metadata_path = PROCESSED_DATA_DIR / f"relatorioaps_cobertura_{suffix}_metadata.csv"
+    health_dir = PROCESSED_DATA_DIR / "saude"
+    csv_path = health_dir / f"relatorioaps_cobertura_{suffix}.csv"
+    parquet_path = health_dir / f"relatorioaps_cobertura_{suffix}.parquet"
+    metadata_path = health_dir / f"relatorioaps_cobertura_{suffix}_metadata.csv"
 
     result.to_csv(csv_path, index=False, encoding="utf-8-sig")
     try:

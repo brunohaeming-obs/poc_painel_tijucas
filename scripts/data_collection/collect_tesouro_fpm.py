@@ -9,6 +9,7 @@ import requests
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
+FISCAL_DATA_DIR = PROCESSED_DATA_DIR / "fiscal"
 
 BASE_URL = "https://apiapex.tesouro.gov.br/aria/v1/transferencias_constitucionais/custom"
 SC_CODIGO_UF_TESOURO = "24"
@@ -160,7 +161,7 @@ def main() -> None:
     if args.ano_inicio > args.ano_fim:
         raise ValueError("--ano-inicio deve ser menor ou igual a --ano-fim.")
 
-    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    FISCAL_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     frames: list[pd.DataFrame] = []
     for ano in range(args.ano_inicio, args.ano_fim + 1):
@@ -172,14 +173,14 @@ def main() -> None:
     validate_outputs(monthly, annual)
 
     suffix = f"{args.ano_inicio}_{args.ano_fim}"
-    monthly_csv = PROCESSED_DATA_DIR / f"fpm_municipios_sc_mensal_{suffix}.csv"
-    annual_csv = PROCESSED_DATA_DIR / f"fpm_municipios_sc_anual_{suffix}.csv"
+    monthly_csv = FISCAL_DATA_DIR / f"fpm_municipios_sc_mensal_{suffix}.csv"
+    annual_csv = FISCAL_DATA_DIR / f"fpm_municipios_sc_anual_{suffix}.csv"
     monthly.to_csv(monthly_csv, index=False, encoding="utf-8-sig")
     annual.to_csv(annual_csv, index=False, encoding="utf-8-sig")
 
     if not args.somente_csv:
-        monthly_parquet = PROCESSED_DATA_DIR / f"fpm_municipios_sc_mensal_{suffix}.parquet"
-        annual_parquet = PROCESSED_DATA_DIR / f"fpm_municipios_sc_anual_{suffix}.parquet"
+        monthly_parquet = FISCAL_DATA_DIR / f"fpm_municipios_sc_mensal_{suffix}.parquet"
+        annual_parquet = FISCAL_DATA_DIR / f"fpm_municipios_sc_anual_{suffix}.parquet"
         monthly.to_parquet(monthly_parquet, index=False)
         annual.to_parquet(annual_parquet, index=False)
 

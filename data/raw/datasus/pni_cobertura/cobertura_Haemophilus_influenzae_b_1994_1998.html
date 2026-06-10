@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang='pt-BR'>
+<META HTTP-EQUIV='Content-Type' CONTENT='text/html; charset=iso-8859-1'>
+<title>TabnetBD 1.0 -   Imunizações - Cobertura - Brasil </title>
+<body><center>
+</center>
+
+<link rel="stylesheet" href="CITO/tabnet2.min.css" type="text/css">
+
+        <div name="governo" class="todalargura">
+
+                    <div class="Escondido" style="background-color: #ffcc00;">
+
+                       <div>
+
+                           <a href="http://www.saude.gov.br" target="_blank">
+
+                               <img alt="Ministério da Saúde" src="http://www.datasus.gov.br/gifs/principal_r1_c1_res.gif" height="21" id="img1" />
+
+                           </a>
+
+                       </div>
+
+                   </div>
+
+               <div class="testeira" cellspacing="0" cellpadding="0">
+
+                   <div class="info_saude">
+
+                       <a href="/tabnet/tabnet.htm" alt="Informações de Saúde" title="Informações de Saúde">Informa&ccedil;&otilde;es de Sa&uacute;de</a>
+
+                   </div>
+
+                   <div class="marca_tabnet">
+
+                       <p>DATASUS<span>&nbsp;&nbsp;Tecnologia da Informa&ccedil;&atilde;o a Servi&ccedil;o do SUS<a href="http://www.datasus.gov.br" alt="MS/SE/Datasus" title="MS/SE/Datasus"></a></span></p>
+
+                   </div>
+
+                   <div class="ajuda">
+
+                       <a href="/tabnet/tabdescr.htm">Ajuda</a>
+
+                   </div>
+
+                   <div class="notific">
+
+                       <a href="bd_pni/Imun_cobertura_desde_1994.pdf">Notas T&eacute;cnicas</a></p>
+
+                   </div> 
+
+                   <div class="datasus">
+
+                       <p>DATASUS</p>
+
+                   </div>
+
+               </div>
+
+           </div>  
+
+<center>
+
+<H2>  Imunizações - Cobertura - Brasil </H2>
+<h3>Haemophilus influenzae b por Ano segundo MunicÃ­pio</h3>
+<b>Ano:</b> 1994-1998
+<p>
+<p>
+<!--
+select
+  case when (grouping(CONCAT(CONCAT(linha.CO_MUNICIPIO, ' '), linha.NO_MUNICIPIO)  ) = 1) then ' Total' else coalesce(CONCAT(CONCAT(linha.CO_MUNICIPIO, ' '), linha.NO_MUNICIPIO)  ,'~Ignorado') end as "MunicÃ­pio",
+  case
+    when  CO_ANO = '1994' then '#   11994'
+    when  CO_ANO = '1995' then '#   21995'
+    when  CO_ANO = '1996' then '#   31996'
+    when  CO_ANO = '1997' then '#   41997'
+    when  CO_ANO = '1998' then '#   51998'
+    when  CO_ANO = '1999' then '#   61999'
+    when  CO_ANO = '2000' then '#   72000'
+    when  CO_ANO = '2001' then '#   82001'
+    when  CO_ANO = '2002' then '#   92002'
+    when  CO_ANO = '2003' then '#  102003'
+    when  CO_ANO = '2004' then '#  112004'
+    when  CO_ANO = '2005' then '#  122005'
+    when  CO_ANO = '2006' then '#  132006'
+    when  CO_ANO = '2007' then '#  142007'
+    when  CO_ANO = '2008' then '#  152008'
+    when  CO_ANO = '2009' then '#  162009'
+    when  CO_ANO = '2010' then '#  172010'
+    when  CO_ANO = '2011' then '#  182011'
+    when  CO_ANO = '2012' then '#  192012'
+    when  CO_ANO = '2013' then '#  202013'
+    when  CO_ANO = '2014' then '#  212014'
+    when  CO_ANO = '2015' then '#  222015'
+    when  CO_ANO = '2016' then '#  232016'
+    when  CO_ANO = '2017' then '#  242017'
+    when  CO_ANO = '2018' then '#  252018'
+    when  CO_ANO = '2019' then '#  262019'
+    when  CO_ANO = '2020' then '#  272020'
+    when  CO_ANO = '2021' then '#  282021'
+    when  CO_ANO = '2022' then '#  292022'
+else 'Ignorado' end as "Ano",
+   case when sum(case when FATO.CO_IMUNO = '009' then NU_POPULACAO end)  > 0 then sum(case when FATO.CO_IMUNO = '009' then QT_DOSE end)* 100/sum(case when FATO.CO_IMUNO = '009' then NU_POPULACAO end) else 0 end as "Haemophilus influenzae b"
+from tb_tbn_pni_cobertura_vacinal fato,DISSEMINACAO.TB_TBN_MUNICIPIO linha
+where ( FATO.CO_MUNICIPIO= linha.CO_MUNICIPIO)
+  and (fato.CO_ANO < '2023')
+  and (CO_ANO between 1994 and 1998)
+group by cube(  CONCAT(CONCAT(linha.CO_MUNICIPIO, ' '), linha.NO_MUNICIPIO)  ,
+  case
+    when  CO_ANO = '1994' then '#   11994'
+    when  CO_ANO = '1995' then '#   21995'
+    when  CO_ANO = '1996' then '#   31996'
+    when  CO_ANO = '1997' then '#   41997'
+    when  CO_ANO = '1998' then '#   51998'
+    when  CO_ANO = '1999' then '#   61999'
+    when  CO_ANO = '2000' then '#   72000'
+    when  CO_ANO = '2001' then '#   82001'
+    when  CO_ANO = '2002' then '#   92002'
+    when  CO_ANO = '2003' then '#  102003'
+    when  CO_ANO = '2004' then '#  112004'
+    when  CO_ANO = '2005' then '#  122005'
+    when  CO_ANO = '2006' then '#  132006'
+    when  CO_ANO = '2007' then '#  142007'
+    when  CO_ANO = '2008' then '#  152008'
+    when  CO_ANO = '2009' then '#  162009'
+    when  CO_ANO = '2010' then '#  172010'
+    when  CO_ANO = '2011' then '#  182011'
+    when  CO_ANO = '2012' then '#  192012'
+    when  CO_ANO = '2013' then '#  202013'
+    when  CO_ANO = '2014' then '#  212014'
+    when  CO_ANO = '2015' then '#  222015'
+    when  CO_ANO = '2016' then '#  232016'
+    when  CO_ANO = '2017' then '#  242017'
+    when  CO_ANO = '2018' then '#  252018'
+    when  CO_ANO = '2019' then '#  262019'
+    when  CO_ANO = '2020' then '#  272020'
+    when  CO_ANO = '2021' then '#  282021'
+    when  CO_ANO = '2022' then '#  292022'
+else 'Ignorado' end)
+having  case when sum(case when FATO.CO_IMUNO = '009' then NU_POPULACAO end)  > 0 then sum(case when FATO.CO_IMUNO = '009' then QT_DOSE end)* 100/sum(case when FATO.CO_IMUNO = '009' then NU_POPULACAO end) else 0 end > 0 
+order by 1,2 
+
+ -->
+<!-- connect OK -->
+<!-- execute OK -->
+<!-- fetch   OK -->
+
+<!-- Tempo SQL execute() + fetchall() =  0.422999858856  segundos -->
+<!-- Google Chart tables-->
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['table']});
+      google.setOnLoadCallback(drawTable);
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string','MunicÃ­pio');
+        data.addColumn('number','1995');
+        data.addColumn('number','1996');
+        data.addColumn('number','1997');
+        data.addColumn('number','1998');
+        data.addColumn('number',' Total');
+        data.addRows([
+           [" Total" ,{v: 0.000132926047922 ,f: '0,00'} ,{v: 0.0144911227446 ,f: '0,01'} ,{v: 0.0328985276172 ,f: '0,03'} ,{v: 0.835646841143 ,f: '0,84'} ,{v: 0.225832167764 ,f: '0,23'} ]
+         , ["150530 ORIXIMINA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0851063829787 ,f: '0,09'} ,{v: 0.0206355757326 ,f: '0,02'} ]
+         , ["313670 JUIZ DE FORA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0140036409466 ,f: '0,01'} ,{v: 0.00706663840011 ,f: '0,01'} ]
+         , ["314800 PATOS DE MINAS" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.048309178744 ,f: '0,05'} ,{v: 0.0243664717349 ,f: '0,02'} ]
+         , ["316370 SAO LOURENCO" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.172413793103 ,f: '0,17'} ,{v: 0.0871839581517 ,f: '0,09'} ]
+         , ["317020 UBERLANDIA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0373552484124 ,f: '0,04'} ,{v: 0.0120525491141 ,f: '0,01'} ,{v: 0.0244977951984 ,f: '0,02'} ]
+         , ["317070 VARGINHA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0510986203373 ,f: '0,05'} ,{v: 0.025859839669 ,f: '0,03'} ]
+         , ["330010 ANGRA DOS REIS" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0517598343685 ,f: '0,05'} ,{v: 0.0510204081633 ,f: '0,05'} ,{v: 0.0262501640635 ,f: '0,03'} ]
+         , ["330100 CAMPOS DOS GOYTACAZES" ,{v: 0 ,f: '-'} ,{v: 0.0772101402651 ,f: '0,08'} ,{v: 0.102130142982 ,f: '0,10'} ,{v: 0.420168067227 ,f: '0,42'} ,{v: 0.14383069073 ,f: '0,14'} ]
+         , ["350320 ARARAQUARA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 2.46763754045 ,f: '2,47'} ,{v: 0.51494175249 ,f: '0,51'} ]
+         , ["350750 BOTUCATU" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0585823081429 ,f: '0,06'} ,{v: 0.0134156157768 ,f: '0,01'} ]
+         , ["350950 CAMPINAS" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0837404047453 ,f: '0,08'} ,{v: 0.0185345360188 ,f: '0,02'} ]
+         , ["351110 CATANDUVA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.434782608696 ,f: '0,43'} ,{v: 0.100171722954 ,f: '0,10'} ]
+         , ["351620 FRANCA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0188536953243 ,f: '0,02'} ,{v: 0.00469792351781 ,f: '0,00'} ]
+         , ["352670 LEME" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 1.51957919345 ,f: '1,52'} ,{v: 0.407013149656 ,f: '0,41'} ]
+         , ["352900 MARILIA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.130633572828 ,f: '0,13'} ,{v: 0.0304924531179 ,f: '0,03'} ]
+         , ["353030 MIRASSOL" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 1.10497237569 ,f: '1,10'} ,{v: 0.255264837269 ,f: '0,26'} ]
+         , ["353650 PAULINIA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 89.5095367847 ,f: '89,51'} ,{v: 20.2777777778 ,f: '20,28'} ]
+         , ["353870 PIRACICABA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 3.20751026794 ,f: '3,21'} ,{v: 0.734701191649 ,f: '0,73'} ]
+         , ["353930 PIRASSUNUNGA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 1.79694519317 ,f: '1,80'} ,{v: 0.437062937063 ,f: '0,44'} ]
+         , ["354340 RIBEIRAO PRETO" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0314267756128 ,f: '0,03'} ,{v: 0.0063395460885 ,f: '0,01'} ]
+         , ["354780 SANTO ANDRE" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 3.01657458564 ,f: '3,02'} ,{v: 0.651706851277 ,f: '0,65'} ]
+         , ["354850 SANTOS" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.273338940286 ,f: '0,27'} ,{v: 0.0498657460683 ,f: '0,05'} ]
+         , ["354870 SAO BERNARDO DO CAMPO" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 10.0210526316 ,f: '10,02'} ,{v: 2.52578851297 ,f: '2,53'} ]
+         , ["354890 SAO CARLOS" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 3.13626532084 ,f: '3,14'} ,{v: 0.704225352113 ,f: '0,70'} ]
+         , ["355030 SAO PAULO" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 2.27306345841 ,f: '2,27'} ,{v: 0.526068040796 ,f: '0,53'} ]
+         , ["355220 SOROCABA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0256574727389 ,f: '0,03'} ,{v: 0.00618888476297 ,f: '0,01'} ]
+         , ["411370 LONDRINA" ,{v: 0 ,f: '-'} ,{v: 0.0241867214899 ,f: '0,02'} ,{v: 11.8706009746 ,f: '11,87'} ,{v: 42.9009465405 ,f: '42,90'} ,{v: 13.0565027566 ,f: '13,06'} ]
+         , ["412667 TAMARANA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 2.03045685279 ,f: '2,03'} ,{v: 16.0 ,f: '16,00'} ,{v: 9.04522613065 ,f: '9,05'} ]
+         , ["420240 BLUMENAU" ,{v: 0 ,f: '-'} ,{v: 9.38784339174 ,f: '9,39'} ,{v: 3.67976131278 ,f: '3,68'} ,{v: 0 ,f: '-'} ,{v: 3.25012564919 ,f: '3,25'} ]
+         , ["420540 FLORIANOPOLIS" ,{v: 0.0815494393476 ,f: '0,08'} ,{v: 0.198807157058 ,f: '0,20'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0765403750478 ,f: '0,08'} ]
+         , ["430040 ALEGRETE" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0615763546798 ,f: '0,06'} ,{v: 0.0150738619234 ,f: '0,02'} ]
+         , ["430510 CAXIAS DO SUL" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.0345423143351 ,f: '0,03'} ,{v: 0.00827266710788 ,f: '0,01'} ]
+         , ["530010 BRASILIA" ,{v: 0 ,f: '-'} ,{v: 0 ,f: '-'} ,{v: 0.00447627573859 ,f: '0,00'} ,{v: 45.0922335185 ,f: '45,09'} ,{v: 10.2098806445 ,f: '10,21'} ]
+        ]);
+
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+        var cssClasses = {headerCell: 'google-visualization-table-th cabecColuna'};
+         table.draw(data,{allowHtml: true,showRowNumber: false, frozenColumns: 1, cssClassNames: cssClasses})
+      }
+    </script>
+
+<div id='table_div' style='width: 100%; height: 100%'></div>
+
+<DIV CLASS="nivel2">
+<br/>
+<table class="escondido">
+<tr>
+<td><A HREF=csv/cpnibr17809442524.xlsx>Copia para Excel</A></td>
+<td><A HREF=csv/cpnibr17809442524.csv>Salva como CSV</A></td>
+<td><A HREF=csv/cpnibr17809442524.tab>Copia para TabWin</A></td>
+</tr></table>
+</DIV>
+<p>
+<p>
+</div>
+
+<div class="container">
+
+<link rel="stylesheet" href="CITO/tabnetbds.css" type="text/css">
+
+ <div align="left" style="width: 750px; height: 100%" ><strong>Fonte:</strong> <a href="http://pni.datasus.gov.br/" target="_blank">Sistema de Informação do Programa Nacional de Imunizações (SI-PNI/CGPNI/DEIDT/SVS/MS)</a></div><br><br>
+
+ <div align="left" style="width: 750px; height: 100%" ><strong>Notas:</strong></div>
+
+<div align="left" style="width: 750px; height: 100%" ><ul></div>
+
+<div align="left" style="width: 750px; height: 100%" ><li>Não considerar na extração dos dados do TABNET Cobertura Vacinal a coluna e linha com o TOTAL.</li></div>
+
+<div align="left" style="width: 750px; height: 100%" ><li>As bases de dados disponíveis envolvem as vacinações a partir de 1994 até 2022.</li></div>
+
+<div align="left" style="width: 750px; height: 100%" ><li>Os dados a partir de 2023 encontram-se disponíveis nos painéis de <a href="https://infoms.saude.gov.br/extensions/SEIDIGI_DEMAS_VACINACAO_CALENDARIO_NACIONAL_MENU_COBERTURA/SEIDIGI_DEMAS_VACINACAO_CALENDARIO_NACIONAL_MENU_COBERTURA.html" target="_blank">COBERTURA VACINAL.</a></li></div>
+
+<div align="left" style="width: 750px; height: 100%" ><li>Última atualização dos dados: maio de 2023.</div>
+
+ </li>
+
+</ul>
+
+ <BR>
+
+ <p>
+
+ <p>
+
+</center>
+</body></html>

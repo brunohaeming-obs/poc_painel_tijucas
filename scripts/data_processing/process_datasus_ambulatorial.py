@@ -5,7 +5,7 @@ import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
-PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
+HEALTH_DATA_DIR = PROJECT_ROOT / "data" / "processed" / "saude"
 MONTH_LABELS = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
 
 
@@ -15,8 +15,8 @@ def format_period(date: pd.Timestamp) -> str:
 
 def export_datasus_long_to_excel() -> None:
     """Converte a base longa do DataSUS de CSV para XLSX."""
-    input_path = RAW_DATA_DIR / "datasus - procedimento ambulatoriais sc long.csv"
-    output_path = PROCESSED_DATA_DIR / "procedimento_ambulatoriais_sc_long.xlsx"
+    input_path = RAW_DATA_DIR / "datasus" / "datasus - procedimento ambulatoriais sc long.csv"
+    output_path = HEALTH_DATA_DIR / "procedimento_ambulatoriais_sc_long.xlsx"
 
     df = pd.read_csv(input_path, sep=";")
     df.to_excel(output_path, index=False)
@@ -24,8 +24,8 @@ def export_datasus_long_to_excel() -> None:
 
 
 def build_tijucas_sc_monthly() -> None:
-    input_path = RAW_DATA_DIR / "datasus - procedimento ambulatoriais sc long.csv"
-    output_path = PROCESSED_DATA_DIR / "datasus_procedimentos_tijucas_sc_mensal.csv"
+    input_path = RAW_DATA_DIR / "datasus" / "datasus - procedimento ambulatoriais sc long.csv"
+    output_path = HEALTH_DATA_DIR / "datasus_procedimentos_tijucas_sc_mensal.csv"
 
     df = pd.read_csv(input_path, sep=";")
     df["ano_mes_atendimento"] = pd.to_datetime(df["ano_mes_atendimento"])
@@ -49,7 +49,7 @@ def build_tijucas_sc_monthly() -> None:
 
 
 if __name__ == "__main__":
-    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    HEALTH_DATA_DIR.mkdir(parents=True, exist_ok=True)
     export_datasus_long_to_excel()
     build_tijucas_sc_monthly()
 

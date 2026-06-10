@@ -326,7 +326,7 @@ function InvestmentChart({ data, comparisonRows }) {
 }
 
 function FunctionProfileChart({ rows, mode }) {
-  const isPerCapita = mode === "perCapita";
+  const isTotal = mode === "total";
 
   return (
     <div className="h-[410px]">
@@ -336,22 +336,22 @@ function FunctionProfileChart({ rows, mode }) {
           <XAxis
             type="number"
             tick={{ fill: colors.text, fontSize: 12 }}
-            tickFormatter={isPerCapita ? compactFormatter.format : (value) => `${decimalFormatter.format(value)}%`}
+            tickFormatter={isTotal ? (value) => `R$ ${compactFormatter.format(value)}` : (value) => `${decimalFormatter.format(value)}%`}
           />
           <YAxis type="category" dataKey="funcao" tick={{ fill: colors.text, fontSize: 12, fontWeight: 700 }} width={112} />
-          <Tooltip content={<FiscalTooltip formatter={isPerCapita ? formatPerCapita : formatPercent} />} />
+          <Tooltip content={<FiscalTooltip formatter={isTotal ? formatMoney : formatPercent} />} />
           <Legend
             verticalAlign="bottom"
             align="center"
             iconType="line"
             wrapperStyle={{ color: colors.text, fontSize: 12, fontWeight: 800, paddingTop: 14 }}
           />
-          <Bar dataKey={isPerCapita ? "per_capita" : "participacao_pct"} name="Tijucas" radius={[0, 8, 8, 0]}>
+          <Bar dataKey={isTotal ? "valor" : "participacao_pct"} name="Tijucas" radius={[0, 8, 8, 0]}>
             {rows.map((row) => (
               <Cell key={row.funcao} fill={row.classificacao === "ponto de atencao" ? colors.expense : colors.tijucas} />
             ))}
           </Bar>
-          <Bar dataKey={isPerCapita ? "mediana_per_capita" : "mediana_participacao_pct"} name="Mediana de municípios similares a Tijucas" fill={colors.median} radius={[0, 8, 8, 0]} />
+          <Bar dataKey={isTotal ? "mediana_total_sc" : "mediana_pct_sc"} name="Mediana dos municípios de SC" fill={colors.median} radius={[0, 8, 8, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -367,16 +367,18 @@ function buildFunctionHistoryRows(functionNames) {
       const current = grouped.get(row.ano) ?? { ano: row.ano };
       current[`${row.funcao}_per_capita`] = row.per_capita;
       current[`${row.funcao}_participacao`] = row.participacao_pct;
+      current[`${row.funcao}_total`] = row.valor;
       grouped.set(row.ano, current);
     });
   return [...grouped.values()].sort((a, b) => a.ano - b.ano);
 }
 
 function FunctionHistoryChart({ rows, mode, functions }) {
+  const isTotal = mode === "total";
   const isPerCapita = mode === "perCapita";
   const data = buildFunctionHistoryRows(functions.map((row) => row.funcao));
-  const formatter = isPerCapita ? formatPerCapita : formatPercent;
-  const suffix = isPerCapita ? "_per_capita" : "_participacao";
+  const formatter = isTotal ? formatMoney : (isPerCapita ? formatPerCapita : formatPercent);
+  const suffix = isTotal ? "_total" : (isPerCapita ? "_per_capita" : "_participacao");
 
   return (
     <div className="h-[410px]">
@@ -386,7 +388,7 @@ function FunctionHistoryChart({ rows, mode, functions }) {
           <XAxis dataKey="ano" tick={{ fill: colors.text, fontSize: 12, fontWeight: 700 }} />
           <YAxis
             tick={{ fill: colors.text, fontSize: 12 }}
-            tickFormatter={isPerCapita ? compactFormatter.format : (value) => `${decimalFormatter.format(value)}%`}
+            tickFormatter={isTotal ? (value) => `R$ ${compactFormatter.format(value)}` : (isPerCapita ? compactFormatter.format : (value) => `${decimalFormatter.format(value)}%`)}
             width={76}
           />
           <Tooltip content={<FiscalTooltip formatter={formatter} />} />
@@ -494,7 +496,7 @@ function perCapitaNote(perCapitaValue, medianaPerCapita) {
 
 export function ContasPublicasPage() {
   const [fiscalMode, setFiscalMode] = useState("total");
-  const [functionMode, setFunctionMode] = useState("perCapita");
+  const [functionMode, setFunctionMode] = useState("total");
   const [functionChartView, setFunctionChartView] = useState("comparison");
   const latest = latestSeries();
   const functionRows = useMemo(() => buildFunctionRows().slice(0, 8), []);
@@ -583,13 +585,13 @@ export function ContasPublicasPage() {
     {
       label: "Educação",
       value: formatMoney(educationRow?.valor),
-      note: educationRow ? perCapitaNote(educationRow.per_capita, educationRow.mediana_per_capita) : "dado indisponível",
+      note: educationRow ? `mediana SC: ${formatMoney(educationRow.mediana_total_sc)}` : "dado indisponível",
       help: `Educação reúne gastos registrados na função educação — ${formatPercent(educationRow?.participacao_pct)} da despesa total em ${latest.ano}. ${fiscalPeerHelp}`,
     },
     {
       label: "Saúde",
       value: formatMoney(healthRow?.valor),
-      note: healthRow ? perCapitaNote(healthRow.per_capita, healthRow.mediana_per_capita) : "dado indisponível",
+      note: healthRow ? `mediana SC: ${formatMoney(healthRow.mediana_total_sc)}` : "dado indisponível",
       help: `Saúde reúne gastos registrados na função saúde — ${formatPercent(healthRow?.participacao_pct)} da despesa total em ${latest.ano}. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
     },
     {
@@ -631,8 +633,8 @@ export function ContasPublicasPage() {
   const sourceNarrative = `Tijucas arrecada relativamente bem por conta própria: em ${latest.ano}, a receita própria totalizou ${formatMoney(latest.receita_propria)} (${formatPerCapita(latest.receita_propria_per_capita)}, acima da mediana dos municípios semelhantes). Ainda assim, ${formatPercent(latest.transferencias_correntes_pct_receita_corrente)} da receita corrente veio de transferências, grupo que inclui o FPM. O repasse do FPM foi de ${formatMoney(latest.fpm)}, representando ${formatPercent(latest.fpm_pct_receita_corrente)} da receita corrente — peso relevante, mas próximo do padrão de cidades parecidas.`;
 
   const functionNarrative =
-    functionMode === "perCapita"
-      ? `Em ${latest.ano}, educação recebeu ${formatMoney(educationRow?.valor)} (${formatPerCapita(educationRow?.per_capita)}) e saúde recebeu ${formatMoney(healthRow?.valor)} (${formatPerCapita(healthRow?.per_capita)}). O orçamento está concentrado nas áreas essenciais — educação, saúde e urbanismo reúnem serviços diretos e infraestrutura da cidade. A leitura por morador permite comparar Tijucas com municípios de porte semelhante.`
+    functionMode === "total"
+      ? `Em ${latest.ano}, educação recebeu ${formatMoney(educationRow?.valor)} e saúde recebeu ${formatMoney(healthRow?.valor)}. O orçamento está concentrado nas áreas essenciais — educação, saúde e urbanismo reúnem serviços diretos e infraestrutura da cidade. A mediana dos municípios de Santa Catarina foi de ${formatMoney(educationRow?.mediana_total_sc)} em educação e ${formatMoney(healthRow?.mediana_total_sc)} em saúde.`
       : `A participação mostra para onde vai o orçamento. Educação representa ${formatPercent(educationRow?.participacao_pct)} da despesa total e saúde representa ${formatPercent(healthRow?.participacao_pct)}. Administração mostra o custo de manter a estrutura pública funcionando; ela deve ser lida junto das áreas finalísticas, não isoladamente.`;
 
   const investmentNarrative = `Em ${latest.ano}, Tijucas investiu ${formatMoney(latest.investimento_total)} em obras, equipamentos e melhorias permanentes — equivalente a ${formatPerCapita(latest.investimento_per_capita)}, acima da mediana dos municípios semelhantes. O investimento representou ${formatPercent(latest.investimento_pct_despesa)} da despesa total, indicando boa capacidade de transformar orçamento em melhoria real para a cidade.`;
@@ -746,10 +748,10 @@ export function ContasPublicasPage() {
                 <span>Destino dos recursos</span>
               </div>
               <h3 id="destino-dinheiro-title" className="mt-1 text-2xl font-extrabold text-white">Para onde vai o dinheiro?</h3>
-              <p className="mt-1 text-sm font-semibold text-slate-300">Perfil da despesa por função e comparação com municípios semelhantes.</p>
+              <p className="mt-1 text-sm font-semibold text-slate-300">Perfil da despesa por função e comparação com a mediana dos municípios de SC.</p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <ModeButton active={functionMode === "perCapita"} onClick={() => setFunctionMode("perCapita")} icon={BarChart3}>Por morador</ModeButton>
+              <ModeButton active={functionMode === "total"} onClick={() => setFunctionMode("total")} icon={BarChart3}>Total</ModeButton>
               <ModeButton active={functionMode === "share"} onClick={() => setFunctionMode("share")} icon={Landmark}>Participação</ModeButton>
             </div>
           </div>
@@ -762,17 +764,17 @@ export function ContasPublicasPage() {
                 <div>
                   <h4 className="text-base font-extrabold text-white">
                     {functionChartView === "history"
-                      ? functionMode === "perCapita"
-                        ? "Série histórica do gasto por morador"
+                      ? functionMode === "total"
+                        ? "Série histórica do gasto total"
                         : "Série histórica da participação"
-                      : functionMode === "perCapita"
-                        ? "Gasto por área por morador"
+                      : functionMode === "total"
+                        ? "Gasto total por área"
                         : "Peso de cada área na despesa"}
                   </h4>
                   <p className="text-xs font-semibold text-slate-400">
                     {functionChartView === "history"
                       ? "Evolução anual de Tijucas por função, 2013 a 2024."
-                      : `Tijucas comparada à mediana dos municípios similares, ${latest.ano}.`}
+                      : `Tijucas comparada à mediana dos municípios de SC, ${latest.ano}.`}
                   </p>
                 </div>
                 <button
@@ -792,9 +794,9 @@ export function ContasPublicasPage() {
             </article>
             <NarrativeCard
               eyebrow="Prioridades do gasto"
-              title={functionMode === "perCapita" ? "Quanto cada área recebe por morador" : "Quais áreas pesam mais"}
+              title={functionMode === "total" ? "Quanto cada área recebe no total" : "Quais áreas pesam mais"}
               body={functionNarrative}
-              caption="Comparar com cidades de porte parecido evita distorções causadas por municípios muito pequenos ou muito grandes."
+              caption="Comparação com a mediana dos municípios de Santa Catarina — todos os 295 municípios com dados disponíveis."
               source={functionSource}
               icon={Landmark}
               restartKey={`funcoes-${functionMode}`}

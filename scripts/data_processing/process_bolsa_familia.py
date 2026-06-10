@@ -5,15 +5,15 @@ import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
-PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
+SOCIAL_DATA_DIR = PROJECT_ROOT / "data" / "processed" / "social"
 
 
 def main() -> None:
-    input_path = RAW_DATA_DIR / "MIN.CIDADANIA - BOLSA FAMILIA SC (mensal).csv"
-    output_path = PROCESSED_DATA_DIR / "bolsa_familia_sc_mensal_colunas_separadas.csv"
-    total_output_path = PROCESSED_DATA_DIR / "bolsa_familia_sc_total_mensal.csv"
+    input_path = RAW_DATA_DIR / "min_cidadania" / "MIN.CIDADANIA - BOLSA FAMILIA SC (mensal).csv"
+    output_path = SOCIAL_DATA_DIR / "bolsa_familia_sc_mensal_colunas_separadas.csv"
+    total_output_path = SOCIAL_DATA_DIR / "bolsa_familia_sc_total_mensal.csv"
 
-    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    SOCIAL_DATA_DIR.mkdir(parents=True, exist_ok=True)
     df = pd.read_csv(input_path, encoding="latin-1")
     cols = list(df.columns)
 

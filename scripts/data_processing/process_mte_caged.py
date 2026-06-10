@@ -5,7 +5,7 @@ import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
-PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
+SOCIAL_DATA_DIR = PROJECT_ROOT / "data" / "processed" / "social"
 MONTH_LABELS = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
 
 
@@ -14,10 +14,10 @@ def format_period(date: pd.Timestamp) -> str:
 
 
 def main() -> None:
-    input_path = RAW_DATA_DIR / "mte - saldo sc.xlsx"
-    output_path = PROCESSED_DATA_DIR / "mte_saldo_tijucas_sc_mensal.csv"
+    input_path = RAW_DATA_DIR / "mte" / "mte - saldo sc.xlsx"
+    output_path = SOCIAL_DATA_DIR / "mte_saldo_tijucas_sc_mensal.csv"
 
-    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    SOCIAL_DATA_DIR.mkdir(parents=True, exist_ok=True)
     df = pd.read_excel(input_path, sheet_name="base")
     df["dt_data_competencia"] = pd.to_datetime(df["dt_data_competencia"])
 

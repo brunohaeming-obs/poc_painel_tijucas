@@ -5,8 +5,8 @@ import pandas as pd
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
 RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
+FISCAL_DATA_DIR = PROJECT_ROOT / "data" / "processed" / "fiscal"
 SRC_DATA_DIR = PROJECT_ROOT / "src" / "data"
 TIJUCAS_IBGE = "4218004"
 
@@ -27,10 +27,10 @@ def total_value(frame: pd.DataFrame, coluna: str, total_patterns: list[str]) -> 
 
 
 def main() -> None:
-    receitas = pd.read_parquet(PROCESSED_DATA_DIR / "siconfi_receitas_orcamentarias_muni_2025.parquet")
-    despesas = pd.read_parquet(PROCESSED_DATA_DIR / "siconfi_despesas_orcamentarias_muni_2025.parquet")
-    funcoes = pd.read_parquet(PROCESSED_DATA_DIR / "siconfi_despesas_por_funcao_muni_2025.parquet")
-    pop = pd.read_excel(RAW_DATA_DIR / "IBGE - POP CENSO.xlsx", sheet_name="Tabela")
+    receitas = pd.read_parquet(FISCAL_DATA_DIR / "siconfi_receitas_orcamentarias_muni_2025.parquet")
+    despesas = pd.read_parquet(FISCAL_DATA_DIR / "siconfi_despesas_orcamentarias_muni_2025.parquet")
+    funcoes = pd.read_parquet(FISCAL_DATA_DIR / "siconfi_despesas_por_funcao_muni_2025.parquet")
+    pop = pd.read_excel(RAW_DATA_DIR / "ibge" / "IBGE - POP CENSO.xlsx", sheet_name="Tabela")
     pop_row = pop.loc[pop["cod_mun"].astype(str).eq(TIJUCAS_IBGE)].iloc[0]
     populacao = int(pop_row["populacao"])
 
