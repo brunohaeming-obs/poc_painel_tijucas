@@ -535,6 +535,30 @@
       "administracao_pct_despesa": 5.7272655488784485,
       "restos_a_pagar_total": 42130507.41,
       "restos_a_pagar_pct_despesa": 12.473157523556493
+    },
+    {
+      "ano": 2025,
+      "populacao": 49474,
+      "fonte": "RREO",
+      "receita_total": 414844800.75,
+      "receita_total_realizada": 414844800.75,
+      "receita_corrente": 372270362.54,
+      "receita_de_capital": 26198045.67,
+      "despesa_total": 372212385.6,
+      "despesa_empenhada_total": 372212385.6,
+      "despesa_liquidada_total": 350431591.38,
+      "despesa_paga_total": 347095029.14,
+      "despesa_corrente": 314209228.56,
+      "despesa_capital": 42095553.84,
+      "investimentos": 39072759.84,
+      "pessoal_encargos": 172028551.47,
+      "resultado_orcamentario": 42632415.15,
+      "receita_per_capita": 8385,
+      "receita_total_realizada_per_capita": 8385,
+      "despesa_per_capita": 7523,
+      "despesa_empenhada_total_per_capita": 7523,
+      "investimentos_pct_despesa_total": 10.5,
+      "investimento_pct_despesa": 10.5
     }
   ],
   "funcoes_ultimo_ano": [

@@ -16,6 +16,7 @@ import {
   Legend,
   Line,
   LineChart,
+  ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -200,28 +201,60 @@ function RevenueExpenseChart({ data, mode }) {
     receita: isPerCapita ? row.receita_per_capita : row.receita_total,
     despesa: isPerCapita ? row.despesa_per_capita : row.despesa_total,
     saldo: isPerCapita ? row.resultado_orcamentario / row.populacao : row.resultado_orcamentario,
+    isRREO: row.fonte === "RREO",
   }));
   const formatter = isPerCapita ? formatPerCapita : formatMoney;
 
+  const rreoDot = (color) => (props) => {
+    const { cx, cy, payload } = props;
+    if (!cx || !cy) return null;
+    if (payload.isRREO)
+      return <circle key={`d-${cx}`} cx={cx} cy={cy} r={6} fill="none" stroke={color} strokeWidth={2.5} />;
+    return <circle key={`d-${cx}`} cx={cx} cy={cy} r={3} fill={color} />;
+  };
+
+  const rreoDotActive = (color) => (props) => {
+    const { cx, cy, payload } = props;
+    if (!cx || !cy) return null;
+    if (payload.isRREO)
+      return <circle key={`da-${cx}`} cx={cx} cy={cy} r={8} fill="none" stroke={color} strokeWidth={2.5} />;
+    return <circle key={`da-${cx}`} cx={cx} cy={cy} r={5} fill={color} />;
+  };
+
   return (
-    <div className="h-[360px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={rows} margin={{ top: 20, right: 24, bottom: 34, left: 18 }}>
-          <CartesianGrid stroke={colors.grid} strokeDasharray="4 4" />
-          <XAxis dataKey="ano" tick={{ fill: colors.text, fontSize: 12, fontWeight: 700 }} />
-          <YAxis tick={{ fill: colors.text, fontSize: 12 }} tickFormatter={(value) => `R$ ${compactFormatter.format(value)}`} width={76} />
-          <Tooltip content={<FiscalTooltip formatter={formatter} />} />
-          <Legend
-            verticalAlign="bottom"
-            align="center"
-            iconType="line"
-            wrapperStyle={{ color: colors.text, fontSize: 12, fontWeight: 800, paddingTop: 16 }}
-          />
-          <Line type="monotone" dataKey="receita" name="Receita" stroke={colors.revenue} strokeWidth={3.4} dot={{ r: 3 }} />
-          <Line type="monotone" dataKey="despesa" name="Despesa" stroke={colors.expense} strokeWidth={3.4} dot={{ r: 3 }} />
-          <Line type="monotone" dataKey="saldo" name="Saldo" stroke={colors.result} strokeWidth={2.8} dot={{ r: 2.8 }} />
-        </LineChart>
-      </ResponsiveContainer>
+    <div>
+      <div className="h-[360px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={rows} margin={{ top: 20, right: 24, bottom: 34, left: 18 }}>
+            <CartesianGrid stroke={colors.grid} strokeDasharray="4 4" />
+            <XAxis dataKey="ano" tick={{ fill: colors.text, fontSize: 12, fontWeight: 700 }} />
+            <YAxis tick={{ fill: colors.text, fontSize: 12 }} tickFormatter={(value) => `R$ ${compactFormatter.format(value)}`} width={76} />
+            <Tooltip
+              content={({ active, payload, label }) => (
+                <FiscalTooltip
+                  active={active}
+                  payload={payload}
+                  label={`${label}${rows.find((r) => r.ano === label)?.isRREO ? " · RREO" : ""}`}
+                  formatter={formatter}
+                />
+              )}
+            />
+            <Legend
+              verticalAlign="bottom"
+              align="center"
+              iconType="line"
+              wrapperStyle={{ color: colors.text, fontSize: 12, fontWeight: 800, paddingTop: 16 }}
+            />
+            <ReferenceLine x={2025} stroke={colors.grid} strokeDasharray="4 3" strokeWidth={1.5} label={{ value: "RREO", position: "top", fill: colors.text, fontSize: 10, fontWeight: 600 }} />
+            <Line type="monotone" dataKey="receita" name="Receita" stroke={colors.revenue} strokeWidth={3.4} dot={rreoDot(colors.revenue)} activeDot={rreoDotActive(colors.revenue)} />
+            <Line type="monotone" dataKey="despesa" name="Despesa" stroke={colors.expense} strokeWidth={3.4} dot={rreoDot(colors.expense)} activeDot={rreoDotActive(colors.expense)} />
+            <Line type="monotone" dataKey="saldo" name="Saldo" stroke={colors.result} strokeWidth={2.8} dot={rreoDot(colors.result)} activeDot={rreoDotActive(colors.result)} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      <p className="mt-1 text-center text-[10px] text-slate-400">
+        ○ 2025: RREO Bimestre 6 (SICONFI) — execução acumulada; DCA anual ainda não disponível
+      </p>
     </div>
   );
 }
