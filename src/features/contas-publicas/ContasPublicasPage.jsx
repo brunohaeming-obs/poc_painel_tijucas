@@ -6,7 +6,6 @@ import {
   Info,
   Landmark,
   LineChart as LineChartIcon,
-  ReceiptText,
 } from "lucide-react";
 import {
   Bar,
@@ -310,12 +309,16 @@ function DependencyChart({ data, comparisonRows }) {
 }
 
 function InvestmentChart({ data, comparisonRows }) {
-  const rows = mergeComparisonSeries(data, comparisonRows).map((row) => ({
-    ano: row.ano,
-    investimento: row.investimento_per_capita,
-    mediaSimilares: row.mediaSimilares,
-    mediaMesorregiao: row.mediaMesorregiao,
-  }));
+  const compByYear = new Map((comparisonRows ?? []).map((r) => [r.ano, r]));
+
+  const rows = data.map((row) => {
+    const comp = compByYear.get(row.ano) ?? {};
+    return {
+      ano: row.ano,
+      investimento: row.investimento_pct_despesa ?? row.investimentos_pct_despesa_total ?? null,
+      medianaCenso: comp.mediana_similares ?? null,
+    };
+  });
 
   return (
     <div className="h-[360px]">
@@ -323,32 +326,22 @@ function InvestmentChart({ data, comparisonRows }) {
         <LineChart data={rows} margin={{ top: 20, right: 24, bottom: 42, left: 18 }}>
           <CartesianGrid stroke={colors.grid} strokeDasharray="4 4" />
           <XAxis dataKey="ano" tick={{ fill: colors.text, fontSize: 12, fontWeight: 700 }} />
-          <YAxis tick={{ fill: colors.text, fontSize: 12 }} tickFormatter={(value) => `R$ ${compactFormatter.format(value)}`} width={76} />
-          <Tooltip content={<FiscalTooltip formatter={formatPerCapita} />} />
+          <YAxis tick={{ fill: colors.text, fontSize: 12 }} tickFormatter={(value) => `${decimalFormatter.format(value)}%`} width={52} domain={[0, "auto"]} />
+          <Tooltip content={<FiscalTooltip formatter={formatPercent} />} />
           <Legend
             verticalAlign="bottom"
             align="center"
             iconType="line"
             wrapperStyle={{ color: colors.text, fontSize: 12, fontWeight: 800, paddingTop: 16 }}
           />
-          <Line type="monotone" dataKey="investimento" name="Investimento por morador" stroke={colors.investment} strokeWidth={3.4} dot={{ r: 3 }} />
+          <Line type="monotone" dataKey="investimento" name="Tijucas" stroke={colors.investment} strokeWidth={3.4} dot={{ r: 3 }} connectNulls />
           <Line
             type="monotone"
-            dataKey="mediaSimilares"
-            name="Média dos similares"
-            stroke={colors.similar}
-            strokeWidth={2.8}
+            dataKey="medianaCenso"
+            name="Mediana similares (Censo 50-70k hab)"
+            stroke={colors.median}
+            strokeWidth={2.4}
             strokeDasharray="6 4"
-            dot={false}
-            connectNulls
-          />
-          <Line
-            type="monotone"
-            dataKey="mediaMesorregiao"
-            name="Média da mesorregião"
-            stroke={colors.mesoregion}
-            strokeWidth={2.8}
-            strokeDasharray="2 5"
             dot={false}
             connectNulls
           />
@@ -450,8 +443,20 @@ function FunctionHistoryChart({ rows, mode, functions }) {
 }
 
 function RevenueComposition({ latest }) {
-  const own = Math.max(0, latest.receita_propria_pct_receita_corrente ?? 0);
-  const transfers = Math.max(0, latest.transferencias_correntes_pct_receita_corrente ?? 0);
+  const compositionRow = (() => {
+    const series = contasPublicasData.series;
+    for (let i = series.length - 1; i >= 0; i--) {
+      const s = series[i];
+      if (s.receita_propria_pct_receita_corrente != null && s.transferencias_correntes_pct_receita_corrente != null) {
+        return s;
+      }
+    }
+    return latest;
+  })();
+
+  const isStale = compositionRow.ano !== latest.ano;
+  const own = Math.max(0, compositionRow.receita_propria_pct_receita_corrente ?? 0);
+  const transfers = Math.max(0, compositionRow.transferencias_correntes_pct_receita_corrente ?? 0);
   const other = Math.max(0, 100 - own - transfers);
   const items = [
     { label: "Receita própria", value: own, color: colors.own },
@@ -461,6 +466,10 @@ function RevenueComposition({ latest }) {
 
   return (
     <div className="grid gap-4">
+      <h5 className="mb-1 text-sm font-extrabold text-white">
+        Composição da receita corrente em {compositionRow.ano}
+        {isStale && <span className="ml-2 text-xs font-semibold text-slate-400">(dado mais recente disponível)</span>}
+      </h5>
       <div className="h-7 overflow-hidden rounded-full border border-white/10 bg-white/10">
         <div className="flex h-full">
           {items.map((item) => (
@@ -520,11 +529,13 @@ function benchmarkNote(benchmark, formatter) {
   return `mediana de municípios similares a Tijucas: ${formatter(benchmark.mediana_similares)}`;
 }
 
-function perCapitaNote(perCapitaValue, medianaPerCapita) {
-  const tijucas = formatPerCapita(perCapitaValue);
-  return medianaPerCapita != null
-    ? `${tijucas} · mediana similares: ${formatPerCapita(medianaPerCapita)}`
-    : tijucas;
+
+function lastAvailable(field) {
+  const series = contasPublicasData.series;
+  for (let i = series.length - 1; i >= 0; i--) {
+    if (series[i][field] != null) return series[i][field];
+  }
+  return null;
 }
 
 export function ContasPublicasPage() {
@@ -535,15 +546,20 @@ export function ContasPublicasPage() {
   const functionRows = useMemo(() => buildFunctionRows().slice(0, 8), []);
 
   const resultBenchmark = getBenchmark("resultado_orcamentario_pct_receita");
-  const revenueBenchmark = getBenchmark("receita_total_realizada_per_capita");
-  const ownRevenueBenchmark = getBenchmark("receita_propria_per_capita");
   const fpmBenchmark = getBenchmark("fpm_pct_receita_corrente");
-  const fpmPerCapitaBenchmark = getBenchmark("fpm_per_capita");
-  const investmentBenchmark = getBenchmark("investimentos_per_capita");
   const investmentShareBenchmark = getBenchmark("investimentos_pct_despesa_total");
   const adminRow = functionRows.find((row) => row.funcao === "Administração");
   const healthRow = functionRows.find((row) => row.funcao === "Saúde");
   const educationRow = functionRows.find((row) => row.funcao === "Educação");
+
+  const receitaPropria = latest.receita_propria ?? lastAvailable("receita_propria");
+  const receitaPropriaPct = latest.receita_propria_pct_receita_corrente ?? lastAvailable("receita_propria_pct_receita_corrente");
+  const fpm = latest.fpm ?? lastAvailable("fpm");
+  const fpmPct = latest.fpm_pct_receita_corrente ?? lastAvailable("fpm_pct_receita_corrente");
+  const investimentoTotal = latest.investimento_total ?? latest.investimentos ?? lastAvailable("investimento_total") ?? lastAvailable("investimentos");
+  const investimentoPctDespesa = latest.investimento_pct_despesa ?? latest.investimentos_pct_despesa_total ?? lastAvailable("investimento_pct_despesa");
+  const investimentoPctReceita = latest.investimento_pct_receita ?? latest.investimentos_pct_receita_corrente ?? lastAvailable("investimento_pct_receita");
+
   const fiscalSourceHelp = "Fonte: DCA/SICONFI 2013-2024, código IBGE 4218004 para Tijucas/SC, com coleta/consulta em 2026.";
   const fiscalPeerHelp = `Comparação feita com ${contasPublicasData.metadata.grupo_similar.quantidade} municípios de Santa Catarina com população entre 40 mil e 80 mil habitantes em 2024, excluindo Tijucas.`;
   const fpmSourceHelp = "Fonte do FPM: API de Transferências Constitucionais do Tesouro Transparente, validada pelo código IBGE 4218004, com coleta/consulta em 2026.";
@@ -552,13 +568,13 @@ export function ContasPublicasPage() {
     {
       label: "Quanto a prefeitura arrecadou",
       value: formatMoney(latest.receita_total),
-      note: `${formatPerCapita(latest.receita_per_capita)} em receita por morador`,
+      note: `receita realizada em ${latest.ano}`,
       help: `Mostra a receita realizada no ano, ou seja, o dinheiro que entrou no orçamento. ${fiscalSourceHelp}`,
     },
     {
       label: "Quanto a prefeitura gastou",
       value: formatMoney(latest.despesa_total),
-      note: `${formatPerCapita(latest.despesa_per_capita)} em gasto por morador`,
+      note: `despesa empenhada em ${latest.ano}`,
       help: `Mostra a despesa empenhada no ano, ou seja, o valor que a prefeitura assumiu como compromisso no orçamento. ${fiscalSourceHelp}`,
     },
     {
@@ -569,20 +585,20 @@ export function ContasPublicasPage() {
     },
     {
       label: "Receita própria",
-      value: formatMoney(latest.receita_propria),
-      note: perCapitaNote(latest.receita_propria_per_capita, ownRevenueBenchmark?.mediana_similares),
+      value: formatMoney(receitaPropria),
+      note: `${formatPercent(receitaPropriaPct)} da receita corrente`,
       help: `Mostra quanto Tijucas arrecada localmente — tributos, contribuições e outras receitas próprias, sem contar transferências. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
     },
     {
       label: "Dependência do FPM",
-      value: formatPercent(latest.fpm_pct_receita_corrente),
+      value: formatPercent(fpmPct),
       note: benchmarkNote(fpmBenchmark, formatPercent),
       help: `Mostra quanto da receita corrente vem do Fundo de Participação dos Municípios. Quanto maior, maior a dependência de repasses federais. ${fpmSourceHelp} ${fiscalPeerHelp}`,
     },
     {
       label: "Investimento total",
-      value: formatMoney(latest.investimento_total),
-      note: perCapitaNote(latest.investimento_per_capita, investmentBenchmark?.mediana_similares),
+      value: formatMoney(investimentoTotal),
+      note: `${formatPercent(investimentoPctDespesa)} da despesa total`,
       help: `Mostra quanto foi destinado a obras, equipamentos e melhorias permanentes. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
     },
   ];
@@ -590,20 +606,20 @@ export function ContasPublicasPage() {
   const sourceKpis = [
     {
       label: "Dependência do FPM",
-      value: formatPercent(latest.fpm_pct_receita_corrente),
-      note: `${formatMoney(latest.fpm)} vindos do FPM em ${latest.ano}`,
+      value: formatPercent(fpmPct),
+      note: `${formatMoney(fpm)} vindos do FPM em ${fpm === latest.fpm ? latest.ano : lastAvailable("ano")}`,
       help: `O FPM é uma transferência do Governo Federal. O indicador divide FPM pela receita corrente para medir dependência. ${fpmSourceHelp}`,
     },
     {
       label: "Receita própria",
-      value: formatMoney(latest.receita_propria),
-      note: perCapitaNote(latest.receita_propria_per_capita, ownRevenueBenchmark?.mediana_similares),
+      value: formatMoney(receitaPropria),
+      note: `${formatPercent(receitaPropriaPct)} da receita corrente`,
       help: `Mostra quanto Tijucas arrecada localmente — tributos, contribuições e outras receitas próprias, sem contar transferências. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
     },
     {
       label: "Repasse do FPM",
-      value: formatMoney(latest.fpm),
-      note: perCapitaNote(latest.fpm_per_capita, fpmPerCapitaBenchmark?.mediana_similares),
+      value: formatMoney(fpm),
+      note: `${formatPercent(fpmPct)} da receita corrente`,
       help: `Mostra o valor total recebido do Fundo de Participação dos Municípios. ${fpmSourceHelp} ${fiscalPeerHelp}`,
     },
   ];
@@ -638,41 +654,39 @@ export function ContasPublicasPage() {
   const investmentKpis = [
     {
       label: "Investimento total",
-      value: formatMoney(latest.investimento_total),
-      note: perCapitaNote(latest.investimento_per_capita, investmentBenchmark?.mediana_similares),
+      value: formatMoney(investimentoTotal),
+      note: `${formatPercent(investimentoPctDespesa)} da despesa total`,
       help: `Mostra o valor total empenhado como investimento em obras, equipamentos e melhorias permanentes. ${fiscalSourceHelp} ${fiscalPeerHelp}`,
     },
     {
       label: "% da despesa total",
-      value: formatPercent(latest.investimento_pct_despesa),
+      value: formatPercent(investimentoPctDespesa),
       note: benchmarkNote(investmentShareBenchmark, formatPercent),
       help: `Mostra investimentos divididos pela despesa total empenhada. Ajuda a separar manutenção de serviços e melhorias permanentes. ${fiscalPeerHelp}`,
     },
     {
       label: "% da receita corrente",
-      value: formatPercent(latest.investimento_pct_receita),
-      note: `${formatMoney(latest.investimento_total)} empenhados em ${latest.ano}`,
+      value: formatPercent(investimentoPctReceita),
+      note: `${formatMoney(investimentoTotal)} empenhados em ${latest.ano}`,
       help: `Mostra quanto da receita corrente foi convertido em investimento no ano. ${fiscalSourceHelp}`,
     },
   ];
 
   const fiscalNarrative =
-    fiscalMode === "total"
-      ? latest.resultado_orcamentario >= 0
-        ? `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}. O saldo foi positivo em ${formatMoney(latest.resultado_orcamentario)}, ou seja, a prefeitura arrecadou mais do que gastou no ano. Esse é um bom sinal de equilíbrio, mas deve ser lido junto com investimento, serviços e contas que ficam para os anos seguintes.`
-        : `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}. O saldo foi negativo em ${formatMoney(Math.abs(latest.resultado_orcamentario))}, ou seja, a despesa ficou acima da receita. Isso merece atenção porque pode pressionar o orçamento do ano seguinte.`
-      : `Por morador, Tijucas arrecadou ${formatPerCapita(latest.receita_per_capita)} e gastou ${formatPerCapita(latest.despesa_per_capita)}. Essa leitura coloca cidades de tamanhos diferentes na mesma régua. Na receita por morador, Tijucas ficou ${revenueBenchmark?.classificacao ?? "sem comparação disponível"} frente aos municípios semelhantes.`;
+    latest.resultado_orcamentario >= 0
+      ? `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}. O saldo foi positivo em ${formatMoney(latest.resultado_orcamentario)}, ou seja, a prefeitura arrecadou mais do que gastou no ano. Esse é um bom sinal de equilíbrio, mas deve ser lido junto com investimento, serviços e contas que ficam para os anos seguintes.`
+      : `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}. O saldo foi negativo em ${formatMoney(Math.abs(latest.resultado_orcamentario))}, ou seja, a despesa ficou acima da receita. Isso merece atenção porque pode pressionar o orçamento do ano seguinte.`;
 
-  const sourceNarrative = `Tijucas arrecada relativamente bem por conta própria: em ${latest.ano}, a receita própria totalizou ${formatMoney(latest.receita_propria)} (${formatPerCapita(latest.receita_propria_per_capita)}, acima da mediana dos municípios semelhantes). Ainda assim, ${formatPercent(latest.transferencias_correntes_pct_receita_corrente)} da receita corrente veio de transferências, grupo que inclui o FPM. O repasse do FPM foi de ${formatMoney(latest.fpm)}, representando ${formatPercent(latest.fpm_pct_receita_corrente)} da receita corrente — peso relevante, mas próximo do padrão de cidades parecidas.`;
+  const sourceNarrative = `Tijucas arrecada relativamente bem por conta própria: em ${latest.ano}, a receita própria totalizou ${formatMoney(receitaPropria)}, representando ${formatPercent(receitaPropriaPct)} da receita corrente. Ainda assim, ${formatPercent(latest.transferencias_correntes_pct_receita_corrente ?? lastAvailable("transferencias_correntes_pct_receita_corrente"))} da receita corrente veio de transferências, grupo que inclui o FPM. O repasse do FPM foi de ${formatMoney(fpm)}, representando ${formatPercent(fpmPct)} da receita corrente — peso relevante, mas próximo do padrão de cidades parecidas.`;
 
   const functionNarrative =
     functionMode === "total"
       ? `Em ${latest.ano}, educação recebeu ${formatMoney(educationRow?.valor)} e saúde recebeu ${formatMoney(healthRow?.valor)}. O orçamento está concentrado nas áreas essenciais — educação, saúde e urbanismo reúnem serviços diretos e infraestrutura da cidade. A mediana dos municípios de Santa Catarina foi de ${formatMoney(educationRow?.mediana_total_sc)} em educação e ${formatMoney(healthRow?.mediana_total_sc)} em saúde.`
       : `A participação mostra para onde vai o orçamento. Educação representa ${formatPercent(educationRow?.participacao_pct)} da despesa total e saúde representa ${formatPercent(healthRow?.participacao_pct)}. Administração mostra o custo de manter a estrutura pública funcionando; ela deve ser lida junto das áreas finalísticas, não isoladamente.`;
 
-  const investmentNarrative = `Em ${latest.ano}, Tijucas investiu ${formatMoney(latest.investimento_total)} em obras, equipamentos e melhorias permanentes — equivalente a ${formatPerCapita(latest.investimento_per_capita)}, acima da mediana dos municípios semelhantes. O investimento representou ${formatPercent(latest.investimento_pct_despesa)} da despesa total, indicando boa capacidade de transformar orçamento em melhoria real para a cidade.`;
+  const investmentNarrative = `Em ${latest.ano}, Tijucas investiu ${formatMoney(investimentoTotal)} em obras, equipamentos e melhorias permanentes. O investimento representou ${formatPercent(investimentoPctDespesa)} da despesa total, acima da mediana dos municípios semelhantes, indicando boa capacidade de transformar orçamento em melhoria real para a cidade.`;
 
-  const openingNarrative = `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}, fechando o ano com ${buildSaldoText(latest, resultBenchmark)}. A receita própria totalizou ${formatMoney(latest.receita_propria)}, mas a maior parte da receita corrente ainda vem de transferências. O investimento de ${formatMoney(latest.investimento_total)} ficou acima da mediana dos municípios catarinenses semelhantes.`;
+  const openingNarrative = `Em ${latest.ano}, Tijucas arrecadou ${formatMoney(latest.receita_total)} e gastou ${formatMoney(latest.despesa_total)}, fechando o ano com ${buildSaldoText(latest, resultBenchmark)}. A receita própria totalizou ${formatMoney(receitaPropria)}, mas a maior parte da receita corrente ainda vem de transferências. O investimento de ${formatMoney(investimentoTotal)} ficou acima da mediana dos municípios catarinenses semelhantes.`;
   const dcaSource = "DCA/SICONFI, contas anuais municipais 2013-2024. Coleta/consulta em 2026.";
   const fpmSource = "STN/Tesouro Transparente, API de Transferências Constitucionais/FPM 2026; DCA/SICONFI 2013-2024. Coleta/consulta em 2026.";
   const functionSource = "DCA/SICONFI, despesa por função 2013-2024. Coleta/consulta em 2026.";
@@ -708,7 +722,6 @@ export function ContasPublicasPage() {
             </div>
             <div className="flex flex-wrap gap-2">
               <ModeButton active={fiscalMode === "total"} onClick={() => setFiscalMode("total")} icon={LineChartIcon}>Total</ModeButton>
-              <ModeButton active={fiscalMode === "perCapita"} onClick={() => setFiscalMode("perCapita")} icon={ReceiptText}>Por morador</ModeButton>
             </div>
           </div>
 
@@ -723,12 +736,12 @@ export function ContasPublicasPage() {
             </article>
             <NarrativeCard
               eyebrow="Leitura cidadã"
-              title={fiscalMode === "total" ? "Tamanho do orçamento" : "Comparação por morador"}
+              title="Tamanho do orçamento"
               body={fiscalNarrative}
               caption={contasPublicasData.metadata.grupo_similar.criterio}
               source={dcaSource}
               icon={Banknote}
-              restartKey={`fiscal-${fiscalMode}`}
+              restartKey="fiscal-total"
             />
           </div>
         </section>
@@ -750,7 +763,7 @@ export function ContasPublicasPage() {
               eyebrow="Origem da receita"
               title="Gera localmente ou depende de repasses?"
               body={sourceNarrative}
-              caption={`FPM por morador em Tijucas: ${formatPerCapita(latest.fpm_per_capita)}. Mediana de municípios similares a Tijucas: ${formatBenchmark(fpmPerCapitaBenchmark?.mediana_similares, formatPerCapita)}.`}
+              caption={contasPublicasData.metadata.grupo_similar.criterio}
               source={fpmSource}
               icon={Building2}
               restartKey="origem-receita"
@@ -765,7 +778,6 @@ export function ContasPublicasPage() {
                 comparisonRows={contasPublicasData.comparativos_series?.indicadores?.fpm_pct_receita_corrente}
               />
               <div className="mt-6">
-                <h5 className="mb-3 text-sm font-extrabold text-white">Composição simples da receita corrente em {latest.ano}</h5>
                 <RevenueComposition latest={latest} />
               </div>
               <SourceLine>{fpmSource}</SourceLine>
@@ -861,12 +873,12 @@ export function ContasPublicasPage() {
             />
             <article className="educacao-surface contas-publicas-chart-card rounded-[24px] p-5">
               <div className="mb-4">
-                <h4 className="text-base font-extrabold text-white">Investimento por morador</h4>
-                <p className="text-xs font-semibold text-slate-400">Série histórica nominal. Mostra a parcela voltada a melhorias permanentes.</p>
+                <h4 className="text-base font-extrabold text-white">Investimento como % da despesa total</h4>
+                <p className="text-xs font-semibold text-slate-400">Comparação com a mediana de municípios SC com 50-70 mil hab. (Censo IBGE).</p>
               </div>
               <InvestmentChart
                 data={contasPublicasData.series}
-                comparisonRows={contasPublicasData.comparativos_series?.indicadores?.investimentos_per_capita}
+                comparisonRows={contasPublicasData.comparativos_series?.indicadores?.investimentos_pct_despesa_total_censo_50_70k}
               />
               <SourceLine>{dcaSource}</SourceLine>
             </article>

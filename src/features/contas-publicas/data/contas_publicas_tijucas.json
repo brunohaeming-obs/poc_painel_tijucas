@@ -3305,7 +3305,119 @@
           "media_mesorregiao": 1420.5615864283272,
           "n_mesorregiao": 18
         }
+      ],
+      "investimentos_pct_despesa_total_censo_50_70k": [
+        {
+          "ano": 2013,
+          "mediana_similares": 6.748116,
+          "media_similares": 7.065162,
+          "n_municipios": 7
+        },
+        {
+          "ano": 2014,
+          "mediana_similares": 7.30301,
+          "media_similares": 10.492478,
+          "n_municipios": 5
+        },
+        {
+          "ano": 2015,
+          "mediana_similares": 7.960018,
+          "media_similares": 8.204199,
+          "n_municipios": 7
+        },
+        {
+          "ano": 2016,
+          "mediana_similares": 10.828397,
+          "media_similares": 9.941884,
+          "n_municipios": 7
+        },
+        {
+          "ano": 2017,
+          "mediana_similares": 7.075103,
+          "media_similares": 7.5856,
+          "n_municipios": 7
+        },
+        {
+          "ano": 2018,
+          "mediana_similares": 6.005584,
+          "media_similares": 6.655278,
+          "n_municipios": 7
+        },
+        {
+          "ano": 2019,
+          "mediana_similares": 9.369385,
+          "media_similares": 8.696139,
+          "n_municipios": 7
+        },
+        {
+          "ano": 2020,
+          "mediana_similares": 11.654923,
+          "media_similares": 11.038365,
+          "n_municipios": 7
+        },
+        {
+          "ano": 2021,
+          "mediana_similares": 7.773316,
+          "media_similares": 8.633689,
+          "n_municipios": 7
+        },
+        {
+          "ano": 2022,
+          "mediana_similares": 12.828447,
+          "media_similares": 12.313883,
+          "n_municipios": 7
+        },
+        {
+          "ano": 2023,
+          "mediana_similares": 12.913782,
+          "media_similares": 10.997748,
+          "n_municipios": 7
+        },
+        {
+          "ano": 2024,
+          "mediana_similares": 11.666086,
+          "media_similares": 12.031033,
+          "n_municipios": 6
+        }
       ]
-    }
+    },
+    "criterio_censo_50_70k": "Municípios de SC com população entre 50.000 e 70.000 habitantes segundo o Censo IBGE 2022. excluindo Tijucas.",
+    "municipios_censo_50_70k": [
+      {
+        "municipio": "Canoinhas",
+        "cd_ibge": "4203808",
+        "populacao": 55016
+      },
+      {
+        "municipio": "Içara",
+        "cd_ibge": "4207007",
+        "populacao": 59035
+      },
+      {
+        "municipio": "Imbituba",
+        "cd_ibge": "4207304",
+        "populacao": 52579
+      },
+      {
+        "municipio": "Mafra",
+        "cd_ibge": "4210100",
+        "populacao": 55286
+      },
+      {
+        "municipio": "São Francisco do Sul",
+        "cd_ibge": "4216206",
+        "populacao": 52674
+      },
+      {
+        "municipio": "Videira",
+        "cd_ibge": "4219309",
+        "populacao": 55466
+      },
+      {
+        "municipio": "Xanxerê",
+        "cd_ibge": "4219507",
+        "populacao": 51607
+      }
+    ]
   }
 }
