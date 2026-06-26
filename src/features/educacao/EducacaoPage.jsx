@@ -95,11 +95,7 @@ export function EducacaoPage() {
             />
 
             <InfraestruturaSection
-              selectedYear={viewModel.selectedYear}
-              infrastructureKpis={viewModel.infrastructureKpis}
               infrastructureChart={viewModel.infrastructureChart}
-              infrastructureHistory={viewModel.infrastructureHistory}
-              narratives={narratives}
             />
 
             <TerritorioSection

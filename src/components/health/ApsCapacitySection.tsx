@@ -24,9 +24,6 @@ type ApsData = {
   series: Array<Record<string, number | string | null>>;
 };
 
-type TimeRange = "3a" | "5a" | "10a";
-
-const YEARS_MAP: Record<TimeRange, number> = { "3a": 3, "5a": 5, "10a": 10 };
 
 function KpiCard({
   icon: Icon,
@@ -54,16 +51,14 @@ function KpiCard({
 }
 
 export function ApsCapacitySection({ data }: { data: ApsData }) {
-  const [mode, setMode] = useState<"coverage" | "teams" | "registrations">("coverage");
-  const [timeRange, setTimeRange] = useState<TimeRange>("5a");
-  const hasRegistrations = data.summary.cadastros?.disponivel;
+  const [mode, setMode] = useState<"coverage" | "teams">("coverage");
+  const [years, setYears] = useState<3 | 5>(3);
 
   const currentYear = new Date().getFullYear();
-  const cutoffYear = currentYear - YEARS_MAP[timeRange];
-  const filteredSeries = data.series.filter((row) => Number(row.ano) >= cutoffYear);
+  const filteredSeries = data.series.filter((row) => Number(row.ano) >= currentYear - years);
 
   type ModeNarrative = { narrativeTitle: string; narrativeHeadline: string; narrative: string; narrativeSource: string };
-  const modeNarrative: Record<"coverage" | "teams" | "registrations", ModeNarrative> = {
+  const modeNarrative: Record<"coverage" | "teams", ModeNarrative> = {
     coverage: {
       narrativeTitle: "COBERTURA DE ATENÇÃO PRIMÁRIA",
       narrativeHeadline: "88% da população coberta pela Saúde da Família",
@@ -78,13 +73,6 @@ export function ApsCapacitySection({ data }: { data: ApsData }) {
         "Cada equipe ESF é responsável por até 4.000 pessoas em sua área adscrita. Quando a população cresce mais rápido que as equipes, a cobertura percentual cai — mesmo com mais equipes em campo. O número de ACS ativos é o indicador mais sensível a esse descompasso, pois reflete o alcance real das visitas domiciliares.",
       narrativeSource: "Fonte: e-Gestor APS · CNES",
     },
-    registrations: {
-      narrativeTitle: "CADASTROS NA APS",
-      narrativeHeadline: "Cadastros ativos revelam o alcance real da rede",
-      narrative:
-        "O cadastro ativo na APS registra quem está de fato sendo acompanhado pela rede primária. Crescimento nos cadastros com queda na cobertura percentual é sinal claro de que a população cresce mais rápido que a capacidade instalada — é um dos primeiros alertas de pressão demográfica sobre o sistema.",
-      narrativeSource: "Fonte: e-Gestor APS",
-    },
   };
   const { narrativeTitle, narrativeHeadline, narrative, narrativeSource } = modeNarrative[mode] ?? modeNarrative.coverage;
 
@@ -92,13 +80,9 @@ export function ApsCapacitySection({ data }: { data: ApsData }) {
     <>
       <HealthToggleButton active={mode === "coverage"} onClick={() => setMode("coverage")}>Coberturas</HealthToggleButton>
       <HealthToggleButton active={mode === "teams"} onClick={() => setMode("teams")}>Equipes</HealthToggleButton>
-      {hasRegistrations ? (
-        <HealthToggleButton active={mode === "registrations"} onClick={() => setMode("registrations")}>Cadastros</HealthToggleButton>
-      ) : null}
       <span className="h-9 w-px self-center bg-red-200" />
-      <HealthToggleButton active={timeRange === "3a"} onClick={() => setTimeRange("3a")}>3a</HealthToggleButton>
-      <HealthToggleButton active={timeRange === "5a"} onClick={() => setTimeRange("5a")}>5a</HealthToggleButton>
-      <HealthToggleButton active={timeRange === "10a"} onClick={() => setTimeRange("10a")}>10a</HealthToggleButton>
+      <HealthToggleButton active={years === 3} onClick={() => setYears(3)}>Últimos 3 anos</HealthToggleButton>
+      <HealthToggleButton active={years === 5} onClick={() => setYears(5)}>Últimos 5 anos</HealthToggleButton>
     </>
   );
 
@@ -194,14 +178,12 @@ export function ApsCapacitySection({ data }: { data: ApsData }) {
                 <Line type="monotone" dataKey="coberturaAcs" name="Cobertura ACS" stroke="#22C55E" strokeWidth={2.8} dot={false} connectNulls />
                 <Line type="monotone" dataKey="coberturaSaudeBucal" name="Cobertura Saúde Bucal" stroke="#F59E0B" strokeWidth={2.8} strokeDasharray="6 3" dot={false} connectNulls />
               </>
-            ) : mode === "teams" ? (
+            ) : (
               <>
                 <Line type="monotone" dataKey="equipesEsf" name="Equipes ESF" stroke="#EC4137" strokeWidth={3.2} dot={false} connectNulls />
                 <Line type="monotone" dataKey="acsAtivos" name="ACS ativos" stroke="#22C55E" strokeWidth={2.8} dot={false} connectNulls />
                 <Line type="monotone" dataKey="equipesSaudeBucal40h" name="Equipes Saúde Bucal 40h" stroke="#F59E0B" strokeWidth={2.8} dot={false} connectNulls />
               </>
-            ) : (
-              <Line type="monotone" dataKey="cadastrosAps" name="Cadastros APS" stroke="#EC4137" strokeWidth={3.2} dot={false} connectNulls />
             )}
           </LineChart>
         </ResponsiveContainer>

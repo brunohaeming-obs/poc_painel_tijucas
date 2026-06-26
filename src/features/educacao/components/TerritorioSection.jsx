@@ -193,24 +193,8 @@ export function TerritorioSection({
               </div>
             ) : null}
 
-            <div className="mt-4 space-y-2 text-sm leading-6 text-slate-400">
-              <p>
-                O mapa representa a distribuição territorial das unidades da rede de educação
-                básica de Tijucas e não representa desempenho das escolas.
-              </p>
-              <p>
-                Malha territorial de bairros não encontrada. Para ativar mapa de calor por
-                bairro, incluir <code>public/data/geo/tijucas_bairros.geojson</code>.
-              </p>
-            </div>
           </article>
 
-          <EducacaoNarrativeText
-            eyebrow="Território"
-            title="Distribuição da rede, não ranking"
-            body={narratives.territory}
-            icon={MapPinned}
-          />
         </div>
 
         <article className="educacao-surface flex h-full flex-col rounded-[28px] p-6">
