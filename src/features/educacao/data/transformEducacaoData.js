@@ -353,12 +353,12 @@ function buildInfrastructureHistory(comparativoSc, indicadoresLong) {
 
     const chartData = allYears.map((year) => {
       const tijucasRow = indicadoresLong.find(
-        (row) => row.indicador === def.longIndicator && row.ano === year,
+        (row) => row.indicador === def.longIndicator && (row.ano === year || Number(row.ano) === year),
       );
       const scRow = scRows.find((row) => Number(row.ano) === year);
       return {
         year,
-        tijucas: tijucasRow?.valor ?? null,
+        tijucas: tijucasRow?.valor ?? scRow?.tijucas ?? null,
         sc: scRow?.santa_catarina ?? null,
       };
     });
